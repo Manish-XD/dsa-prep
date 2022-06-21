@@ -1,0 +1,51 @@
+.Array_body{
+    margin-left: 20rem;
+    background: #1D1E22;
+    color: white;
+    padding: 10rem;
+}
+
+.Array_body h1{
+    text-align: center;
+}
+
+.Array_body button{
+    padding: 0.5rem;
+    background: blue;
+}
+
+.list_items{
+    display: flex;
+    /* flex-direction: column; */
+    border-bottom: 1px solid gray;
+}
+
+.list_btns{
+    display: flex;
+    flex-direction: column;
+}
+
+.list_btns button{
+    margin: 3rem 0;
+}
+
+.list_btns span{
+    font-size: 3rem;
+    margin: 1.5rem 4rem;
+}
+
+.ques_link p{
+    margin: 2rem 0;
+}
+
+.ques_link a{
+    color: white;
+    text-decoration: none;
+    font-size: 3rem;
+    margin: 0rem 3rem;
+    transition: all 0.3s ease-in-out;
+}
+
+.ques_link a:hover{
+    color: #47ce72;
+}
