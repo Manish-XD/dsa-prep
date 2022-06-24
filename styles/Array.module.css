@@ -49,3 +49,51 @@
 .ques_link a:hover{
     color: #47ce72;
 }
+
+.progress_info{
+    display: flex;
+    flex-direction: column;
+}
+
+.progress_info span{
+    align-self: flex-end;
+    margin: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.row{
+    font-size: 1.5rem;
+    padding: 0.5rem 3rem;
+}
+
+.flex{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 3rem;
+}
+
+.flex_items{
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    margin: 1rem 0rem;
+}
+
+.flex_items button{
+    margin: 0rem 1rem;
+}
+
+.sno{
+    margin: 0 1rem;
+    min-width: 4rem;
+}
+
+.flex_items a{
+    color: white;
+    text-decoration: none;
+}
+
+.ques{
+    margin: 0rem 1rem;
+    min-width: 60rem;
+}
