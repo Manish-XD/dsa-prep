@@ -54,6 +54,9 @@ const Arrays = ({ data }) => {
   const [BgColor29, setBgColor29] = useState("white");
   const [BgColor30, setBgColor30] = useState("white");
 
+  // const QID_obj = {QID_Array: []};
+  const [QID_Array, setQID_Array] = useState([]);
+
   const checkBox1 = () => {
     if (BgColor1 == "#47ce72") {
       setnow(now - 1);
@@ -384,20 +387,20 @@ const Arrays = ({ data }) => {
       setBgColor30("#47ce72");
     }
   };
-  const btn_Array = [];
-  const index_array = [];
-  for (let index = 0; index < data.links.length; index++) {
-    btn_Array.push(
-      <>
-        <button
-          key={data.links[index].link}
-          style={{ background: eval(`BgColor${index + 1}`) }}
-          onClick={eval(`checkBox${index + 1}`)}
-          id={data.links[index].link}
-        ></button>
-      </>
-    );
-  }
+
+  // const index_array = [];
+  // for (let index = 0; index < data.links.length; index++) {
+  //   btn_Array.push(
+  //     <>
+  //       <button
+  //         key={data.links[index].link}
+  //         style={{ background: eval(`BgColor${index + 1}`) }}
+  //         onClick={eval(`checkBox${index + 1}`)}
+  //         id={data.links[index].link}
+  //       ></button>
+  //     </>
+  //   );
+  // }
   return (
     <>
       <Script
