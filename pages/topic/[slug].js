@@ -17,8 +17,25 @@ import { useRouter } from "next/router";
 //       return [];
 //   }
 // }
-
+  const getData=()=>{
+    if(typeof window !== 'undefined'){
+    const data=localStorage.getItem('items');
+    if(!data)
+    {
+      return data;
+    }
+    else
+    return [];
+  }
+  }
 const Arrays = ({ data }) => {
+  const [items,setItems]= useState(getData());
+  useEffect(()=>{
+    const data=localStorage.getItem('items');
+    if(data!=null){
+    setItems(JSON.parse(data));
+    }  
+  },[]);
   const router = useRouter();
   const { slug } = router.query;
 
@@ -55,14 +72,40 @@ const Arrays = ({ data }) => {
   const [BgColor30, setBgColor30] = useState("white");
 
   // const QID_obj = {QID_Array: []};
-  const [QID_Array, setQID_Array] = useState([]);
+  
 
-  const checkBox1 = () => {
+  
+  
+  
+  
+
+  // const addItem=()=>
+  // {
+  //   if(!input)
+  //   {
+
+  //   }
+  //   else{
+  //     setItems([...items,input]);
+  //     setInput('');
+  //   }
+  // }
+
+  
+  useEffect(()=>{
+    localStorage.setItem('items',JSON.stringify(items));
+  },[items]);
+
+  
+  
+    const checkBox1 = () => {
     if (BgColor1 == "#47ce72") {
       setnow(now - 1);
       document.getElementById("1").style.order = `${data.links[0].no}`;
       setBgColor1("white");
     } else if ((BgColor1 = "white")) {
+      setItems([...items,'1']);
+      
       setnow(now + 1);
       document.getElementById("1").style.order = `${data.links.length + 1}`;
       setBgColor1("#47ce72");
@@ -75,6 +118,7 @@ const Arrays = ({ data }) => {
       setBgColor2("white");
     } else if ((BgColor2 = "white")) {
       setnow(now + 1);
+      setItems([...items,'2']);
       document.getElementById("2").style.order = `${data.links.length + 1}`;
       setBgColor2("#47ce72");
     }
@@ -85,6 +129,7 @@ const Arrays = ({ data }) => {
       document.getElementById("3").style.order = `${data.links[2].no}`;
       setBgColor3("white");
     } else if ((BgColor3 = "white")) {
+      setItems([...items,'3']);
       setnow(now + 1);
       document.getElementById("3").style.order = `${data.links.length + 1}`;
       setBgColor3("#47ce72");
@@ -96,6 +141,7 @@ const Arrays = ({ data }) => {
       document.getElementById("4").style.order = `${data.links[3].no}`;
       setBgColor4("white");
     } else if ((BgColor4 = "white")) {
+      setItems([...items,'4']);
       setnow(now + 1);
       document.getElementById("4").style.order = `${data.links.length + 1}`;
       setBgColor4("#47ce72");
@@ -107,6 +153,7 @@ const Arrays = ({ data }) => {
       document.getElementById("5").style.order = `${data.links[4].no}`;
       setBgColor5("white");
     } else if ((BgColor5 = "white")) {
+      setItems([...items,'5']);
       setnow(now + 1);
       document.getElementById("5").style.order = `${data.links.length + 1}`;
       setBgColor5("#47ce72");
@@ -387,6 +434,7 @@ const Arrays = ({ data }) => {
       setBgColor30("#47ce72");
     }
   };
+
 
   // const index_array = [];
   // for (let index = 0; index < data.links.length; index++) {
