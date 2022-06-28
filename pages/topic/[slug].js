@@ -60,7 +60,7 @@ const Arrays = ({ data }) => {
   }
 
   const [arr,setArr]= useState([]);
-
+ //hemlo thankeyewwww
 
   const checkBox1 = () => {
     let newArray = [...arr];
