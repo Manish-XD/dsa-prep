@@ -5,18 +5,7 @@ import Script from "next/script";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ProgressBar } from "react-bootstrap";
 import { useRouter } from "next/router";
-// import Ques from "../components/ques";
 
-// const getLocalItems = () => {
-//   let list = localStorage.getItem('lists');
-//   console.log(list);
-
-//   if (list) {
-//       return JSON.parse(localStorage.getItem('lists'));
-//   } else {
-//       return [];
-//   }
-// }
 
 const Arrays = ({ data }) => {
   const router = useRouter();
@@ -53,27 +42,58 @@ const Arrays = ({ data }) => {
   const [BgColor28, setBgColor28] = useState("white");
   const [BgColor29, setBgColor29] = useState("white");
   const [BgColor30, setBgColor30] = useState("white");
+  
+  useEffect(() => {
+    try {
+      if (localStorage.getItem("items")) {
+        setArr(JSON.parse(localStorage.getItem("items")));
+        saveArray(JSON.parse(localStorage.getItem("items")));
+      }
+    } catch (error) {
+      console.error(error)
+      localStorage.clear()
+    }
+  }, [])
 
-  // const QID_obj = {QID_Array: []};
-  const [QID_Array, setQID_Array] = useState([]);
+  const saveArray = (items) => {
+    localStorage.setItem("items", JSON.stringify(items));
+  }
+
+  const [arr,setArr]= useState([]);
+
 
   const checkBox1 = () => {
+    let newArray = [...arr];
     if (BgColor1 == "#47ce72") {
+      newArray.pop("1");
+      setArr(newArray);
+      saveArray(newArray);
+      console.log(typeof arr);
       setnow(now - 1);
       document.getElementById("1").style.order = `${data.links[0].no}`;
       setBgColor1("white");
     } else if ((BgColor1 = "white")) {
+      newArray.push("1");
+      setArr(newArray);
+      saveArray(newArray);
       setnow(now + 1);
       document.getElementById("1").style.order = `${data.links.length + 1}`;
       setBgColor1("#47ce72");
     }
   };
   const checkBox2 = () => {
+    let newArray = [...arr];
     if (BgColor2 == "#47ce72") {
+      newArray.pop("2");
+      setArr(newArray);
+      saveArray(newArray);
       setnow(now - 1);
       document.getElementById("2").style.order = `${data.links[1].no}`;
       setBgColor2("white");
     } else if ((BgColor2 = "white")) {
+      newArray.push("2");
+      setArr(newArray);
+      saveArray(newArray);
       setnow(now + 1);
       document.getElementById("2").style.order = `${data.links.length + 1}`;
       setBgColor2("#47ce72");
@@ -388,19 +408,6 @@ const Arrays = ({ data }) => {
     }
   };
 
-  // const index_array = [];
-  // for (let index = 0; index < data.links.length; index++) {
-  //   btn_Array.push(
-  //     <>
-  //       <button
-  //         key={data.links[index].link}
-  //         style={{ background: eval(`BgColor${index + 1}`) }}
-  //         onClick={eval(`checkBox${index + 1}`)}
-  //         id={data.links[index].link}
-  //       ></button>
-  //     </>
-  //   );
-  // }
   return (
     <>
       <Script
@@ -420,21 +427,6 @@ const Arrays = ({ data }) => {
         <div className={styles.progress_info}>
           <span style={{color : `${now==0?"red":"#47ce72"}`}}>Completed: {now}/{data.links.length}</span>
         </div>
-        {/* <div className={styles.list_items}>
-          <div className={styles.list_btns}>{btn_Array}</div>
-          <div className={styles.ques_link}>
-            {data.links.map((item) => {
-              return (
-                <p key={item.link}>
-                  <a target="_blank" href={`${item.link}`}>
-                    {item.ques}
-                  </a>
-                </p>
-              );
-            })}
-          </div>
-        </div> */}
-        {/* {btn_Array} */}
         <div className={styles.flex}>
         {data.links.map((item) => {
           return (
