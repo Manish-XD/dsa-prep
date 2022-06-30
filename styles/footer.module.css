@@ -3,9 +3,10 @@
     display: flex;
     justify-content: space-between;
     padding: 2rem;
-    margin-top: 4rem;
+    /* margin-top: 4rem; */
     padding-left: 30rem;
     color: white;
+    align-items: center;
 }
 
 .footer_links{
@@ -22,6 +23,7 @@
     text-decoration: none;
     margin: 0 2rem;
     transition: all 0.5s ease-in-out;
+    
 }
 
 .footer_links a:hover{

@@ -8,18 +8,11 @@ const Footer = () => {
           <div className={styles.footer_links}>
             <span>375 DSA</span>
             <a href="/">About</a>
-            <a href="/">Support</a>
           </div>
           <div className={styles.footer_links}>
             <span>Social</span>
-            <a href="/">Instagram</a>
             <a href="/">LinkedIn</a>
             <a href="/">Github</a>
-          </div>
-          <div className={styles.footer_links}>
-            <span>Community</span>
-            <a href="/">Challenges</a>
-            <a href="/">Topics</a>
           </div>
         </div>
         <div className={styles.footer_right}>
