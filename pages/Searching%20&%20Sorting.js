@@ -1,57 +1,65 @@
 import React, { useState, useEffect } from "react";
-import styles from "../../styles/Array.module.css";
-import Sidebar from "../../components/sidebar";
+import styles from "../styles/Array.module.css";
+import Sidebar from "../components/sidebar";
 import Script from "next/script";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ProgressBar } from "react-bootstrap";
-import { useRouter } from "next/router";
 
-const Arrays = ({ data }) => {
-  const router = useRouter();
-  const { slug } = router.query;
-  const [todo, setTodo] = useState(data.links);
-  const [done, setDone] = useState([]);
+const searchsort = ({data}) => {
+    const [searchsort_todo, setsearchsort_todo] = useState(data.links);
+  const [searchsort_done, setsearchsort_done] = useState([]);
 
   useEffect(() => {
     try {
-      if (localStorage.getItem("todo")) {
-        saveTodo(JSON.parse(localStorage.getItem("todo")));
-        setTodo(JSON.parse(localStorage.getItem("todo")));
+      if (localStorage.getItem("searchsort_todo")) {
+        savesearchsort_todo(JSON.parse(localStorage.getItem("searchsort_todo")));
+        setsearchsort_todo(JSON.parse(localStorage.getItem("searchsort_todo")));
       }
       else{
-        localStorage.setItem("todo", JSON.stringify(todo));
+        localStorage.setItem("searchsort_todo", JSON.stringify(searchsort_todo));
       }
-      if (localStorage.getItem("done")) {
-        saveDone(JSON.parse(localStorage.getItem("done")));
-        setDone(JSON.parse(localStorage.getItem("done")));
+      if (localStorage.getItem("searchsort_done")) {
+        savesearchsort_done(JSON.parse(localStorage.getItem("searchsort_done")));
+        setsearchsort_done(JSON.parse(localStorage.getItem("searchsort_done")));
       }
       else{
-        localStorage.setItem("done", JSON.stringify(done));
+        localStorage.setItem("searchsort_done", JSON.stringify(searchsort_done));
       }
     } catch (error) {
       console.error(error);
-      // localStorage.clear();
     }
   }, []);
-  const saveTodo = (items) => {
-    localStorage.setItem("todo", JSON.stringify(items));
+  const savesearchsort_todo = (items) => {
+    localStorage.setItem("searchsort_todo", JSON.stringify(items));
   };
-  const saveDone = (items) => {
-    localStorage.setItem("done", JSON.stringify(items));
+  const savesearchsort_done = (items) => {
+    localStorage.setItem("searchsort_done", JSON.stringify(items));
   };
   const deleteItem = (index) => {
-    const updateditems = todo.filter((elem) => {
+    const updateditems = searchsort_todo.filter((elem) => {
       return index !== elem.ques;
     });
-    const temp = todo.filter((elem) => {
+    const temp = searchsort_todo.filter((elem) => {
       return index == elem.ques;
     });
-    setDone([...done, temp[0]]);
-    saveDone([...done, temp[0]]);
-    setTodo(updateditems);
-    saveTodo(updateditems);
+    setsearchsort_done([...searchsort_done, temp[0]]);
+    savesearchsort_done([...searchsort_done, temp[0]]);
+    setsearchsort_todo(updateditems);
+    savesearchsort_todo(updateditems);
   };
-  console.log(done);
+  const deleteItem2 = (index) => {
+    const updateditems = searchsort_done.filter((elem) => {
+      return index !== elem.ques;
+    });
+    const temp = searchsort_done.filter((elem) => {
+      return index == elem.ques;
+    });
+    setsearchsort_todo([...searchsort_todo, temp[0]]);
+    savesearchsort_todo([...searchsort_todo, temp[0]]);
+    setsearchsort_done(updateditems);
+    savesearchsort_done(updateditems);
+  };
+//   console.log(searchsort_done);
   return (
     <>
       <Script
@@ -60,13 +68,13 @@ const Arrays = ({ data }) => {
       ></Script>
       <Sidebar data={data} />
       <div className={styles.Array_body}>
-        <h1>{slug}</h1>
+        <h1>Searching & Sorting</h1>
         <ProgressBar
           style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
           animated
         />
         <div className={styles.flex}>
-          {todo.map((item) => {
+          {searchsort_todo.map((item) => {
             return (
               <div
                 className={styles.flex_items}
@@ -101,19 +109,20 @@ const Arrays = ({ data }) => {
             );
           })}
         </div>
-        <div className={styles.flex}>
-          {done.map((item) => {
+        {searchsort_done.length != 0 && <h2 style={{marginLeft: "4rem"}}>Questions Completed:</h2>}
+        <div className={styles.flex2}>
+          {searchsort_done.length != 0 && searchsort_done.map((item) => {
             return (
               <div
-                className={styles.flex_items}
+                className={styles.flex2_items}
                 style={{ order: `${item.no}` }}
                 id={item.no}
                 key={item.no}
               >
-                <button onClick={() => deleteItem(item.ques)}></button>
-                <span className={styles.sno}>{item.no}</span>
+                <button onClick={() => deleteItem2(item.ques)}></button>
+                <span className={styles.sno2}>{item.no}</span>
                 <a
-                  className={styles.ques}
+                  className={styles.ques2}
                   target="_blank"
                   href={`${item.link}`}
                 >
@@ -129,7 +138,7 @@ const Arrays = ({ data }) => {
                         : "red"
                     }`,
                   }}
-                  className={styles.level}
+                  className={styles.level2}
                 >
                   {item.level}
                 </span>
@@ -139,18 +148,18 @@ const Arrays = ({ data }) => {
         </div>
       </div>
     </>
-  );
-};
-
-export async function getServerSideProps(context) {
-  const res = await fetch(
-    `https://dsapppi.herokuapp.com/${context.query.slug}`
-  );
-  const data = await res.json();
-
-  return {
-    props: { data }, // will be passed to the page component as props
-  };
+  )
 }
 
-export default Arrays;
+export async function getServerSideProps(context) {
+    const res = await fetch(
+      'https://dsapppi.herokuapp.com/Searching%20&%20Sorting'
+    );
+    const data = await res.json();
+  
+    return {
+      props: { data }, // will be passed to the page component as props
+    };
+  }
+
+export default searchsort;

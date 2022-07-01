@@ -29,9 +29,7 @@ export default function Home({ data }) {
               </h1>
             </div>
             <p>
-              Data structure and algorithms help in understanding the nature of
-              the problem at a deeper level and thereby a better understanding
-              of the world.
+            375 DSA Tracker helps you build your confidence in solving any coding related question and helps you prepare for your placements. It is your personal web-based progress tracker based on 375 DSA Sheet by Aman Dhattarwal & Shradha Didi
             </p>
           </div>
           <Image height={480} width={400} src={seven} />
@@ -43,7 +41,7 @@ export default function Home({ data }) {
               <h1>{item.topic}</h1>
               <p>Total {item.links.length} Questions</p>
               <div className={styles.link}>
-              <Link href={`/topic/${item.topic}`}>Start Solving...</Link>
+              <Link href={`${item.topic}`}>Start Solving...</Link>
               </div>
             </div>
           );

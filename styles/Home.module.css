@@ -51,6 +51,7 @@
 .card h1{
   font-size: 2rem;
   /* max-width: 20rem; */
+  color: #47ce72;
 }
 
 .card p{
@@ -67,4 +68,28 @@
   margin-top: 5rem;
   color: white;
   text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.card .link:hover{
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.card a{
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.card a:hover{
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.card .link:hover{
+  cursor: pointer;
+  background: #202125;
 }

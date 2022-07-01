@@ -1,57 +1,65 @@
 import React, { useState, useEffect } from "react";
-import styles from "../../styles/Array.module.css";
-import Sidebar from "../../components/sidebar";
+import styles from "../styles/Array.module.css";
+import Sidebar from "../components/sidebar";
 import Script from "next/script";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ProgressBar } from "react-bootstrap";
-import { useRouter } from "next/router";
 
-const Arrays = ({ data }) => {
-  const router = useRouter();
-  const { slug } = router.query;
-  const [todo, setTodo] = useState(data.links);
-  const [done, setDone] = useState([]);
+const LinkedList = ({data}) => {
+    const [link_todo, setlink_todo] = useState(data.links);
+  const [link_done, setlink_done] = useState([]);
 
   useEffect(() => {
     try {
-      if (localStorage.getItem("todo")) {
-        saveTodo(JSON.parse(localStorage.getItem("todo")));
-        setTodo(JSON.parse(localStorage.getItem("todo")));
+      if (localStorage.getItem("link_todo")) {
+        savelink_todo(JSON.parse(localStorage.getItem("link_todo")));
+        setlink_todo(JSON.parse(localStorage.getItem("link_todo")));
       }
       else{
-        localStorage.setItem("todo", JSON.stringify(todo));
+        localStorage.setItem("link_todo", JSON.stringify(link_todo));
       }
-      if (localStorage.getItem("done")) {
-        saveDone(JSON.parse(localStorage.getItem("done")));
-        setDone(JSON.parse(localStorage.getItem("done")));
+      if (localStorage.getItem("link_done")) {
+        savelink_done(JSON.parse(localStorage.getItem("link_done")));
+        setlink_done(JSON.parse(localStorage.getItem("link_done")));
       }
       else{
-        localStorage.setItem("done", JSON.stringify(done));
+        localStorage.setItem("link_done", JSON.stringify(link_done));
       }
     } catch (error) {
       console.error(error);
-      // localStorage.clear();
     }
   }, []);
-  const saveTodo = (items) => {
-    localStorage.setItem("todo", JSON.stringify(items));
+  const savelink_todo = (items) => {
+    localStorage.setItem("link_todo", JSON.stringify(items));
   };
-  const saveDone = (items) => {
-    localStorage.setItem("done", JSON.stringify(items));
+  const savelink_done = (items) => {
+    localStorage.setItem("link_done", JSON.stringify(items));
   };
   const deleteItem = (index) => {
-    const updateditems = todo.filter((elem) => {
+    const updateditems = link_todo.filter((elem) => {
       return index !== elem.ques;
     });
-    const temp = todo.filter((elem) => {
+    const temp = link_todo.filter((elem) => {
       return index == elem.ques;
     });
-    setDone([...done, temp[0]]);
-    saveDone([...done, temp[0]]);
-    setTodo(updateditems);
-    saveTodo(updateditems);
+    setlink_done([...link_done, temp[0]]);
+    savelink_done([...link_done, temp[0]]);
+    setlink_todo(updateditems);
+    savelink_todo(updateditems);
   };
-  console.log(done);
+  const deleteItem2 = (index) => {
+    const updateditems = link_done.filter((elem) => {
+      return index !== elem.ques;
+    });
+    const temp = link_done.filter((elem) => {
+      return index == elem.ques;
+    });
+    setlink_todo([...link_todo, temp[0]]);
+    savelink_todo([...link_todo, temp[0]]);
+    setlink_done(updateditems);
+    savelink_done(updateditems);
+  };
+//   console.log(link_done);
   return (
     <>
       <Script
@@ -60,13 +68,13 @@ const Arrays = ({ data }) => {
       ></Script>
       <Sidebar data={data} />
       <div className={styles.Array_body}>
-        <h1>{slug}</h1>
+        <h1>Linked List</h1>
         <ProgressBar
           style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
           animated
         />
         <div className={styles.flex}>
-          {todo.map((item) => {
+          {link_todo.map((item) => {
             return (
               <div
                 className={styles.flex_items}
@@ -101,19 +109,20 @@ const Arrays = ({ data }) => {
             );
           })}
         </div>
-        <div className={styles.flex}>
-          {done.map((item) => {
+        {link_done.length != 0 && <h2 style={{marginLeft: "4rem"}}>Questions Completed:</h2>}
+        <div className={styles.flex2}>
+          {link_done.length != 0 && link_done.map((item) => {
             return (
               <div
-                className={styles.flex_items}
+                className={styles.flex2_items}
                 style={{ order: `${item.no}` }}
                 id={item.no}
                 key={item.no}
               >
-                <button onClick={() => deleteItem(item.ques)}></button>
-                <span className={styles.sno}>{item.no}</span>
+                <button onClick={() => deleteItem2(item.ques)}></button>
+                <span className={styles.sno2}>{item.no}</span>
                 <a
-                  className={styles.ques}
+                  className={styles.ques2}
                   target="_blank"
                   href={`${item.link}`}
                 >
@@ -129,7 +138,7 @@ const Arrays = ({ data }) => {
                         : "red"
                     }`,
                   }}
-                  className={styles.level}
+                  className={styles.level2}
                 >
                   {item.level}
                 </span>
@@ -139,18 +148,18 @@ const Arrays = ({ data }) => {
         </div>
       </div>
     </>
-  );
-};
-
-export async function getServerSideProps(context) {
-  const res = await fetch(
-    `https://dsapppi.herokuapp.com/${context.query.slug}`
-  );
-  const data = await res.json();
-
-  return {
-    props: { data }, // will be passed to the page component as props
-  };
+  )
 }
 
-export default Arrays;
+export async function getServerSideProps(context) {
+    const res = await fetch(
+      'https://dsapppi.herokuapp.com/Linked%20List'
+    );
+    const data = await res.json();
+  
+    return {
+      props: { data }, // will be passed to the page component as props
+    };
+  }
+
+export default LinkedList;

@@ -1,57 +1,65 @@
 import React, { useState, useEffect } from "react";
-import styles from "../../styles/Array.module.css";
-import Sidebar from "../../components/sidebar";
+import styles from "../styles/Array.module.css";
+import Sidebar from "../components/sidebar";
 import Script from "next/script";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ProgressBar } from "react-bootstrap";
-import { useRouter } from "next/router";
 
-const Arrays = ({ data }) => {
-  const router = useRouter();
-  const { slug } = router.query;
-  const [todo, setTodo] = useState(data.links);
-  const [done, setDone] = useState([]);
+const Backtracking = ({data}) => {
+    const [back_todo, setback_todo] = useState(data.links);
+  const [back_done, setback_done] = useState([]);
 
   useEffect(() => {
     try {
-      if (localStorage.getItem("todo")) {
-        saveTodo(JSON.parse(localStorage.getItem("todo")));
-        setTodo(JSON.parse(localStorage.getItem("todo")));
+      if (localStorage.getItem("back_todo")) {
+        saveback_todo(JSON.parse(localStorage.getItem("back_todo")));
+        setback_todo(JSON.parse(localStorage.getItem("back_todo")));
       }
       else{
-        localStorage.setItem("todo", JSON.stringify(todo));
+        localStorage.setItem("back_todo", JSON.stringify(back_todo));
       }
-      if (localStorage.getItem("done")) {
-        saveDone(JSON.parse(localStorage.getItem("done")));
-        setDone(JSON.parse(localStorage.getItem("done")));
+      if (localStorage.getItem("back_done")) {
+        saveback_done(JSON.parse(localStorage.getItem("back_done")));
+        setback_done(JSON.parse(localStorage.getItem("back_done")));
       }
       else{
-        localStorage.setItem("done", JSON.stringify(done));
+        localStorage.setItem("back_done", JSON.stringify(back_done));
       }
     } catch (error) {
       console.error(error);
-      // localStorage.clear();
     }
   }, []);
-  const saveTodo = (items) => {
-    localStorage.setItem("todo", JSON.stringify(items));
+  const saveback_todo = (items) => {
+    localStorage.setItem("back_todo", JSON.stringify(items));
   };
-  const saveDone = (items) => {
-    localStorage.setItem("done", JSON.stringify(items));
+  const saveback_done = (items) => {
+    localStorage.setItem("back_done", JSON.stringify(items));
   };
   const deleteItem = (index) => {
-    const updateditems = todo.filter((elem) => {
+    const updateditems = back_todo.filter((elem) => {
       return index !== elem.ques;
     });
-    const temp = todo.filter((elem) => {
+    const temp = back_todo.filter((elem) => {
       return index == elem.ques;
     });
-    setDone([...done, temp[0]]);
-    saveDone([...done, temp[0]]);
-    setTodo(updateditems);
-    saveTodo(updateditems);
+    setback_done([...back_done, temp[0]]);
+    saveback_done([...back_done, temp[0]]);
+    setback_todo(updateditems);
+    saveback_todo(updateditems);
   };
-  console.log(done);
+  const deleteItem2 = (index) => {
+    const updateditems = back_done.filter((elem) => {
+      return index !== elem.ques;
+    });
+    const temp = back_done.filter((elem) => {
+      return index == elem.ques;
+    });
+    setback_todo([...back_todo, temp[0]]);
+    saveback_todo([...back_todo, temp[0]]);
+    setback_done(updateditems);
+    saveback_done(updateditems);
+  };
+//   console.log(back_done);
   return (
     <>
       <Script
@@ -60,13 +68,13 @@ const Arrays = ({ data }) => {
       ></Script>
       <Sidebar data={data} />
       <div className={styles.Array_body}>
-        <h1>{slug}</h1>
+        <h1>Backtracking</h1>
         <ProgressBar
           style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
           animated
         />
         <div className={styles.flex}>
-          {todo.map((item) => {
+          {back_todo.map((item) => {
             return (
               <div
                 className={styles.flex_items}
@@ -101,19 +109,20 @@ const Arrays = ({ data }) => {
             );
           })}
         </div>
-        <div className={styles.flex}>
-          {done.map((item) => {
+        {back_done.length != 0 && <h2 style={{marginLeft: "4rem"}}>Questions Completed:</h2>}
+        <div className={styles.flex2}>
+          {back_done.length != 0 && back_done.map((item) => {
             return (
               <div
-                className={styles.flex_items}
+                className={styles.flex2_items}
                 style={{ order: `${item.no}` }}
                 id={item.no}
                 key={item.no}
               >
-                <button onClick={() => deleteItem(item.ques)}></button>
-                <span className={styles.sno}>{item.no}</span>
+                <button onClick={() => deleteItem2(item.ques)}></button>
+                <span className={styles.sno2}>{item.no}</span>
                 <a
-                  className={styles.ques}
+                  className={styles.ques2}
                   target="_blank"
                   href={`${item.link}`}
                 >
@@ -129,7 +138,7 @@ const Arrays = ({ data }) => {
                         : "red"
                     }`,
                   }}
-                  className={styles.level}
+                  className={styles.level2}
                 >
                   {item.level}
                 </span>
@@ -139,18 +148,18 @@ const Arrays = ({ data }) => {
         </div>
       </div>
     </>
-  );
-};
-
-export async function getServerSideProps(context) {
-  const res = await fetch(
-    `https://dsapppi.herokuapp.com/${context.query.slug}`
-  );
-  const data = await res.json();
-
-  return {
-    props: { data }, // will be passed to the page component as props
-  };
+  )
 }
 
-export default Arrays;
+export async function getServerSideProps(context) {
+    const res = await fetch(
+      'https://dsapppi.herokuapp.com/Backtracking'
+    );
+    const data = await res.json();
+  
+    return {
+      props: { data }, // will be passed to the page component as props
+    };
+  }
+
+export default Backtracking;

@@ -25,7 +25,7 @@ const Sidebar = ({data}) => {
   return (
     <div className={styles.sidebar}>
         <h1>375 DSA Questions</h1>
-        <span className={styles.cc}>© 2022 - Aman Dhattarwal & Shradha di</span>
+        <span className={styles.cc}>By Aman Dhattarwal & Shradha di</span>
       <div className={styles.btn}>
         {/* <Link href="/Arrays"> */}
           <a target="_blank" href={randLink} onClick={linkgenerate}><span>Start Random</span></a>

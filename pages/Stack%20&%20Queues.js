@@ -1,57 +1,65 @@
 import React, { useState, useEffect } from "react";
-import styles from "../../styles/Array.module.css";
-import Sidebar from "../../components/sidebar";
+import styles from "../styles/Array.module.css";
+import Sidebar from "../components/sidebar";
 import Script from "next/script";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ProgressBar } from "react-bootstrap";
-import { useRouter } from "next/router";
 
-const Arrays = ({ data }) => {
-  const router = useRouter();
-  const { slug } = router.query;
-  const [todo, setTodo] = useState(data.links);
-  const [done, setDone] = useState([]);
+const stackqueue = ({data}) => {
+    const [sq_todo, setsq_todo] = useState(data.links);
+  const [sq_done, setsq_done] = useState([]);
 
   useEffect(() => {
     try {
-      if (localStorage.getItem("todo")) {
-        saveTodo(JSON.parse(localStorage.getItem("todo")));
-        setTodo(JSON.parse(localStorage.getItem("todo")));
+      if (localStorage.getItem("sq_todo")) {
+        savesq_todo(JSON.parse(localStorage.getItem("sq_todo")));
+        setsq_todo(JSON.parse(localStorage.getItem("sq_todo")));
       }
       else{
-        localStorage.setItem("todo", JSON.stringify(todo));
+        localStorage.setItem("sq_todo", JSON.stringify(sq_todo));
       }
-      if (localStorage.getItem("done")) {
-        saveDone(JSON.parse(localStorage.getItem("done")));
-        setDone(JSON.parse(localStorage.getItem("done")));
+      if (localStorage.getItem("sq_done")) {
+        savesq_done(JSON.parse(localStorage.getItem("sq_done")));
+        setsq_done(JSON.parse(localStorage.getItem("sq_done")));
       }
       else{
-        localStorage.setItem("done", JSON.stringify(done));
+        localStorage.setItem("sq_done", JSON.stringify(sq_done));
       }
     } catch (error) {
       console.error(error);
-      // localStorage.clear();
     }
   }, []);
-  const saveTodo = (items) => {
-    localStorage.setItem("todo", JSON.stringify(items));
+  const savesq_todo = (items) => {
+    localStorage.setItem("sq_todo", JSON.stringify(items));
   };
-  const saveDone = (items) => {
-    localStorage.setItem("done", JSON.stringify(items));
+  const savesq_done = (items) => {
+    localStorage.setItem("sq_done", JSON.stringify(items));
   };
   const deleteItem = (index) => {
-    const updateditems = todo.filter((elem) => {
+    const updateditems = sq_todo.filter((elem) => {
       return index !== elem.ques;
     });
-    const temp = todo.filter((elem) => {
+    const temp = sq_todo.filter((elem) => {
       return index == elem.ques;
     });
-    setDone([...done, temp[0]]);
-    saveDone([...done, temp[0]]);
-    setTodo(updateditems);
-    saveTodo(updateditems);
+    setsq_done([...sq_done, temp[0]]);
+    savesq_done([...sq_done, temp[0]]);
+    setsq_todo(updateditems);
+    savesq_todo(updateditems);
   };
-  console.log(done);
+  const deleteItem2 = (index) => {
+    const updateditems = sq_done.filter((elem) => {
+      return index !== elem.ques;
+    });
+    const temp = sq_done.filter((elem) => {
+      return index == elem.ques;
+    });
+    setsq_todo([...sq_todo, temp[0]]);
+    savesq_todo([...sq_todo, temp[0]]);
+    setsq_done(updateditems);
+    savesq_done(updateditems);
+  };
+//   console.log(sq_done);
   return (
     <>
       <Script
@@ -60,13 +68,13 @@ const Arrays = ({ data }) => {
       ></Script>
       <Sidebar data={data} />
       <div className={styles.Array_body}>
-        <h1>{slug}</h1>
+        <h1>Stack & Queues</h1>
         <ProgressBar
           style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
           animated
         />
         <div className={styles.flex}>
-          {todo.map((item) => {
+          {sq_todo.map((item) => {
             return (
               <div
                 className={styles.flex_items}
@@ -101,19 +109,20 @@ const Arrays = ({ data }) => {
             );
           })}
         </div>
-        <div className={styles.flex}>
-          {done.map((item) => {
+        {sq_done.length != 0 && <h2 style={{marginLeft: "4rem"}}>Questions Completed:</h2>}
+        <div className={styles.flex2}>
+          {sq_done.length != 0 && sq_done.map((item) => {
             return (
               <div
-                className={styles.flex_items}
+                className={styles.flex2_items}
                 style={{ order: `${item.no}` }}
                 id={item.no}
                 key={item.no}
               >
-                <button onClick={() => deleteItem(item.ques)}></button>
-                <span className={styles.sno}>{item.no}</span>
+                <button onClick={() => deleteItem2(item.ques)}></button>
+                <span className={styles.sno2}>{item.no}</span>
                 <a
-                  className={styles.ques}
+                  className={styles.ques2}
                   target="_blank"
                   href={`${item.link}`}
                 >
@@ -129,7 +138,7 @@ const Arrays = ({ data }) => {
                         : "red"
                     }`,
                   }}
-                  className={styles.level}
+                  className={styles.level2}
                 >
                   {item.level}
                 </span>
@@ -139,18 +148,18 @@ const Arrays = ({ data }) => {
         </div>
       </div>
     </>
-  );
-};
-
-export async function getServerSideProps(context) {
-  const res = await fetch(
-    `https://dsapppi.herokuapp.com/${context.query.slug}`
-  );
-  const data = await res.json();
-
-  return {
-    props: { data }, // will be passed to the page component as props
-  };
+  )
 }
 
-export default Arrays;
+export async function getServerSideProps(context) {
+    const res = await fetch(
+      'https://dsapppi.herokuapp.com/Stack%20&%20Queues'
+    );
+    const data = await res.json();
+  
+    return {
+      props: { data }, // will be passed to the page component as props
+    };
+  }
+
+export default stackqueue;
