@@ -5,8 +5,8 @@ import Script from "next/script";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ProgressBar } from "react-bootstrap";
 
-const TwoDArray = ({data}) => {
-    const [twod_todo, settwod_todo] = useState(data.links);
+const TwoDArray = ({ data }) => {
+  const [twod_todo, settwod_todo] = useState(data.links);
   const [twod_done, settwod_done] = useState([]);
   const [twod_now, settwod_now] = useState(0);
 
@@ -15,16 +15,14 @@ const TwoDArray = ({data}) => {
       if (localStorage.getItem("twod_todo")) {
         savetwod_todo(JSON.parse(localStorage.getItem("twod_todo")));
         settwod_todo(JSON.parse(localStorage.getItem("twod_todo")));
-      }
-      else{
+      } else {
         localStorage.setItem("twod_todo", JSON.stringify(twod_todo));
       }
       if (localStorage.getItem("twod_done")) {
         savetwod_done(JSON.parse(localStorage.getItem("twod_done")));
         settwod_done(JSON.parse(localStorage.getItem("twod_done")));
         settwod_now(twod_done.length);
-      }
-      else{
+      } else {
         localStorage.setItem("twod_done", JSON.stringify(twod_done));
       }
     } catch (error) {
@@ -48,7 +46,7 @@ const TwoDArray = ({data}) => {
     savetwod_done([...twod_done, temp[0]]);
     settwod_todo(updateditems);
     savetwod_todo(updateditems);
-    settwod_now(twod_done.length+2);
+    settwod_now(twod_done.length + 2);
     console.log(twod_now);
   };
   const deleteItem2 = (index) => {
@@ -62,10 +60,10 @@ const TwoDArray = ({data}) => {
     savetwod_todo([...twod_todo, temp[0]]);
     settwod_done(updateditems);
     savetwod_done(updateditems);
-    settwod_now(twod_done.length-1);
+    settwod_now(twod_done.length - 1);
     console.log(twod_now);
   };
-//   console.log(twod_done);
+  //   console.log(twod_done);
   return (
     <>
       <Script
@@ -78,8 +76,8 @@ const TwoDArray = ({data}) => {
         <ProgressBar
           style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
           animated
-          now={(twod_now/(data.links.length+1))*100}
-          label={parseInt((twod_now/(data.links.length+1))*100)+"%"}
+          now={(twod_now / (data.links.length + 1)) * 100}
+          label={parseInt((twod_now / (data.links.length + 1)) * 100) + "%"}
           variant="success"
         />
         <div className={styles.flex}>
@@ -119,58 +117,59 @@ const TwoDArray = ({data}) => {
             );
           })}
         </div>
-        {twod_done.length != 0 && <h2 className={styles.complete}>Questions Completed:</h2>}
+        {twod_done.length != 0 && (
+          <h2 className={styles.complete}>Questions Completed:</h2>
+        )}
         <div className={styles.flex2}>
-          {twod_done.length != 0 && twod_done.map((item) => {
-            return (
-              <div
-                className={styles.flex2_items}
-                style={{ order: `${item.no}` }}
-                id={item.no}
-                key={item.no}
-              >
-                <button onClick={() => deleteItem2(item.ques)}></button>
-                <span className={styles.sno2}>{item.no}</span>
-                <a
-                  className={styles.ques2}
-                  target="_blank"
-                  href={`${item.link}`}
-                  rel="noreferrer"
+          {twod_done.length != 0 &&
+            twod_done.map((item) => {
+              return (
+                <div
+                  className={styles.flex2_items}
+                  style={{ order: `${item.no}` }}
+                  id={item.no}
+                  key={item.no}
                 >
-                  {item.ques}
-                </a>
-                <span
-                  style={{
-                    color: `${
-                      item.level != "Hard"
-                        ? item.level != "Medium"
-                          ? "yellow"
-                          : "orange"
-                        : "red"
-                    }`,
-                  }}
-                  className={styles.level2}
-                >
-                  {item.level}
-                </span>
-              </div>
-            );
-          })}
+                  <button onClick={() => deleteItem2(item.ques)}></button>
+                  <span className={styles.sno2}>{item.no}</span>
+                  <a
+                    className={styles.ques2}
+                    target="_blank"
+                    href={`${item.link}`}
+                    rel="noreferrer"
+                  >
+                    {item.ques}
+                  </a>
+                  <span
+                    style={{
+                      color: `${
+                        item.level != "Hard"
+                          ? item.level != "Medium"
+                            ? "yellow"
+                            : "orange"
+                          : "red"
+                      }`,
+                    }}
+                    className={styles.level2}
+                  >
+                    {item.level}
+                  </span>
+                </div>
+              );
+            })}
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 export async function getServerSideProps(context) {
-    const res = await fetch(
-      'https://dsapppi.herokuapp.com/2D-Arrays'
-    );
-    const data = await res.json();
-  
-    return {
-      props: { data }, // will be passed to the page component as props
-    };
-  }
+  const res = await fetch("https://dsapppi.herokuapp.com/2D-Arrays");
+  const data = await res.json();
 
-export default TwoDArray
+  return {
+    props: { data }, // will be passed to the page component as props
+  };
+}
+
+export default TwoDArray;
