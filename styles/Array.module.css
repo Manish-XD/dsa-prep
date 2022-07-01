@@ -77,6 +77,7 @@
 }
 
 .flex_items{
+    /* border: 0.5px solid white; */
     font-size: 1.5rem;
     display: flex;
     align-items: center;
@@ -142,4 +143,42 @@
 .flex2 button{
     background: #47ce72;
     padding: 0.5rem;
+}
+
+.complete{
+    margin-left: 10rem;
+}
+@media only screen and (max-width: 700px) {
+    .Array_body{
+        margin-left: 0rem;
+        padding: 10rem 2rem;
+        font-size: 3rem;
+    }
+    .Array_body h1{
+        margin-bottom: 5rem;
+        font-size: 4rem;
+    }
+    .flex{
+        margin-top: 5rem;
+        padding: 0;
+    }
+    .flex a{
+        font-size: 2.5rem;
+    }
+    .flex span{
+        font-size: 2.5rem;
+    }
+    .flex2 a{
+        font-size: 2.5rem;
+    }
+    .flex2 span{
+        font-size: 2.5rem;
+    }
+    .flex2{
+        padding: 0;
+    }
+    .complete{
+        margin: 2rem 0;
+        font-size: 4rem;
+    }
 }

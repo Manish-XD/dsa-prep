@@ -12,8 +12,8 @@ const Footer = () => {
           </div>
           <div className={styles.footer_links}>
             <span>Social</span>
-            <Link href="/linked">LinkedIn</Link>
-            <Link href="/git">Github</Link>
+            <a rel="noreferrer" target="_blank" href="https://linktr.ee/linked2in">LinkedIn</a>
+            <a rel="noreferrer" target="_blank" href="https://linktr.ee/github_375">Github</a>
           </div>
         </div>
         <div className={styles.footer_right}>

@@ -93,3 +93,36 @@
   cursor: pointer;
   background: #202125;
 }
+
+.main_landing_phone{
+  display: none;
+}
+
+@media only screen and (max-width: 700px) {
+  .main {
+    padding: 10rem 3rem;
+  }
+
+  .main_landing_phone{
+    display: block;
+  }
+
+  .main_landing_phone h1{
+    font-size: 5rem;
+  }
+
+  .main_landing_phone p{
+    font-size: 2rem;
+    color: #6E758D;
+  }
+
+  .grid{
+    grid-template-columns: auto auto;
+    gap: 2rem;
+    margin-top: 10rem;
+  }
+
+  .main_landing{
+    display: none;
+  }
+}

@@ -50,11 +50,18 @@
     display: none;
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 700px) {
+    .footer{
+        padding-left: 5rem;
+    }
+
     .footer_content p{
-        font-size: 4rem;
+        font-size: 2rem;
     }
     .footer_links{
-        width: 80vw;
+        width: 50vw;
+    }
+    .footer_content h1{
+        font-size: 2rem;
     }
   }

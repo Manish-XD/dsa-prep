@@ -110,7 +110,7 @@ const LinkedList = ({data}) => {
             );
           })}
         </div>
-        {link_done.length != 0 && <h2 style={{marginLeft: "4rem"}}>Questions Completed:</h2>}
+        {link_done.length != 0 && <h2 className={styles.complete}>Questions Completed:</h2>}
         <div className={styles.flex2}>
           {link_done.length != 0 && link_done.map((item) => {
             return (

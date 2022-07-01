@@ -29,10 +29,15 @@ export default function Home({ data }) {
               </h1>
             </div>
             <p>
-            375 DSA Tracker helps you build your confidence in solving any coding related question and helps you prepare for your placements. It is your personal web-based progress tracker based on 375 DSA Sheet by Aman Dhattarwal & Shradha Didi
+            375 DSA Tracker helps you build your confidence in solving any coding related question and helps you prepare for your placements. It is your personal web-based progress tracker based on 375 DSA Sheet by Aman Dhattarwal & Shradha Didi.
             </p>
           </div>
           <Image height={480} width={400} src={seven} />
+        </div>
+        <div className={styles.main_landing_phone}>
+          <h1>&#123; &#125;</h1>
+          <h1>375 Data structure and algorithms Practice Questions.</h1>
+          <p>            375 DSA Tracker helps you build your confidence in solving any coding related question and helps you prepare for your placements. It is your personal web-based progress tracker based on 375 DSA Sheet by Aman Dhattarwal & Shradha Didi.</p>
         </div>
         <div className={styles.grid}>
         {data.map((item) => {

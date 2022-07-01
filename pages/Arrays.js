@@ -110,7 +110,7 @@ const Array = ({data}) => {
             );
           })}
         </div>
-        {arr_done.length != 0 && <h2 style={{marginLeft: "4rem"}}>Questions Completed:</h2>}
+        {arr_done.length != 0 && <h2 className={styles.complete}>Questions Completed:</h2>}
         <div className={styles.flex2}>
           {arr_done.length != 0 && arr_done.map((item) => {
             return (

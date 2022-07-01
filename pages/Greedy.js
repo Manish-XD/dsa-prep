@@ -5,67 +5,61 @@ import Script from "next/script";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ProgressBar } from "react-bootstrap";
 
-const TwoDArray = ({data}) => {
-    const [twod_todo, settwod_todo] = useState(data.links);
-  const [twod_done, settwod_done] = useState([]);
-  const [twod_now, settwod_now] = useState(0);
+const Greedy = ({data}) => {
+    const [greedy_todo, setgreedy_todo] = useState(data.links);
+  const [greedy_done, setgreedy_done] = useState([]);
 
   useEffect(() => {
     try {
-      if (localStorage.getItem("twod_todo")) {
-        savetwod_todo(JSON.parse(localStorage.getItem("twod_todo")));
-        settwod_todo(JSON.parse(localStorage.getItem("twod_todo")));
+      if (localStorage.getItem("greedy_todo")) {
+        savegreedy_todo(JSON.parse(localStorage.getItem("greedy_todo")));
+        setgreedy_todo(JSON.parse(localStorage.getItem("greedy_todo")));
       }
       else{
-        localStorage.setItem("twod_todo", JSON.stringify(twod_todo));
+        localStorage.setItem("greedy_todo", JSON.stringify(greedy_todo));
       }
-      if (localStorage.getItem("twod_done")) {
-        savetwod_done(JSON.parse(localStorage.getItem("twod_done")));
-        settwod_done(JSON.parse(localStorage.getItem("twod_done")));
-        settwod_now(twod_done.length);
+      if (localStorage.getItem("greedy_done")) {
+        savegreedy_done(JSON.parse(localStorage.getItem("greedy_done")));
+        setgreedy_done(JSON.parse(localStorage.getItem("greedy_done")));
       }
       else{
-        localStorage.setItem("twod_done", JSON.stringify(twod_done));
+        localStorage.setItem("greedy_done", JSON.stringify(greedy_done));
       }
     } catch (error) {
       console.error(error);
     }
   }, []);
-  const savetwod_todo = (items) => {
-    localStorage.setItem("twod_todo", JSON.stringify(items));
+  const savegreedy_todo = (items) => {
+    localStorage.setItem("greedy_todo", JSON.stringify(items));
   };
-  const savetwod_done = (items) => {
-    localStorage.setItem("twod_done", JSON.stringify(items));
+  const savegreedy_done = (items) => {
+    localStorage.setItem("greedy_done", JSON.stringify(items));
   };
   const deleteItem = (index) => {
-    const updateditems = twod_todo.filter((elem) => {
+    const updateditems = greedy_todo.filter((elem) => {
       return index !== elem.ques;
     });
-    const temp = twod_todo.filter((elem) => {
+    const temp = greedy_todo.filter((elem) => {
       return index == elem.ques;
     });
-    settwod_done([...twod_done, temp[0]]);
-    savetwod_done([...twod_done, temp[0]]);
-    settwod_todo(updateditems);
-    savetwod_todo(updateditems);
-    settwod_now(twod_done.length+2);
-    console.log(twod_now);
+    setgreedy_done([...greedy_done, temp[0]]);
+    savegreedy_done([...greedy_done, temp[0]]);
+    setgreedy_todo(updateditems);
+    savegreedy_todo(updateditems);
   };
   const deleteItem2 = (index) => {
-    const updateditems = twod_done.filter((elem) => {
+    const updateditems = greedy_done.filter((elem) => {
       return index !== elem.ques;
     });
-    const temp = twod_done.filter((elem) => {
+    const temp = greedy_done.filter((elem) => {
       return index == elem.ques;
     });
-    settwod_todo([...twod_todo, temp[0]]);
-    savetwod_todo([...twod_todo, temp[0]]);
-    settwod_done(updateditems);
-    savetwod_done(updateditems);
-    settwod_now(twod_done.length-1);
-    console.log(twod_now);
+    setgreedy_todo([...greedy_todo, temp[0]]);
+    savegreedy_todo([...greedy_todo, temp[0]]);
+    setgreedy_done(updateditems);
+    savegreedy_done(updateditems);
   };
-//   console.log(twod_done);
+//   console.log(greedy_done);
   return (
     <>
       <Script
@@ -74,16 +68,13 @@ const TwoDArray = ({data}) => {
       ></Script>
       <Sidebar data={data} />
       <div className={styles.Array_body}>
-        <h1>2D Arrays</h1>
+        <h1>Greedy</h1>
         <ProgressBar
           style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
           animated
-          now={(twod_now/(data.links.length+1))*100}
-          label={parseInt((twod_now/(data.links.length+1))*100)+"%"}
-          variant="success"
         />
         <div className={styles.flex}>
-          {twod_todo.map((item) => {
+          {greedy_todo.map((item) => {
             return (
               <div
                 className={styles.flex_items}
@@ -119,9 +110,9 @@ const TwoDArray = ({data}) => {
             );
           })}
         </div>
-        {twod_done.length != 0 && <h2 className={styles.complete}>Questions Completed:</h2>}
+        {greedy_done.length != 0 && <h2 className={styles.complete}>Questions Completed:</h2>}
         <div className={styles.flex2}>
-          {twod_done.length != 0 && twod_done.map((item) => {
+          {greedy_done.length != 0 && greedy_done.map((item) => {
             return (
               <div
                 className={styles.flex2_items}
@@ -164,7 +155,7 @@ const TwoDArray = ({data}) => {
 
 export async function getServerSideProps(context) {
     const res = await fetch(
-      'https://dsapppi.herokuapp.com/2D-Arrays'
+      'https://dsapppi.herokuapp.com/Greedy'
     );
     const data = await res.json();
   
@@ -173,4 +164,4 @@ export async function getServerSideProps(context) {
     };
   }
 
-export default TwoDArray
+export default Greedy

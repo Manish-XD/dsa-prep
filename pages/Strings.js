@@ -110,7 +110,7 @@ const String = ({data}) => {
             );
           })}
         </div>
-        {str_done.length != 0 && <h2 style={{marginLeft: "4rem"}}>Questions Completed:</h2>}
+        {str_done.length != 0 && <h2 className={styles.complete}>Questions Completed:</h2>}
         <div className={styles.flex2}>
           {str_done.length != 0 && str_done.map((item) => {
             return (

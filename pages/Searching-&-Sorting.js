@@ -110,7 +110,7 @@ const Searchsort = ({data}) => {
             );
           })}
         </div>
-        {searchsort_done.length != 0 && <h2 style={{marginLeft: "4rem"}}>Questions Completed:</h2>}
+        {searchsort_done.length != 0 && <h2 className={styles.complete}>Questions Completed:</h2>}
         <div className={styles.flex2}>
           {searchsort_done.length != 0 && searchsort_done.map((item) => {
             return (

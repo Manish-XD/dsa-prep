@@ -5,67 +5,61 @@ import Script from "next/script";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ProgressBar } from "react-bootstrap";
 
-const TwoDArray = ({data}) => {
-    const [twod_todo, settwod_todo] = useState(data.links);
-  const [twod_done, settwod_done] = useState([]);
-  const [twod_now, settwod_now] = useState(0);
+const Graphs = ({data}) => {
+    const [graph_todo, setgraph_todo] = useState(data.links);
+  const [graph_done, setgraph_done] = useState([]);
 
   useEffect(() => {
     try {
-      if (localStorage.getItem("twod_todo")) {
-        savetwod_todo(JSON.parse(localStorage.getItem("twod_todo")));
-        settwod_todo(JSON.parse(localStorage.getItem("twod_todo")));
+      if (localStorage.getItem("graph_todo")) {
+        savegraph_todo(JSON.parse(localStorage.getItem("graph_todo")));
+        setgraph_todo(JSON.parse(localStorage.getItem("graph_todo")));
       }
       else{
-        localStorage.setItem("twod_todo", JSON.stringify(twod_todo));
+        localStorage.setItem("graph_todo", JSON.stringify(graph_todo));
       }
-      if (localStorage.getItem("twod_done")) {
-        savetwod_done(JSON.parse(localStorage.getItem("twod_done")));
-        settwod_done(JSON.parse(localStorage.getItem("twod_done")));
-        settwod_now(twod_done.length);
+      if (localStorage.getItem("graph_done")) {
+        savegraph_done(JSON.parse(localStorage.getItem("graph_done")));
+        setgraph_done(JSON.parse(localStorage.getItem("graph_done")));
       }
       else{
-        localStorage.setItem("twod_done", JSON.stringify(twod_done));
+        localStorage.setItem("graph_done", JSON.stringify(graph_done));
       }
     } catch (error) {
       console.error(error);
     }
   }, []);
-  const savetwod_todo = (items) => {
-    localStorage.setItem("twod_todo", JSON.stringify(items));
+  const savegraph_todo = (items) => {
+    localStorage.setItem("graph_todo", JSON.stringify(items));
   };
-  const savetwod_done = (items) => {
-    localStorage.setItem("twod_done", JSON.stringify(items));
+  const savegraph_done = (items) => {
+    localStorage.setItem("graph_done", JSON.stringify(items));
   };
   const deleteItem = (index) => {
-    const updateditems = twod_todo.filter((elem) => {
+    const updateditems = graph_todo.filter((elem) => {
       return index !== elem.ques;
     });
-    const temp = twod_todo.filter((elem) => {
+    const temp = graph_todo.filter((elem) => {
       return index == elem.ques;
     });
-    settwod_done([...twod_done, temp[0]]);
-    savetwod_done([...twod_done, temp[0]]);
-    settwod_todo(updateditems);
-    savetwod_todo(updateditems);
-    settwod_now(twod_done.length+2);
-    console.log(twod_now);
+    setgraph_done([...graph_done, temp[0]]);
+    savegraph_done([...graph_done, temp[0]]);
+    setgraph_todo(updateditems);
+    savegraph_todo(updateditems);
   };
   const deleteItem2 = (index) => {
-    const updateditems = twod_done.filter((elem) => {
+    const updateditems = graph_done.filter((elem) => {
       return index !== elem.ques;
     });
-    const temp = twod_done.filter((elem) => {
+    const temp = graph_done.filter((elem) => {
       return index == elem.ques;
     });
-    settwod_todo([...twod_todo, temp[0]]);
-    savetwod_todo([...twod_todo, temp[0]]);
-    settwod_done(updateditems);
-    savetwod_done(updateditems);
-    settwod_now(twod_done.length-1);
-    console.log(twod_now);
+    setgraph_todo([...graph_todo, temp[0]]);
+    savegraph_todo([...graph_todo, temp[0]]);
+    setgraph_done(updateditems);
+    savegraph_done(updateditems);
   };
-//   console.log(twod_done);
+//   console.log(graph_done);
   return (
     <>
       <Script
@@ -74,16 +68,13 @@ const TwoDArray = ({data}) => {
       ></Script>
       <Sidebar data={data} />
       <div className={styles.Array_body}>
-        <h1>2D Arrays</h1>
+        <h1>Graphs</h1>
         <ProgressBar
           style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
           animated
-          now={(twod_now/(data.links.length+1))*100}
-          label={parseInt((twod_now/(data.links.length+1))*100)+"%"}
-          variant="success"
         />
         <div className={styles.flex}>
-          {twod_todo.map((item) => {
+          {graph_todo.map((item) => {
             return (
               <div
                 className={styles.flex_items}
@@ -119,9 +110,9 @@ const TwoDArray = ({data}) => {
             );
           })}
         </div>
-        {twod_done.length != 0 && <h2 className={styles.complete}>Questions Completed:</h2>}
+        {graph_done.length != 0 && <h2 className={styles.complete}>Questions Completed:</h2>}
         <div className={styles.flex2}>
-          {twod_done.length != 0 && twod_done.map((item) => {
+          {graph_done.length != 0 && graph_done.map((item) => {
             return (
               <div
                 className={styles.flex2_items}
@@ -164,7 +155,7 @@ const TwoDArray = ({data}) => {
 
 export async function getServerSideProps(context) {
     const res = await fetch(
-      'https://dsapppi.herokuapp.com/2D-Arrays'
+      'https://dsapppi.herokuapp.com/Graphs'
     );
     const data = await res.json();
   
@@ -173,4 +164,4 @@ export async function getServerSideProps(context) {
     };
   }
 
-export default TwoDArray
+export default Graphs
