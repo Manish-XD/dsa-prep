@@ -12,7 +12,7 @@ const Footer = () => {
           </div>
           <div className={styles.footer_links}>
             <span>Social</span>
-            <Link href="/linked">LinkedIn</Li>
+            <Link href="/linked">LinkedIn</Link>
             <Link href="/git">Github</Link>
           </div>
         </div>
