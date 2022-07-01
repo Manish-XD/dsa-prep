@@ -28,7 +28,7 @@ const Sidebar = ({data}) => {
         <span className={styles.cc}>By Aman Dhattarwal & Shradha di</span>
       <div className={styles.btn}>
         {/* <Link href="/Arrays"> */}
-          <a target="_blank" href={randLink} onClick={linkgenerate}><span>Start Random</span></a>
+          <a target="_blank" rel="noreferrer" href={randLink} onClick={linkgenerate}><span>Start Random</span></a>
         {/* </Link> */}
       </div>
     </div>

@@ -80,6 +80,7 @@ const Arrays = ({ data }) => {
                   className={styles.ques}
                   target="_blank"
                   href={`${item.link}`}
+                  rel="noreferrer"
                 >
                   {item.ques}
                 </a>
@@ -116,6 +117,7 @@ const Arrays = ({ data }) => {
                   className={styles.ques}
                   target="_blank"
                   href={`${item.link}`}
+                  rel="noreferrer"
                 >
                   {item.ques}
                 </a>

@@ -5,7 +5,7 @@ import Script from "next/script";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ProgressBar } from "react-bootstrap";
 
-const twoDArray = ({data}) => {
+const TwoDArray = ({data}) => {
     const [twod_todo, settwod_todo] = useState(data.links);
   const [twod_done, settwod_done] = useState([]);
   const [twod_now, settwod_now] = useState(0);
@@ -97,6 +97,7 @@ const twoDArray = ({data}) => {
                   className={styles.ques}
                   target="_blank"
                   href={`${item.link}`}
+                  rel="noreferrer"
                 >
                   {item.ques}
                 </a>
@@ -134,6 +135,7 @@ const twoDArray = ({data}) => {
                   className={styles.ques2}
                   target="_blank"
                   href={`${item.link}`}
+                  rel="noreferrer"
                 >
                   {item.ques}
                 </a>
@@ -171,4 +173,4 @@ export async function getServerSideProps(context) {
     };
   }
 
-export default twoDArray
+export default TwoDArray

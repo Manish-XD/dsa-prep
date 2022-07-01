@@ -5,7 +5,7 @@ import Script from "next/script";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ProgressBar } from "react-bootstrap";
 
-const searchsort = ({data}) => {
+const Searchsort = ({data}) => {
     const [searchsort_todo, setsearchsort_todo] = useState(data.links);
   const [searchsort_done, setsearchsort_done] = useState([]);
 
@@ -88,6 +88,7 @@ const searchsort = ({data}) => {
                   className={styles.ques}
                   target="_blank"
                   href={`${item.link}`}
+                  rel="noreferrer"
                 >
                   {item.ques}
                 </a>
@@ -125,6 +126,7 @@ const searchsort = ({data}) => {
                   className={styles.ques2}
                   target="_blank"
                   href={`${item.link}`}
+                  rel="noreferrer"
                 >
                   {item.ques}
                 </a>
@@ -162,4 +164,4 @@ export async function getServerSideProps(context) {
     };
   }
 
-export default searchsort;
+export default Searchsort;
