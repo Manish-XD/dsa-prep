@@ -164,7 +164,7 @@ const TwoDArray = ({data}) => {
 
 export async function getServerSideProps(context) {
     const res = await fetch(
-      'https://dsapppi.herokuapp.com/2D%20Arrays'
+      'https://dsapppi.herokuapp.com/2D-Arrays'
     );
     const data = await res.json();
   
