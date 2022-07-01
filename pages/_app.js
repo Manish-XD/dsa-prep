@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <Script id="script1"
         strategy="lazyOnload"
-        src={`https://www.googletagmanager.com/gtag/js?id=G-ZKBXH4WESZ`}
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.CODE}`}
       />
 
       <Script id="script2" strategy="lazyOnload">
@@ -30,7 +30,7 @@ function MyApp({ Component, pageProps }) {
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 
-gtag('config', 'G-ZKBXH4WESZ');
+gtag('config', '${process.env.CODE}');
     `}
       </Script>
       <LoadingBar
