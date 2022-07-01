@@ -19,11 +19,12 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
-      <Script
+      <Script id="script1"
         strategy="lazyOnload"
         src={`https://www.googletagmanager.com/gtag/js?id=G-34CC5MMYVV`}
       />
       <Script strategy="lazyOnload">
+      id="script2"
         {` window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
