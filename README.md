@@ -1,34 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## 375-DSA Tracker 👨‍💻
+Me and my friend [Abhilash Jena](https://github.com/abhi-1407) made a 375 DSA Tracker website based on 375 DSA Sheet by Aman Dhattarwal & Shradha Didi which helps you to build your confidence in solving any coding related question and helps you prepare for your placements.
 
-## Getting Started
+<p align="center">
+<img src = "https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white"  alt="monogDB" style="vertical-align:top; margin:4px" >
+<img src = "https://img.shields.io/badge/Express.js-404D59?style=for-the-badge"  alt="express" style="vertical-align:top; margin:4px" >
+<img src = "https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB"  alt="react" style="vertical-align:top; margin:4px" >
+<img src = "https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white"  alt="bootstrap" style="vertical-align:top; margin:4px" >
+<img src = "https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white"  alt="vercel" style="vertical-align:top; margin:4px" >
 
-First, run the development server:
+## Sneak Peak 👀
 
-```bash
-npm run dev
-# or
-yarn dev
+https://dsa-prep.vercel.app/
+
+![ss1](/public/ss.gif)
+
+## Some USPs 🧾
+
+- Topic wise progress 📈
+- Complete local storage 🏪
+- Mobile friendly design 📱
+- Smooth UI ⚡
+
+## Run Locally 💻
+
+```
+> Clone the repo
+    >> For Windows: Git Bash
+    >> For Linux: Terminal
+    >> git clone https://github.com/Manish-XD/dsa-prep.git
+> Install the dependencies
+    >> npm install
+> Start the server
+    >> npm run dev
+> 375 DSA runs on port 3000 of your Local Machine
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[![OPEN-PR](https://img.shields.io/badge/Open%20For-PR-orange?style=for-the-badge&logo=github)](https://github.com/Manish-XD/dsa-prep.git)
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Credits
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Curated List of Questions are based on [375 DSA Questions Sheet](https://docs.google.com/spreadsheets/d/1hXserPuxVoWMG9Hs7y8wVdRCJTcj3xMBAEYUOXQ5Xag/edit#gid=0) by [Aman Dhattarwal](https://www.youtube.com/c/AmanDhattarwal) and [Shradha Di](https://www.youtube.com/c/ApnaCollegeOfficial)
