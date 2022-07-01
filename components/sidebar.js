@@ -19,9 +19,7 @@ const Sidebar = ({data}) => {
         <h1>375 DSA Questions</h1>
         <span className={styles.cc}>By Aman Dhattarwal & Shradha di</span>
       <div className={styles.btn}>
-        {/* <Link href="/Arrays"> */}
           <a target="_blank" rel="noreferrer" onClick={linkGenerate} href={link}><span>Pick Random</span></a>
-        {/* </Link> */}
       </div>
     </div>
   )

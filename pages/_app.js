@@ -16,13 +16,14 @@ function MyApp({ Component, pageProps }) {
       setProgress(100);
     });
   }, [router.query]);
+  // console.log(process.env.NEXT_PUBLIC_CODE)
 
   return (
     <>
-      <Script
+      {/* <Script
         id="script1"
         strategy="lazyOnload"
-        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.CODE}`}
+        // src={`https://www.googletagmanager.com/gtag/js?id=G-ZKBXH4WESZ`}
       />
 
       <Script id="script2" strategy="lazyOnload">
@@ -31,9 +32,25 @@ function MyApp({ Component, pageProps }) {
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 
-gtag('config', '${process.env.CODE}');
+gtag('config', 'G-ZKBXH4WESZ');
     `}
+      </Script> */}
+      <div className="container">
+      {/* <!-- Global site tag (gtag.js) - Google Analytics --> */}
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-ZKBXH4WESZ"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-ZKBXH4WESZ');
+        `}
       </Script>
+    </div>
       <LoadingBar
         color="#ffffff"
         waitingTime={400}

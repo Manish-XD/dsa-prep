@@ -21,7 +21,6 @@ const TwoDArray = ({ data }) => {
       if (localStorage.getItem("twod_done")) {
         savetwod_done(JSON.parse(localStorage.getItem("twod_done")));
         settwod_done(JSON.parse(localStorage.getItem("twod_done")));
-        settwod_now(twod_done.length);
       } else {
         localStorage.setItem("twod_done", JSON.stringify(twod_done));
       }
@@ -33,6 +32,9 @@ const TwoDArray = ({ data }) => {
     localStorage.setItem("twod_todo", JSON.stringify(items));
   };
   const savetwod_done = (items) => {
+    localStorage.setItem("twod_done", JSON.stringify(items));
+  };
+  const savetwod_now = (items) => {
     localStorage.setItem("twod_done", JSON.stringify(items));
   };
   const deleteItem = (index) => {
