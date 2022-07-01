@@ -51,7 +51,7 @@ const Arrays = ({ data }) => {
     setTodo(updateditems);
     saveTodo(updateditems);
   };
-  console.log(done);
+  // console.log(done);
   return (
     <>
       <Script

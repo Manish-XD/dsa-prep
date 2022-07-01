@@ -21,15 +21,17 @@ function MyApp({ Component, pageProps }) {
     <>
       <Script id="script1"
         strategy="lazyOnload"
-        src={`https://www.googletagmanager.com/gtag/js?id=G-34CC5MMYVV`}
+        src={`https://www.googletagmanager.com/gtag/js?id=G-ZKBXH4WESZ`}
       />
-      <Script id="script2" strategy="lazyOnload">
-      
-        {` window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-34CC5MMYVV');`}
+      <Script id="script2" strategy="lazyOnload">
+        {`
+       window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-ZKBXH4WESZ');
+    `}
       </Script>
       <LoadingBar
         color="#ffffff"

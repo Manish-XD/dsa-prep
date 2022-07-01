@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 const Sidebar = ({data}) => {
   const router = useRouter();
   const [link, setlink] = useState('');
-  console.log(data);
   const linkGenerate = () =>{
     if(router.pathname === "/"){
       const rand = Math.floor(Math.random() * data.length);

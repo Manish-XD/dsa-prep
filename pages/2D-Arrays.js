@@ -47,7 +47,6 @@ const TwoDArray = ({ data }) => {
     settwod_todo(updateditems);
     savetwod_todo(updateditems);
     settwod_now(twod_done.length + 2);
-    console.log(twod_now);
   };
   const deleteItem2 = (index) => {
     const updateditems = twod_done.filter((elem) => {
@@ -61,7 +60,6 @@ const TwoDArray = ({ data }) => {
     settwod_done(updateditems);
     savetwod_done(updateditems);
     settwod_now(twod_done.length - 1);
-    console.log(twod_now);
   };
   //   console.log(twod_done);
   return (
