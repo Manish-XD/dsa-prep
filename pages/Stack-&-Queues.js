@@ -155,7 +155,7 @@ const Stackqueue = ({ data }) => {
 };
 
 export async function getServerSideProps(context) {
-  const res = await fetch("https://dsapppi.herokuapp.com/Stack%20&%20Queues");
+  const res = await fetch("https://dsapppi.herokuapp.com/Stack-&-Queues");
   const data = await res.json();
 
   return {

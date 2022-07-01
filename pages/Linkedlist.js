@@ -155,7 +155,7 @@ const LinkedList = ({data}) => {
 
 export async function getServerSideProps(context) {
     const res = await fetch(
-      'https://dsapppi.herokuapp.com/Linked%20List'
+      'https://dsapppi.herokuapp.com/Linkedlist'
     );
     const data = await res.json();
   

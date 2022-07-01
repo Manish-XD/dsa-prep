@@ -155,7 +155,7 @@ const Searchsort = ({data}) => {
 
 export async function getServerSideProps(context) {
     const res = await fetch(
-      'https://dsapppi.herokuapp.com/Searching%20&%20Sorting'
+      'https://dsapppi.herokuapp.com/Searching-&-Sorting'
     );
     const data = await res.json();
   
