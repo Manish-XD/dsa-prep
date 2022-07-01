@@ -5,13 +5,17 @@
     padding: 10rem;
 }
 
+.Array_body a:hover{
+    color: #47ce72;
+}
+
 .Array_body h1{
     text-align: center;
 }
 
-.Array_body button{
+.Array_body .flex button{
     padding: 0.5rem;
-    background: blue;
+    background: white;
 }
 
 .list_items{
@@ -96,4 +100,46 @@
 .ques{
     margin: 0rem 1rem;
     min-width: 60rem;
+}
+
+.flex2{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 3rem;
+}
+
+.flex2_items{
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    margin: 1rem 0rem;
+}
+
+.flex2_items button{
+    margin: 0rem 1rem;
+}
+
+.sno2{
+    margin: 0 1rem;
+    min-width: 4rem;
+}
+
+.flex2_items a{
+    color: white;
+    /* text-decoration: none; */
+}
+
+.ques2{
+    margin: 0rem 1rem;
+    min-width: 60rem;
+    text-decoration: line-through;
+}
+
+.ques2 a{
+    text-decoration: line-through !important;
+}
+
+.flex2 button{
+    background: #47ce72;
+    padding: 0.5rem;
 }
