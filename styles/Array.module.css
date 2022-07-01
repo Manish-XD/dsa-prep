@@ -181,4 +181,10 @@
         margin: 2rem 0;
         font-size: 4rem;
     }
+    .ques{
+        min-width: 50rem;
+    }
+    .ques2{
+        min-width: 50rem;
+    }
 }
