@@ -19,7 +19,8 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
-      <Script id="script1"
+      <Script
+        id="script1"
         strategy="lazyOnload"
         src={`https://www.googletagmanager.com/gtag/js?id=${process.env.CODE}`}
       />
