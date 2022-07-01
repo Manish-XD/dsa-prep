@@ -1,26 +1,19 @@
 import React from 'react';
 import styles from '../styles/sidebar.module.css';
-import Link from 'next/link';
-import { useRouter } from "next/router";
 import { useState } from 'react';
+import { useRouter } from "next/router";
 
 const Sidebar = ({data}) => {
   const router = useRouter();
-  const { slug } = router.query;
-  const [randLink, setRandLink] = useState('');
-  // console.log(slug);
-  // console.log(data);
-  const linkgenerate = () => {
-    if(slug === undefined){
-    const rand = Math.floor(Math.random() * 7);
-    const randLength = data[rand].links.length;
-    setRandLink(data[rand].links[Math.floor(Math.random() * randLength)].link);
-  }
-  else{
-    const randLength = data.links.length;
-    setRandLink(data.links[Math.floor(Math.random() * randLength)].link);
-    console.log(randLink);
-  }
+  const [link, setlink] = useState('');
+  console.log(data);
+  const linkGenerate = () =>{
+    if(router.pathname === "/"){
+      const rand = Math.floor(Math.random() * data.length);
+      setlink(data[rand].links[Math.floor(Math.random() * data[rand].links.length)].link);
+    }else{
+      setlink(data.links[Math.floor(Math.random() * data.links.length)].link);
+    }
   }
   return (
     <div className={styles.sidebar}>
@@ -28,7 +21,7 @@ const Sidebar = ({data}) => {
         <span className={styles.cc}>By Aman Dhattarwal & Shradha di</span>
       <div className={styles.btn}>
         {/* <Link href="/Arrays"> */}
-          <a target="_blank" rel="noreferrer" href={randLink} onClick={linkgenerate}><span>Start Random</span></a>
+          <a target="_blank" rel="noreferrer" onClick={linkGenerate} href={link}><span>Pick Random</span></a>
         {/* </Link> */}
       </div>
     </div>

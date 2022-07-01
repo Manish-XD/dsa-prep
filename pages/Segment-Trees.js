@@ -5,61 +5,61 @@ import Script from "next/script";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ProgressBar } from "react-bootstrap";
 
-const BST = ({data}) => {
-    const [bst_todo, setbst_todo] = useState(data.links);
-  const [bst_done, setbst_done] = useState([]);
+const Segment = ({data}) => {
+    const [st_todo, setst_todo] = useState(data.links);
+  const [st_done, setst_done] = useState([]);
 
   useEffect(() => {
     try {
-      if (localStorage.getItem("bst_todo")) {
-        savebst_todo(JSON.parse(localStorage.getItem("bst_todo")));
-        setbst_todo(JSON.parse(localStorage.getItem("bst_todo")));
+      if (localStorage.getItem("st_todo")) {
+        savest_todo(JSON.parse(localStorage.getItem("st_todo")));
+        setst_todo(JSON.parse(localStorage.getItem("st_todo")));
       }
       else{
-        localStorage.setItem("bst_todo", JSON.stringify(bst_todo));
+        localStorage.setItem("st_todo", JSON.stringify(st_todo));
       }
-      if (localStorage.getItem("bst_done")) {
-        savebst_done(JSON.parse(localStorage.getItem("bst_done")));
-        setbst_done(JSON.parse(localStorage.getItem("bst_done")));
+      if (localStorage.getItem("st_done")) {
+        savest_done(JSON.parse(localStorage.getItem("st_done")));
+        setst_done(JSON.parse(localStorage.getItem("st_done")));
       }
       else{
-        localStorage.setItem("bst_done", JSON.stringify(bst_done));
+        localStorage.setItem("st_done", JSON.stringify(st_done));
       }
     } catch (error) {
       console.error(error);
     }
   }, []);
-  const savebst_todo = (items) => {
-    localStorage.setItem("bst_todo", JSON.stringify(items));
+  const savest_todo = (items) => {
+    localStorage.setItem("st_todo", JSON.stringify(items));
   };
-  const savebst_done = (items) => {
-    localStorage.setItem("bst_done", JSON.stringify(items));
+  const savest_done = (items) => {
+    localStorage.setItem("st_done", JSON.stringify(items));
   };
   const deleteItem = (index) => {
-    const updateditems = bst_todo.filter((elem) => {
+    const updateditems = st_todo.filter((elem) => {
       return index !== elem.ques;
     });
-    const temp = bst_todo.filter((elem) => {
+    const temp = st_todo.filter((elem) => {
       return index == elem.ques;
     });
-    setbst_done([...bst_done, temp[0]]);
-    savebst_done([...bst_done, temp[0]]);
-    setbst_todo(updateditems);
-    savebst_todo(updateditems);
+    setst_done([...st_done, temp[0]]);
+    savest_done([...st_done, temp[0]]);
+    setst_todo(updateditems);
+    savest_todo(updateditems);
   };
   const deleteItem2 = (index) => {
-    const updateditems = bst_done.filter((elem) => {
+    const updateditems = st_done.filter((elem) => {
       return index !== elem.ques;
     });
-    const temp = bst_done.filter((elem) => {
+    const temp = st_done.filter((elem) => {
       return index == elem.ques;
     });
-    setbst_todo([...bst_todo, temp[0]]);
-    savebst_todo([...bst_todo, temp[0]]);
-    setbst_done(updateditems);
-    savebst_done(updateditems);
+    setst_todo([...st_todo, temp[0]]);
+    savest_todo([...st_todo, temp[0]]);
+    setst_done(updateditems);
+    savest_done(updateditems);
   };
-//   console.log(bst_done);
+//   console.log(st_done);
   return (
     <>
       <Script
@@ -68,13 +68,13 @@ const BST = ({data}) => {
       ></Script>
       <Sidebar data={data} />
       <div className={styles.Array_body}>
-        <h1>Binary Search Tree</h1>
+        <h1>Segment Trees</h1>
         <ProgressBar
           style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
           animated
         />
         <div className={styles.flex}>
-          {bst_todo.map((item) => {
+          {st_todo.map((item) => {
             return (
               <div
                 className={styles.flex_items}
@@ -110,9 +110,9 @@ const BST = ({data}) => {
             );
           })}
         </div>
-        {bst_done.length != 0 && <h2 className={styles.complete}>Questions Completed:</h2>}
+        {st_done.length != 0 && <h2 className={styles.complete}>Questions Completed:</h2>}
         <div className={styles.flex2}>
-          {bst_done.length != 0 && bst_done.map((item) => {
+          {st_done.length != 0 && st_done.map((item) => {
             return (
               <div
                 className={styles.flex2_items}
@@ -155,7 +155,7 @@ const BST = ({data}) => {
 
 export async function getServerSideProps(context) {
     const res = await fetch(
-      'https://dsapppi.herokuapp.com/Binary-Search-Tree'
+      'https://dsapppi.herokuapp.com/Segment-Trees'
     );
     const data = await res.json();
   
@@ -164,4 +164,4 @@ export async function getServerSideProps(context) {
     };
   }
 
-export default BST
+export default Segment

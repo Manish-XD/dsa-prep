@@ -5,61 +5,61 @@ import Script from "next/script";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ProgressBar } from "react-bootstrap";
 
-const BST = ({data}) => {
-    const [bst_todo, setbst_todo] = useState(data.links);
-  const [bst_done, setbst_done] = useState([]);
+const Bitmani = ({data}) => {
+    const [bm_todo, setbm_todo] = useState(data.links);
+  const [bm_done, setbm_done] = useState([]);
 
   useEffect(() => {
     try {
-      if (localStorage.getItem("bst_todo")) {
-        savebst_todo(JSON.parse(localStorage.getItem("bst_todo")));
-        setbst_todo(JSON.parse(localStorage.getItem("bst_todo")));
+      if (localStorage.getItem("bm_todo")) {
+        savebm_todo(JSON.parse(localStorage.getItem("bm_todo")));
+        setbm_todo(JSON.parse(localStorage.getItem("bm_todo")));
       }
       else{
-        localStorage.setItem("bst_todo", JSON.stringify(bst_todo));
+        localStorage.setItem("bm_todo", JSON.stringify(bm_todo));
       }
-      if (localStorage.getItem("bst_done")) {
-        savebst_done(JSON.parse(localStorage.getItem("bst_done")));
-        setbst_done(JSON.parse(localStorage.getItem("bst_done")));
+      if (localStorage.getItem("bm_done")) {
+        savebm_done(JSON.parse(localStorage.getItem("bm_done")));
+        setbm_done(JSON.parse(localStorage.getItem("bm_done")));
       }
       else{
-        localStorage.setItem("bst_done", JSON.stringify(bst_done));
+        localStorage.setItem("bm_done", JSON.stringify(bm_done));
       }
     } catch (error) {
       console.error(error);
     }
   }, []);
-  const savebst_todo = (items) => {
-    localStorage.setItem("bst_todo", JSON.stringify(items));
+  const savebm_todo = (items) => {
+    localStorage.setItem("bm_todo", JSON.stringify(items));
   };
-  const savebst_done = (items) => {
-    localStorage.setItem("bst_done", JSON.stringify(items));
+  const savebm_done = (items) => {
+    localStorage.setItem("bm_done", JSON.stringify(items));
   };
   const deleteItem = (index) => {
-    const updateditems = bst_todo.filter((elem) => {
+    const updateditems = bm_todo.filter((elem) => {
       return index !== elem.ques;
     });
-    const temp = bst_todo.filter((elem) => {
+    const temp = bm_todo.filter((elem) => {
       return index == elem.ques;
     });
-    setbst_done([...bst_done, temp[0]]);
-    savebst_done([...bst_done, temp[0]]);
-    setbst_todo(updateditems);
-    savebst_todo(updateditems);
+    setbm_done([...bm_done, temp[0]]);
+    savebm_done([...bm_done, temp[0]]);
+    setbm_todo(updateditems);
+    savebm_todo(updateditems);
   };
   const deleteItem2 = (index) => {
-    const updateditems = bst_done.filter((elem) => {
+    const updateditems = bm_done.filter((elem) => {
       return index !== elem.ques;
     });
-    const temp = bst_done.filter((elem) => {
+    const temp = bm_done.filter((elem) => {
       return index == elem.ques;
     });
-    setbst_todo([...bst_todo, temp[0]]);
-    savebst_todo([...bst_todo, temp[0]]);
-    setbst_done(updateditems);
-    savebst_done(updateditems);
+    setbm_todo([...bm_todo, temp[0]]);
+    savebm_todo([...bm_todo, temp[0]]);
+    setbm_done(updateditems);
+    savebm_done(updateditems);
   };
-//   console.log(bst_done);
+//   console.log(bm_done);
   return (
     <>
       <Script
@@ -68,13 +68,13 @@ const BST = ({data}) => {
       ></Script>
       <Sidebar data={data} />
       <div className={styles.Array_body}>
-        <h1>Binary Search Tree</h1>
+        <h1>Bit Manipulation</h1>
         <ProgressBar
           style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
           animated
         />
         <div className={styles.flex}>
-          {bst_todo.map((item) => {
+          {bm_todo.map((item) => {
             return (
               <div
                 className={styles.flex_items}
@@ -110,9 +110,9 @@ const BST = ({data}) => {
             );
           })}
         </div>
-        {bst_done.length != 0 && <h2 className={styles.complete}>Questions Completed:</h2>}
+        {bm_done.length != 0 && <h2 className={styles.complete}>Questions Completed:</h2>}
         <div className={styles.flex2}>
-          {bst_done.length != 0 && bst_done.map((item) => {
+          {bm_done.length != 0 && bm_done.map((item) => {
             return (
               <div
                 className={styles.flex2_items}
@@ -155,7 +155,7 @@ const BST = ({data}) => {
 
 export async function getServerSideProps(context) {
     const res = await fetch(
-      'https://dsapppi.herokuapp.com/Binary-Search-Tree'
+      'https://dsapppi.herokuapp.com/Bit-Manipulation'
     );
     const data = await res.json();
   
@@ -164,4 +164,4 @@ export async function getServerSideProps(context) {
     };
   }
 
-export default BST
+export default Bitmani
