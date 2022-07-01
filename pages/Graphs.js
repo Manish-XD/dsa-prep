@@ -8,6 +8,7 @@ import { ProgressBar } from "react-bootstrap";
 const Graphs = ({data}) => {
     const [graph_todo, setgraph_todo] = useState(data.links);
   const [graph_done, setgraph_done] = useState([]);
+  const [graph_now, setgraph_now] = useState(0);
 
   useEffect(() => {
     try {
@@ -25,6 +26,13 @@ const Graphs = ({data}) => {
       else{
         localStorage.setItem("graph_done", JSON.stringify(graph_done));
       }
+      if(localStorage.getItem("graph_now")){
+        setgraph_now(JSON.parse(localStorage.getItem("graph_now")));
+        savegraph_now(JSON.parse(localStorage.getItem("graph_now")));
+      }
+      else{
+        localStorage.setItem("graph_now", JSON.stringify(graph_now));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -34,6 +42,9 @@ const Graphs = ({data}) => {
   };
   const savegraph_done = (items) => {
     localStorage.setItem("graph_done", JSON.stringify(items));
+  };
+  const savegraph_now = (items) => {
+    localStorage.setItem("graph_now", JSON.stringify(items));
   };
   const deleteItem = (index) => {
     const updateditems = graph_todo.filter((elem) => {
@@ -46,6 +57,8 @@ const Graphs = ({data}) => {
     savegraph_done([...graph_done, temp[0]]);
     setgraph_todo(updateditems);
     savegraph_todo(updateditems);
+    setgraph_now(graph_done.length + 2);
+    savegraph_now(graph_done.length + 2);
   };
   const deleteItem2 = (index) => {
     const updateditems = graph_done.filter((elem) => {
@@ -58,6 +71,8 @@ const Graphs = ({data}) => {
     savegraph_todo([...graph_todo, temp[0]]);
     setgraph_done(updateditems);
     savegraph_done(updateditems);
+    setgraph_now(graph_done.length - 1);
+    savegraph_now(graph_done.length - 1);
   };
 //   console.log(graph_done);
   return (
@@ -72,6 +87,9 @@ const Graphs = ({data}) => {
         <ProgressBar
           style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
           animated
+          now={(graph_now / (data.links.length + 1)) * 100}
+          label={parseInt((graph_now / (data.links.length + 1)) * 100) + "%"}
+          variant="success"
         />
         <div className={styles.flex}>
           {graph_todo.map((item) => {

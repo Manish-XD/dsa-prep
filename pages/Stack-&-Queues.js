@@ -8,6 +8,7 @@ import { ProgressBar } from "react-bootstrap";
 const Stackqueue = ({ data }) => {
   const [sq_todo, setsq_todo] = useState(data.links);
   const [sq_done, setsq_done] = useState([]);
+  const [sq_now, setsq_now] = useState(0);
 
   useEffect(() => {
     try {
@@ -23,6 +24,13 @@ const Stackqueue = ({ data }) => {
       } else {
         localStorage.setItem("sq_done", JSON.stringify(sq_done));
       }
+      if(localStorage.getItem("sq_now")){
+        setsq_now(JSON.parse(localStorage.getItem("sq_now")));
+        savesq_now(JSON.parse(localStorage.getItem("sq_now")));
+      }
+      else{
+        localStorage.setItem("sq_now", JSON.stringify(sq_now));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -32,6 +40,9 @@ const Stackqueue = ({ data }) => {
   };
   const savesq_done = (items) => {
     localStorage.setItem("sq_done", JSON.stringify(items));
+  };
+  const savesq_now = (items) => {
+    localStorage.setItem("sq_now", JSON.stringify(items));
   };
   const deleteItem = (index) => {
     const updateditems = sq_todo.filter((elem) => {
@@ -44,6 +55,8 @@ const Stackqueue = ({ data }) => {
     savesq_done([...sq_done, temp[0]]);
     setsq_todo(updateditems);
     savesq_todo(updateditems);
+    setsq_now(sq_done.length + 2);
+    savesq_now(sq_done.length + 2);
   };
   const deleteItem2 = (index) => {
     const updateditems = sq_done.filter((elem) => {
@@ -56,6 +69,8 @@ const Stackqueue = ({ data }) => {
     savesq_todo([...sq_todo, temp[0]]);
     setsq_done(updateditems);
     savesq_done(updateditems);
+    setsq_now(sq_done.length - 1);
+    savesq_now(sq_done.length - 1);
   };
   //   console.log(sq_done);
   return (
@@ -70,6 +85,9 @@ const Stackqueue = ({ data }) => {
         <ProgressBar
           style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
           animated
+          now={(sq_now / (data.links.length + 1)) * 100}
+          label={parseInt((sq_now / (data.links.length + 1)) * 100) + "%"}
+          variant="success"
         />
         <div className={styles.flex}>
           {sq_todo.map((item) => {

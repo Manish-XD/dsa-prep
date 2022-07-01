@@ -8,6 +8,7 @@ import { ProgressBar } from "react-bootstrap";
 const Greedy = ({data}) => {
     const [greedy_todo, setgreedy_todo] = useState(data.links);
   const [greedy_done, setgreedy_done] = useState([]);
+  const [greedy_now, setgreedy_now] = useState(0);
 
   useEffect(() => {
     try {
@@ -25,6 +26,13 @@ const Greedy = ({data}) => {
       else{
         localStorage.setItem("greedy_done", JSON.stringify(greedy_done));
       }
+      if(localStorage.getItem("greedy_now")){
+        setgreedy_now(JSON.parse(localStorage.getItem("greedy_now")));
+        savegreedy_now(JSON.parse(localStorage.getItem("greedy_now")));
+      }
+      else{
+        localStorage.setItem("greedy_now", JSON.stringify(greedy_now));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -34,6 +42,9 @@ const Greedy = ({data}) => {
   };
   const savegreedy_done = (items) => {
     localStorage.setItem("greedy_done", JSON.stringify(items));
+  };
+  const savegreedy_now = (items) => {
+    localStorage.setItem("greedy_now", JSON.stringify(items));
   };
   const deleteItem = (index) => {
     const updateditems = greedy_todo.filter((elem) => {
@@ -46,6 +57,8 @@ const Greedy = ({data}) => {
     savegreedy_done([...greedy_done, temp[0]]);
     setgreedy_todo(updateditems);
     savegreedy_todo(updateditems);
+    setgreedy_now(greedy_done.length + 2);
+    savegreedy_now(greedy_done.length + 2);
   };
   const deleteItem2 = (index) => {
     const updateditems = greedy_done.filter((elem) => {
@@ -58,6 +71,8 @@ const Greedy = ({data}) => {
     savegreedy_todo([...greedy_todo, temp[0]]);
     setgreedy_done(updateditems);
     savegreedy_done(updateditems);
+    setgreedy_now(greedy_done.length - 1);
+    savegreedy_now(greedy_done.length - 1);
   };
 //   console.log(greedy_done);
   return (
@@ -72,6 +87,9 @@ const Greedy = ({data}) => {
         <ProgressBar
           style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
           animated
+          now={(greedy_now / (data.links.length + 1)) * 100}
+          label={parseInt((greedy_now / (data.links.length + 1)) * 100) + "%"}
+          variant="success"
         />
         <div className={styles.flex}>
           {greedy_todo.map((item) => {

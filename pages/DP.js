@@ -8,6 +8,7 @@ import { ProgressBar } from "react-bootstrap";
 const Dp = ({data}) => {
     const [dp_todo, setdp_todo] = useState(data.links);
   const [dp_done, setdp_done] = useState([]);
+  const [dp_now, setdp_now] = useState(0);
 
   useEffect(() => {
     try {
@@ -25,6 +26,13 @@ const Dp = ({data}) => {
       else{
         localStorage.setItem("dp_done", JSON.stringify(dp_done));
       }
+      if(localStorage.getItem("dp_now")){
+        setdp_now(JSON.parse(localStorage.getItem("dp_now")));
+        savedp_now(JSON.parse(localStorage.getItem("dp_now")));
+      }
+      else{
+        localStorage.setItem("dp_now", JSON.stringify(dp_now));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -34,6 +42,9 @@ const Dp = ({data}) => {
   };
   const savedp_done = (items) => {
     localStorage.setItem("dp_done", JSON.stringify(items));
+  };
+  const savedp_now = (items) => {
+    localStorage.setItem("dp_now", JSON.stringify(items));
   };
   const deleteItem = (index) => {
     const updateditems = dp_todo.filter((elem) => {
@@ -46,6 +57,8 @@ const Dp = ({data}) => {
     savedp_done([...dp_done, temp[0]]);
     setdp_todo(updateditems);
     savedp_todo(updateditems);
+    setdp_now(dp_done.length + 2);
+    savedp_now(dp_done.length + 2);
   };
   const deleteItem2 = (index) => {
     const updateditems = dp_done.filter((elem) => {
@@ -58,6 +71,8 @@ const Dp = ({data}) => {
     savedp_todo([...dp_todo, temp[0]]);
     setdp_done(updateditems);
     savedp_done(updateditems);
+    setdp_now(dp_done.length - 1);
+    savedp_now(dp_done.length - 1);
   };
 //   console.log(dp_done);
   return (
@@ -72,6 +87,9 @@ const Dp = ({data}) => {
         <ProgressBar
           style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
           animated
+          now={(dp_now / (data.links.length + 1)) * 100}
+          label={parseInt((dp_now / (data.links.length + 1)) * 100) + "%"}
+          variant="success"
         />
         <div className={styles.flex}>
           {dp_todo.map((item) => {

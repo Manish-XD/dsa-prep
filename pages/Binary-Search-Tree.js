@@ -8,6 +8,7 @@ import { ProgressBar } from "react-bootstrap";
 const BST = ({data}) => {
     const [bst_todo, setbst_todo] = useState(data.links);
   const [bst_done, setbst_done] = useState([]);
+  const [bst_now, setbst_now] = useState(0);
 
   useEffect(() => {
     try {
@@ -25,6 +26,13 @@ const BST = ({data}) => {
       else{
         localStorage.setItem("bst_done", JSON.stringify(bst_done));
       }
+      if(localStorage.getItem("bst_now")){
+        setbst_now(JSON.parse(localStorage.getItem("bst_now")));
+        savebst_now(JSON.parse(localStorage.getItem("bst_now")));
+      }
+      else{
+        localStorage.setItem("bst_now", JSON.stringify(bst_now));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -34,6 +42,9 @@ const BST = ({data}) => {
   };
   const savebst_done = (items) => {
     localStorage.setItem("bst_done", JSON.stringify(items));
+  };
+  const savebst_now = (items) => {
+    localStorage.setItem("bst_now", JSON.stringify(items));
   };
   const deleteItem = (index) => {
     const updateditems = bst_todo.filter((elem) => {
@@ -46,6 +57,8 @@ const BST = ({data}) => {
     savebst_done([...bst_done, temp[0]]);
     setbst_todo(updateditems);
     savebst_todo(updateditems);
+    setbst_now(bst_done.length + 2);
+    savebst_now(bst_done.length + 2);
   };
   const deleteItem2 = (index) => {
     const updateditems = bst_done.filter((elem) => {
@@ -58,6 +71,8 @@ const BST = ({data}) => {
     savebst_todo([...bst_todo, temp[0]]);
     setbst_done(updateditems);
     savebst_done(updateditems);
+    setbst_now(bst_done.length - 1);
+    savebst_now(bst_done.length - 1);
   };
 //   console.log(bst_done);
   return (
@@ -72,6 +87,9 @@ const BST = ({data}) => {
         <ProgressBar
           style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
           animated
+          now={(bst_now / (data.links.length + 1)) * 100}
+          label={parseInt((bst_now / (data.links.length + 1)) * 100) + "%"}
+          variant="success"
         />
         <div className={styles.flex}>
           {bst_todo.map((item) => {

@@ -8,6 +8,7 @@ import { ProgressBar } from "react-bootstrap";
 const Bitmani = ({data}) => {
     const [bm_todo, setbm_todo] = useState(data.links);
   const [bm_done, setbm_done] = useState([]);
+  const [bm_now, setbm_now] = useState(0);
 
   useEffect(() => {
     try {
@@ -25,6 +26,13 @@ const Bitmani = ({data}) => {
       else{
         localStorage.setItem("bm_done", JSON.stringify(bm_done));
       }
+      if(localStorage.getItem("bm_now")){
+        setbm_now(JSON.parse(localStorage.getItem("bm_now")));
+        savebm_now(JSON.parse(localStorage.getItem("bm_now")));
+      }
+      else{
+        localStorage.setItem("bm_now", JSON.stringify(bm_now));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -34,6 +42,9 @@ const Bitmani = ({data}) => {
   };
   const savebm_done = (items) => {
     localStorage.setItem("bm_done", JSON.stringify(items));
+  };
+  const savebm_now = (items) => {
+    localStorage.setItem("bm_now", JSON.stringify(items));
   };
   const deleteItem = (index) => {
     const updateditems = bm_todo.filter((elem) => {
@@ -46,6 +57,8 @@ const Bitmani = ({data}) => {
     savebm_done([...bm_done, temp[0]]);
     setbm_todo(updateditems);
     savebm_todo(updateditems);
+    setbm_now(bm_done.length + 2);
+    savebm_now(bm_done.length + 2);
   };
   const deleteItem2 = (index) => {
     const updateditems = bm_done.filter((elem) => {
@@ -58,6 +71,8 @@ const Bitmani = ({data}) => {
     savebm_todo([...bm_todo, temp[0]]);
     setbm_done(updateditems);
     savebm_done(updateditems);
+    setbm_now(bm_done.length - 1);
+    savebm_now(bm_done.length - 1);
   };
 //   console.log(bm_done);
   return (
@@ -72,6 +87,9 @@ const Bitmani = ({data}) => {
         <ProgressBar
           style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
           animated
+          now={(bm_now / (data.links.length + 1)) * 100}
+          label={parseInt((bm_now / (data.links.length + 1)) * 100) + "%"}
+          variant="success"
         />
         <div className={styles.flex}>
           {bm_todo.map((item) => {

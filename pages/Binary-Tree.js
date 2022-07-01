@@ -8,6 +8,7 @@ import { ProgressBar } from "react-bootstrap";
 const Binary = ({data}) => {
     const [bt_todo, setbt_todo] = useState(data.links);
   const [bt_done, setbt_done] = useState([]);
+  const [bt_now, setbt_now] = useState(0);
 
   useEffect(() => {
     try {
@@ -25,6 +26,13 @@ const Binary = ({data}) => {
       else{
         localStorage.setItem("bt_done", JSON.stringify(bt_done));
       }
+      if(localStorage.getItem("bt_now")){
+        setbt_now(JSON.parse(localStorage.getItem("bt_now")));
+        savebt_now(JSON.parse(localStorage.getItem("bt_now")));
+      }
+      else{
+        localStorage.setItem("bt_now", JSON.stringify(bt_now));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -34,6 +42,9 @@ const Binary = ({data}) => {
   };
   const savebt_done = (items) => {
     localStorage.setItem("bt_done", JSON.stringify(items));
+  };
+  const savebt_now = (items) => {
+    localStorage.setItem("bt_now", JSON.stringify(items));
   };
   const deleteItem = (index) => {
     const updateditems = bt_todo.filter((elem) => {
@@ -46,6 +57,8 @@ const Binary = ({data}) => {
     savebt_done([...bt_done, temp[0]]);
     setbt_todo(updateditems);
     savebt_todo(updateditems);
+    setbt_now(bt_done.length + 2);
+    savebt_now(bt_done.length + 2);
   };
   const deleteItem2 = (index) => {
     const updateditems = bt_done.filter((elem) => {
@@ -58,6 +71,8 @@ const Binary = ({data}) => {
     savebt_todo([...bt_todo, temp[0]]);
     setbt_done(updateditems);
     savebt_done(updateditems);
+    setbt_now(bt_done.length - 1);
+    savebt_now(bt_done.length - 1);
   };
 //   console.log(bt_done);
   return (
@@ -72,6 +87,9 @@ const Binary = ({data}) => {
         <ProgressBar
           style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
           animated
+          now={(bt_now / (data.links.length + 1)) * 100}
+          label={parseInt((bt_now / (data.links.length + 1)) * 100) + "%"}
+          variant="success"
         />
         <div className={styles.flex}>
           {bt_todo.map((item) => {

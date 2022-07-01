@@ -8,6 +8,7 @@ import { ProgressBar } from "react-bootstrap";
 const Tries = ({data}) => {
     const [tries_todo, settries_todo] = useState(data.links);
   const [tries_done, settries_done] = useState([]);
+  const [tries_now, settries_now] = useState(0);
 
   useEffect(() => {
     try {
@@ -25,6 +26,13 @@ const Tries = ({data}) => {
       else{
         localStorage.setItem("tries_done", JSON.stringify(tries_done));
       }
+      if(localStorage.getItem("tries_now")){
+        settries_now(JSON.parse(localStorage.getItem("tries_now")));
+        savetries_now(JSON.parse(localStorage.getItem("tries_now")));
+      }
+      else{
+        localStorage.setItem("tries_now", JSON.stringify(tries_now));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -34,6 +42,9 @@ const Tries = ({data}) => {
   };
   const savetries_done = (items) => {
     localStorage.setItem("tries_done", JSON.stringify(items));
+  };
+  const savetries_now = (items) => {
+    localStorage.setItem("tries_now", JSON.stringify(items));
   };
   const deleteItem = (index) => {
     const updateditems = tries_todo.filter((elem) => {
@@ -46,6 +57,8 @@ const Tries = ({data}) => {
     savetries_done([...tries_done, temp[0]]);
     settries_todo(updateditems);
     savetries_todo(updateditems);
+    settries_now(tries_done.length + 2);
+    savetries_now(tries_done.length + 2);
   };
   const deleteItem2 = (index) => {
     const updateditems = tries_done.filter((elem) => {
@@ -58,6 +71,8 @@ const Tries = ({data}) => {
     savetries_todo([...tries_todo, temp[0]]);
     settries_done(updateditems);
     savetries_done(updateditems);
+    settries_now(tries_done.length - 1);
+    savetries_now(tries_done.length - 1);
   };
 //   console.log(tries_done);
   return (
@@ -72,6 +87,9 @@ const Tries = ({data}) => {
         <ProgressBar
           style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
           animated
+          now={(tries_now / (data.links.length + 1)) * 100}
+          label={parseInt((tries_now / (data.links.length + 1)) * 100) + "%"}
+          variant="success"
         />
         <div className={styles.flex}>
           {tries_todo.map((item) => {

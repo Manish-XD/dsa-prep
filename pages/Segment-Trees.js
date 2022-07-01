@@ -8,6 +8,7 @@ import { ProgressBar } from "react-bootstrap";
 const Segment = ({data}) => {
     const [st_todo, setst_todo] = useState(data.links);
   const [st_done, setst_done] = useState([]);
+  const [st_now, setst_now] = useState(0);
 
   useEffect(() => {
     try {
@@ -25,6 +26,13 @@ const Segment = ({data}) => {
       else{
         localStorage.setItem("st_done", JSON.stringify(st_done));
       }
+      if(localStorage.getItem("st_now")){
+        setst_now(JSON.parse(localStorage.getItem("st_now")));
+        savest_now(JSON.parse(localStorage.getItem("st_now")));
+      }
+      else{
+        localStorage.setItem("st_now", JSON.stringify(st_now));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -34,6 +42,9 @@ const Segment = ({data}) => {
   };
   const savest_done = (items) => {
     localStorage.setItem("st_done", JSON.stringify(items));
+  };
+  const savest_now = (items) => {
+    localStorage.setItem("st_now", JSON.stringify(items));
   };
   const deleteItem = (index) => {
     const updateditems = st_todo.filter((elem) => {
@@ -46,6 +57,8 @@ const Segment = ({data}) => {
     savest_done([...st_done, temp[0]]);
     setst_todo(updateditems);
     savest_todo(updateditems);
+    setst_now(st_done.length + 2);
+    savest_now(st_done.length + 2);
   };
   const deleteItem2 = (index) => {
     const updateditems = st_done.filter((elem) => {
@@ -58,6 +71,8 @@ const Segment = ({data}) => {
     savest_todo([...st_todo, temp[0]]);
     setst_done(updateditems);
     savest_done(updateditems);
+    setst_now(st_done.length - 1);
+    savest_now(st_done.length - 1);
   };
 //   console.log(st_done);
   return (
@@ -72,6 +87,9 @@ const Segment = ({data}) => {
         <ProgressBar
           style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
           animated
+          now={(st_now / (data.links.length + 1)) * 100}
+          label={parseInt((st_now / (data.links.length + 1)) * 100) + "%"}
+          variant="success"
         />
         <div className={styles.flex}>
           {st_todo.map((item) => {

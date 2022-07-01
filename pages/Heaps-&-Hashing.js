@@ -8,6 +8,7 @@ import { ProgressBar } from "react-bootstrap";
 const Heap = ({data}) => {
     const [heap_todo, setheap_todo] = useState(data.links);
   const [heap_done, setheap_done] = useState([]);
+  const [heap_now, setheap_now] = useState(0);
 
   useEffect(() => {
     try {
@@ -25,6 +26,13 @@ const Heap = ({data}) => {
       else{
         localStorage.setItem("heap_done", JSON.stringify(heap_done));
       }
+      if(localStorage.getItem("heap_now")){
+        setheap_now(JSON.parse(localStorage.getItem("heap_now")));
+        saveheap_now(JSON.parse(localStorage.getItem("heap_now")));
+      }
+      else{
+        localStorage.setItem("heap_now", JSON.stringify(heap_now));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -34,6 +42,9 @@ const Heap = ({data}) => {
   };
   const saveheap_done = (items) => {
     localStorage.setItem("heap_done", JSON.stringify(items));
+  };
+  const saveheap_now = (items) => {
+    localStorage.setItem("heap_now", JSON.stringify(items));
   };
   const deleteItem = (index) => {
     const updateditems = heap_todo.filter((elem) => {
@@ -46,6 +57,8 @@ const Heap = ({data}) => {
     saveheap_done([...heap_done, temp[0]]);
     setheap_todo(updateditems);
     saveheap_todo(updateditems);
+    setheap_now(heap_done.length + 2);
+    saveheap_now(heap_done.length + 2);
   };
   const deleteItem2 = (index) => {
     const updateditems = heap_done.filter((elem) => {
@@ -58,6 +71,8 @@ const Heap = ({data}) => {
     saveheap_todo([...heap_todo, temp[0]]);
     setheap_done(updateditems);
     saveheap_done(updateditems);
+    setheap_now(heap_done.length - 1);
+    saveheap_now(heap_done.length - 1);
   };
 //   console.log(heap_done);
   return (
@@ -72,6 +87,9 @@ const Heap = ({data}) => {
         <ProgressBar
           style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
           animated
+          now={(heap_now / (data.links.length + 1)) * 100}
+          label={parseInt((heap_now / (data.links.length + 1)) * 100) + "%"}
+          variant="success"
         />
         <div className={styles.flex}>
           {heap_todo.map((item) => {

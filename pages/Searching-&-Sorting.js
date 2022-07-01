@@ -8,6 +8,7 @@ import { ProgressBar } from "react-bootstrap";
 const Searchsort = ({data}) => {
     const [searchsort_todo, setsearchsort_todo] = useState(data.links);
   const [searchsort_done, setsearchsort_done] = useState([]);
+  const [searchsort_now, setsearchsort_now] = useState(0);
 
   useEffect(() => {
     try {
@@ -25,6 +26,13 @@ const Searchsort = ({data}) => {
       else{
         localStorage.setItem("searchsort_done", JSON.stringify(searchsort_done));
       }
+      if(localStorage.getItem("searchsort_now")){
+        setsearchsort_now(JSON.parse(localStorage.getItem("searchsort_now")));
+        savesearchsort_now(JSON.parse(localStorage.getItem("searchsort_now")));
+      }
+      else{
+        localStorage.setItem("searchsort_now", JSON.stringify(searchsort_now));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -34,6 +42,9 @@ const Searchsort = ({data}) => {
   };
   const savesearchsort_done = (items) => {
     localStorage.setItem("searchsort_done", JSON.stringify(items));
+  };
+  const savesearchsort_now = (items) => {
+    localStorage.setItem("searchsort_now", JSON.stringify(items));
   };
   const deleteItem = (index) => {
     const updateditems = searchsort_todo.filter((elem) => {
@@ -46,6 +57,8 @@ const Searchsort = ({data}) => {
     savesearchsort_done([...searchsort_done, temp[0]]);
     setsearchsort_todo(updateditems);
     savesearchsort_todo(updateditems);
+    setsearchsort_now(searchsort_done.length + 2);
+    savesearchsort_now(searchsort_done.length + 2);
   };
   const deleteItem2 = (index) => {
     const updateditems = searchsort_done.filter((elem) => {
@@ -58,6 +71,8 @@ const Searchsort = ({data}) => {
     savesearchsort_todo([...searchsort_todo, temp[0]]);
     setsearchsort_done(updateditems);
     savesearchsort_done(updateditems);
+    setsearchsort_now(searchsort_done.length - 1);
+    savesearchsort_now(searchsort_done.length - 1);
   };
 //   console.log(searchsort_done);
   return (
@@ -72,6 +87,9 @@ const Searchsort = ({data}) => {
         <ProgressBar
           style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
           animated
+          now={(searchsort_now / (data.links.length + 1)) * 100}
+          label={parseInt((searchsort_now / (data.links.length + 1)) * 100) + "%"}
+          variant="success"
         />
         <div className={styles.flex}>
           {searchsort_todo.map((item) => {

@@ -8,6 +8,7 @@ import { ProgressBar } from "react-bootstrap";
 const LinkedList = ({data}) => {
     const [link_todo, setlink_todo] = useState(data.links);
   const [link_done, setlink_done] = useState([]);
+  const [link_now, setlink_now] = useState(0);
 
   useEffect(() => {
     try {
@@ -25,6 +26,13 @@ const LinkedList = ({data}) => {
       else{
         localStorage.setItem("link_done", JSON.stringify(link_done));
       }
+      if(localStorage.getItem("link_now")){
+        setlink_now(JSON.parse(localStorage.getItem("link_now")));
+        savelink_now(JSON.parse(localStorage.getItem("link_now")));
+      }
+      else{
+        localStorage.setItem("link_now", JSON.stringify(link_now));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -34,6 +42,9 @@ const LinkedList = ({data}) => {
   };
   const savelink_done = (items) => {
     localStorage.setItem("link_done", JSON.stringify(items));
+  };
+  const savelink_now = (items) => {
+    localStorage.setItem("link_now", JSON.stringify(items));
   };
   const deleteItem = (index) => {
     const updateditems = link_todo.filter((elem) => {
@@ -46,6 +57,8 @@ const LinkedList = ({data}) => {
     savelink_done([...link_done, temp[0]]);
     setlink_todo(updateditems);
     savelink_todo(updateditems);
+    setlink_now(link_done.length + 2);
+    savelink_now(link_done.length + 2);
   };
   const deleteItem2 = (index) => {
     const updateditems = link_done.filter((elem) => {
@@ -58,6 +71,8 @@ const LinkedList = ({data}) => {
     savelink_todo([...link_todo, temp[0]]);
     setlink_done(updateditems);
     savelink_done(updateditems);
+    setlink_now(link_done.length - 1);
+    savelink_now(link_done.length - 1);
   };
 //   console.log(link_done);
   return (
@@ -72,6 +87,9 @@ const LinkedList = ({data}) => {
         <ProgressBar
           style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
           animated
+          now={(link_now / (data.links.length + 1)) * 100}
+          label={parseInt((link_now / (data.links.length + 1)) * 100) + "%"}
+          variant="success"
         />
         <div className={styles.flex}>
           {link_todo.map((item) => {

@@ -8,6 +8,7 @@ import { ProgressBar } from "react-bootstrap";
 const Backtracking = ({data}) => {
     const [back_todo, setback_todo] = useState(data.links);
   const [back_done, setback_done] = useState([]);
+  const [back_now, setback_now] = useState(0);
 
   useEffect(() => {
     try {
@@ -25,6 +26,13 @@ const Backtracking = ({data}) => {
       else{
         localStorage.setItem("back_done", JSON.stringify(back_done));
       }
+      if(localStorage.getItem("back_now")){
+        setback_now(JSON.parse(localStorage.getItem("back_now")));
+        saveback_now(JSON.parse(localStorage.getItem("back_now")));
+      }
+      else{
+        localStorage.setItem("back_now", JSON.stringify(back_now));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -34,6 +42,9 @@ const Backtracking = ({data}) => {
   };
   const saveback_done = (items) => {
     localStorage.setItem("back_done", JSON.stringify(items));
+  };
+  const saveback_now = (items) => {
+    localStorage.setItem("back_now", JSON.stringify(items));
   };
   const deleteItem = (index) => {
     const updateditems = back_todo.filter((elem) => {
@@ -46,6 +57,8 @@ const Backtracking = ({data}) => {
     saveback_done([...back_done, temp[0]]);
     setback_todo(updateditems);
     saveback_todo(updateditems);
+    setback_now(back_done.length + 2);
+    saveback_now(back_done.length + 2);
   };
   const deleteItem2 = (index) => {
     const updateditems = back_done.filter((elem) => {
@@ -58,6 +71,8 @@ const Backtracking = ({data}) => {
     saveback_todo([...back_todo, temp[0]]);
     setback_done(updateditems);
     saveback_done(updateditems);
+    setback_now(back_done.length - 1);
+    saveback_now(back_done.length - 1);
   };
 //   console.log(back_done);
   return (
@@ -72,6 +87,9 @@ const Backtracking = ({data}) => {
         <ProgressBar
           style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
           animated
+          now={(back_now / (data.links.length + 1)) * 100}
+          label={parseInt((back_now / (data.links.length + 1)) * 100) + "%"}
+          variant="success"
         />
         <div className={styles.flex}>
           {back_todo.map((item) => {

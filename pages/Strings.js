@@ -8,6 +8,7 @@ import { ProgressBar } from "react-bootstrap";
 const String = ({data}) => {
     const [str_todo, setstr_todo] = useState(data.links);
   const [str_done, setstr_done] = useState([]);
+  const [str_now, setstr_now] = useState(0);
 
   useEffect(() => {
     try {
@@ -25,6 +26,13 @@ const String = ({data}) => {
       else{
         localStorage.setItem("str_done", JSON.stringify(str_done));
       }
+      if(localStorage.getItem("str_now")){
+        setstr_now(JSON.parse(localStorage.getItem("str_now")));
+        savestr_now(JSON.parse(localStorage.getItem("str_now")));
+      }
+      else{
+        localStorage.setItem("str_now", JSON.stringify(str_now));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -35,6 +43,9 @@ const String = ({data}) => {
   const savestr_done = (items) => {
     localStorage.setItem("str_done", JSON.stringify(items));
   };
+  const savestr_now = (items) => {
+    localStorage.setItem("str_now", JSON.stringify(items));
+  };
   const deleteItem = (index) => {
     const updateditems = str_todo.filter((elem) => {
       return index !== elem.ques;
@@ -42,10 +53,13 @@ const String = ({data}) => {
     const temp = str_todo.filter((elem) => {
       return index == elem.ques;
     });
+
     setstr_done([...str_done, temp[0]]);
     savestr_done([...str_done, temp[0]]);
     setstr_todo(updateditems);
     savestr_todo(updateditems);
+    setstr_now(str_done.length + 2);
+    savestr_now(str_done.length + 2);
   };
   const deleteItem2 = (index) => {
     const updateditems = str_done.filter((elem) => {
@@ -58,6 +72,8 @@ const String = ({data}) => {
     savestr_todo([...str_todo, temp[0]]);
     setstr_done(updateditems);
     savestr_done(updateditems);
+    setstr_now(str_done.length - 1);
+    savestr_now(str_done.length - 1);
   };
 //   console.log(str_done);
   return (
@@ -72,6 +88,9 @@ const String = ({data}) => {
         <ProgressBar
           style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
           animated
+          now={(str_now / (data.links.length + 1)) * 100}
+          label={parseInt((str_now / (data.links.length + 1)) * 100) + "%"}
+          variant="success"
         />
         <div className={styles.flex}>
           {str_todo.map((item) => {

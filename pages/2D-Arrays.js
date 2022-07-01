@@ -24,6 +24,13 @@ const TwoDArray = ({ data }) => {
       } else {
         localStorage.setItem("twod_done", JSON.stringify(twod_done));
       }
+      if(localStorage.getItem("twod_now")){
+        settwod_now(JSON.parse(localStorage.getItem("twod_now")));
+        savetwod_now(JSON.parse(localStorage.getItem("twod_now")));
+      }
+      else{
+        localStorage.setItem("twod_now", JSON.stringify(twod_now));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -35,7 +42,7 @@ const TwoDArray = ({ data }) => {
     localStorage.setItem("twod_done", JSON.stringify(items));
   };
   const savetwod_now = (items) => {
-    localStorage.setItem("twod_done", JSON.stringify(items));
+    localStorage.setItem("twod_now", JSON.stringify(items));
   };
   const deleteItem = (index) => {
     const updateditems = twod_todo.filter((elem) => {
@@ -49,6 +56,7 @@ const TwoDArray = ({ data }) => {
     settwod_todo(updateditems);
     savetwod_todo(updateditems);
     settwod_now(twod_done.length + 2);
+    savetwod_now(twod_done.length + 2);
   };
   const deleteItem2 = (index) => {
     const updateditems = twod_done.filter((elem) => {
@@ -62,6 +70,7 @@ const TwoDArray = ({ data }) => {
     settwod_done(updateditems);
     savetwod_done(updateditems);
     settwod_now(twod_done.length - 1);
+    savetwod_now(twod_done.length - 1);
   };
   //   console.log(twod_done);
   return (
