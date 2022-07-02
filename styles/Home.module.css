@@ -126,3 +126,9 @@
     display: none;
   }
 }
+
+@media only screen and (min-width: 1400px) {
+  .main{
+    padding: 10rem 0 10rem 40rem;
+  }
+}

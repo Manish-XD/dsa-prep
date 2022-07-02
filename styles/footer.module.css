@@ -65,3 +65,10 @@
         font-size: 2rem;
     }
   }
+
+  @media only screen and (min-width: 1400px) {
+    .footer{
+      padding-left: 40rem;
+    }
+  }
+  

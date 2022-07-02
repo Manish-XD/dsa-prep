@@ -168,6 +168,16 @@
     .flex span{
         font-size: 2.5rem;
     }
+    .flex_items{
+        border-bottom: 0.5px solid white;
+        margin: 0rem;
+        padding: 3rem 0rem;
+    }
+    .flex2_items{
+        border-bottom: 0.5px solid white;
+        margin: 0rem;
+        padding: 3rem 0rem;
+    }
     .flex2 a{
         font-size: 2.5rem;
     }
@@ -182,9 +192,17 @@
         font-size: 4rem;
     }
     .ques{
-        min-width: 50rem;
+        width: 60vw;
+        min-width: 53rem;
     }
     .ques2{
-        min-width: 50rem;
+        width: 60vw;
+        min-width: 53rem;
     }
 }
+
+/* @media only screen and (min-width: 1400px) {
+    .Array_body{
+        margin-left: 35rem;
+    }
+} */

@@ -7,7 +7,8 @@ import seven from "../public/Group7.png";
 import Image from "next/image";
 
 export default function Home({ data }) {
-  // console.log(data);
+
+  
   return (
     <div className={styles.container}>
       <Head>
