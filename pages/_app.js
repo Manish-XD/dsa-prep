@@ -38,7 +38,7 @@ gtag('config', 'G-ZKBXH4WESZ');
       <div className="container">
       {/* <!-- Global site tag (gtag.js) - Google Analytics --> */}
       <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-ZKBXH4WESZ"
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_CODE}`}
         strategy="afterInteractive"
       />
       <Script id="google-analytics" strategy="afterInteractive">
@@ -47,7 +47,7 @@ gtag('config', 'G-ZKBXH4WESZ');
           function gtag(){window.dataLayer.push(arguments);}
           gtag('js', new Date());
 
-          gtag('config', 'G-ZKBXH4WESZ');
+          gtag('config', '${process.env.NEXT_PUBLIC_CODE}');
         `}
       </Script>
     </div>

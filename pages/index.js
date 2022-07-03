@@ -47,7 +47,7 @@ export default function Home({ data }) {
               <h1>{item.topic}</h1>
               <p>Total {item.links.length} Questions</p>
               <div className={styles.link}>
-              <Link href={`${item.topic}`}>Start Solving...</Link>
+              <Link href={`/${item.topic}`}>Start Solving...</Link>
               </div>
             </div>
           );
