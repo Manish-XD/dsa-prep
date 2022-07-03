@@ -6,10 +6,10 @@ const Footer = () => {
   return (
     <div className={styles.footer}>
       <div className={styles.footer_left}>
-          <div className={styles.footer_links}>
+          {/*<div className={styles.footer_links}>
             <span>375 DSA</span>
             <Link href="/about">About</Link>
-          </div>
+          </div>*/}
           <div className={styles.footer_links}>
             <span>Social</span>
             <a rel="noreferrer" target="_blank" href="https://linktr.ee/linked2in">LinkedIn</a>
