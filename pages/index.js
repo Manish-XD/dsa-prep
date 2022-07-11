@@ -5,7 +5,7 @@ import Footer from "../components/footer";
 import Link from "next/link";
 import seven from "../public/Group7.png";
 import Image from "next/image";
-import Script from "next/script";
+// import Script from "next/script";
 
 export default function Home({ data }) {
 
@@ -19,9 +19,9 @@ export default function Home({ data }) {
           content="375 DSA Tracker helps you build your confidence in solving any coding related question and helps you prepare for your placements. It is your personal web-based progress tracker based on 375 DSA Sheet by Aman Dhattarwal & Shradha Didi"
         />
         <link rel="icon" href="/favicon.ico" />
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6661138367542037"
+     crossorigin="anonymous"></script>
       </Head>
-      <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6661138367542037"
-     crossorigin="anonymous"></Script>
       <Sidebar data={data} />
       <main className={styles.main}>
         <div className={styles.main_landing}>
