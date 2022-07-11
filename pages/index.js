@@ -20,7 +20,7 @@ export default function Home({ data }) {
         />
         <link rel="icon" href="/favicon.ico" />
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6661138367542037"
-     crossorigin="anonymous"></script>
+     crossOrigin="anonymous"></script>
       </Head>
       <Sidebar data={data} />
       <main className={styles.main}>
