@@ -85,7 +85,7 @@ const LinkedList = ({data}) => {
       <div className={styles.Array_body}>
         <h1>Linked List</h1>
         <ProgressBar
-          style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
+          style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px", margin: "3rem 0" }}
           animated
           now={(link_now / (data.links.length + 1)) * 100}
           label={parseInt((link_now / (data.links.length + 1)) * 100) + "%"}

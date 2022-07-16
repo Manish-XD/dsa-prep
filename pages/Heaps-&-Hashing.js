@@ -85,7 +85,7 @@ const Heap = ({data}) => {
       <div className={styles.Array_body}>
         <h1>Heaps & Hashing</h1>
         <ProgressBar
-          style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
+          style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px", margin: "3rem 0" }}
           animated
           now={(heap_now / (data.links.length + 1)) * 100}
           label={parseInt((heap_now / (data.links.length + 1)) * 100) + "%"}

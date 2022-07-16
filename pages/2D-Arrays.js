@@ -83,7 +83,7 @@ const TwoDArray = ({ data }) => {
       <div className={styles.Array_body}>
         <h1>2D Arrays</h1>
         <ProgressBar
-          style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
+          style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px", margin: "3rem 0" }}
           animated
           now={(twod_now / (data.links.length + 1)) * 100}
           label={parseInt((twod_now / (data.links.length + 1)) * 100) + "%"}

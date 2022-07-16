@@ -83,7 +83,7 @@ const Stackqueue = ({ data }) => {
       <div className={styles.Array_body}>
         <h1>Stack & Queues</h1>
         <ProgressBar
-          style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px" }}
+          style={{ fontSize: "1.5rem", height: "3rem", borderRadius: "10px", margin: "3rem 0" }}
           animated
           now={(sq_now / (data.links.length + 1)) * 100}
           label={parseInt((sq_now / (data.links.length + 1)) * 100) + "%"}
