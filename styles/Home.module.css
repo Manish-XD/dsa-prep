@@ -39,6 +39,7 @@
   display: grid;
   grid-template-columns: auto auto auto auto;
   gap: 3rem;
+  margin-right: 3rem;
   /* justify-content: space-around; */
 }
 
