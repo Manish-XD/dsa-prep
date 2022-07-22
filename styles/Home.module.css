@@ -56,7 +56,7 @@
 
 .card p{
   font-size: 1.5rem;
-  margin-bottom: 6rem;
+  /* margin-bottom: 6rem; */
 }
 
 .card .link{
@@ -96,6 +96,12 @@
 
 .main_landing_phone{
   display: none;
+}
+
+.done{
+  margin-bottom: 4rem;
+  font-size: 1.5rem;
+  font-family: 'Poppins', sans-serif;
 }
 
 @media only screen and (max-width: 700px) {
