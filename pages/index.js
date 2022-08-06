@@ -138,6 +138,7 @@ export default function Home({ data }) {
                     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6661138367542037"
                     crossOrigin="anonymous"
                 ></script>
+                <meta name="google-site-verification" content="h72VR4ztZNY7X3CzGT6Z9rBJlW4FpT1Cn0JZrHOCwdw" />
             </Head>
             <Sidebar data={data} />
             <main className={styles.main}>
