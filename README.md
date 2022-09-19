@@ -22,7 +22,7 @@ https://dsa-prep.vercel.app/
 - Topic wise progress 📈
 - Complete local storage 🏪
 - Mobile friendly design 📱
-- Smooth UI ⚡
+- Smoother UI ⚡
 
 ## Run Locally 💻
 
@@ -42,4 +42,4 @@ https://dsa-prep.vercel.app/
 
 ## Credits
 
-Curated List of Questions are based on [375 DSA Questions Sheet](https://docs.google.com/spreadsheets/d/1hXserPuxVoWMG9Hs7y8wVdRCJTcj3xMBAEYUOXQ5Xag/edit#gid=0) by [Aman Dhattarwal](https://www.youtube.com/c/AmanDhattarwal) and [Shradha Di](https://www.youtube.com/c/ApnaCollegeOfficial)
+Curated List of Questions are based on [375 DSA Questions Sheet](https://docs.google.com/spreadsheets/d/1hXserPuxVoWMG9Hs7y8wVdRCJTcj3xMBAEYUOXQ5Xag/edit#gid=0) by [Aman Dhattarwal](https://www.youtube.com/c/AmanDhattarwal) and [Shradha Di](https://www.youtube.com/c/ApnaCollegeOfficial).
