@@ -1,5 +1,5 @@
 {
-  "name": "dsa375",
+  "name": "dsa-prep",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,15 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "bootstrap": "^5.1.3",
-    "next": "12.1.6",
+    "@next/font": "13.1.2",
+    "eslint": "8.32.0",
+    "eslint-config-next": "13.1.2",
+    "next": "13.1.2",
     "react": "18.2.0",
-    "react-bootstrap": "^2.4.0",
-    "react-dom": "18.2.0",
-    "react-top-loading-bar": "^2.1.0"
-  },
-  "devDependencies": {
-    "eslint": "8.18.0",
-    "eslint-config-next": "12.1.6"
+    "react-dom": "18.2.0"
   }
 }
