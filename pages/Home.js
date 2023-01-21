@@ -59,10 +59,10 @@ const Home = () => {
             <Flex justifyContent="space-between" px="4rem" py="2rem" position="relative">
                 <Text fontSize="1.5rem" fontWeight="700">&#9001;/&#9002;DSA Prep</Text>
                 <Flex justifyContent="space-between" w="35rem" position="absolute" left="33%">
-                    <Link href="/"><Text transition="all 0.3s ease-in-out" _hover={{fontWeight: "800", textDecoration: "underline"}}>Love Babbar</Text></Link>
-                    <Link href="/"><Text transition="all 0.3s ease-in-out" _hover={{fontWeight: "800", textDecoration: "underline"}}>Apna College</Text></Link>
-                    <Link href="/"><Text transition="all 0.3s ease-in-out" _hover={{fontWeight: "800", textDecoration: "underline"}}>Strivers</Text></Link>
-                    <Link href="/"><Text transition="all 0.3s ease-in-out" _hover={{fontWeight: "800", textDecoration: "underline"}}>Lorem ipsum</Text></Link>
+                    <Link href="/"><Text transition="all 0.5s ease-in-out" _hover={{fontWeight: "800", textDecoration: "underline"}}>Love Babbar</Text></Link>
+                    <Link href="/"><Text transition="all 0.5s ease-in-out" _hover={{fontWeight: "800", textDecoration: "underline"}}>Apna College</Text></Link>
+                    <Link href="/"><Text transition="all 0.5s ease-in-out" _hover={{fontWeight: "800", textDecoration: "underline"}}>Strivers</Text></Link>
+                    <Link href="/"><Text transition="all 0.5s ease-in-out" _hover={{fontWeight: "800", textDecoration: "underline"}}>Lorem ipsum</Text></Link>
                 </Flex>
                 <h1>User</h1>
             </Flex>
