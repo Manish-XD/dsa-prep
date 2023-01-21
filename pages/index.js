@@ -1,11 +1,13 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
-
-const inter = Inter({ subsets: ['latin'] })
+import { Flex, Box, Text, Input, InputGroup, InputRightElement, Button, rightIcon } from "@chakra-ui/react";
+import { useState } from 'react';
+import Link from 'next/link';
 
 export default function Home() {
+  const [show, setShow] = useState(false);
+  const handleClick = () => setShow(!show);
+
+
   return (
     <>
       <Head>
@@ -14,110 +16,51 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>pages/index.js</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
+      <Box bg="brand.900" h="100vh" color="white" fontFamily="body.1">
+        <Flex justifyContent="space-between" px="4rem" py="2rem">
+          <Text fontSize="1.5rem" fontWeight="700">&#9001;/&#9002;DSA Prep</Text>
+          <h1>Sign in</h1>
+        </Flex>
+        <Flex justifyContent="center" alignItems="center" flexDirection="column">
+          <Text fontWeight={800} fontSize="2.5rem" my="0.75rem">Login to Your Account</Text>
+          <Text color="#8d8d8d" textAlign="center" w="50rem" fontSize="1rem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean a felis sed dolor maximus euismod. In hac habitasse platea dictumst.</Text>
+        </Flex>
+        <Flex justifyContent="center" mt="5rem" mb="2rem">
+          <Flex flexDirection="column" w="25rem">
+            <Input placeholder='Email ID' variant='unstyled' py="1rem" px="1.5rem" bg="#222222" type="email" my="0.5rem" />
+            <InputGroup py="1rem" px="1.5rem" bg="#222222" my="0.5rem" borderRadius="5px">
+              <Input
+                pr='4.5rem'
+                type={show ? 'text' : 'password'}
+                placeholder='Password'
+                variant='unstyled'
               />
-            </a>
-          </div>
-        </div>
+              <InputRightElement width='4.5rem'>
+                <Button h='1.75rem' size='sm' onClick={handleClick}>
+                  {show ? 'Hide' : 'Show'}
+                </Button>
+              </InputRightElement>
+            </InputGroup>
+            <Button rightIcon="->" bg="linear-gradient(90deg, #715AE3 0%, #AC82C8 100%)" _hover={{ bg: "linear-gradient(90deg, #AC82C8 0%, #715AE3 100%)" }} transition="all 0.5s ease-in-out" py="1rem" px="1.5rem" fontSize="1rem" justifyContent="space-between" h="55px" my="0.5rem">Login to Your Account</Button>
+          </Flex>
+          <Flex justifyContent="center" alignItems="center" px="8rem">
+            <Text fontWeight="800">/</Text>
+          </Flex>
+          <Flex flexDirection="column" w="25rem">
+            <Box bg="linear-gradient(90deg, #715AE3 0%, #AC82C8 100%)" p="0.15rem" borderRadius="7px" h="55px" my="0.5rem"><Button h="100%" w="100%" bg="brand.900" _hover={{ bg: "white", color: "black" }}>Sign in with Google</Button></Box>
+            <Box bg="linear-gradient(90deg, #715AE3 0%, #AC82C8 100%)" p="0.15rem" borderRadius="7px" h="55px" my="0.5rem"><Button h="100%" w="100%" bg="brand.900" _hover={{ bg: "white", color: "black" }}>Sign in with Github</Button></Box>
+            <Box bg="linear-gradient(90deg, #715AE3 0%, #AC82C8 100%)" p="0.15rem" borderRadius="7px" h="55px" my="0.5rem"><Button h="100%" w="100%" bg="brand.900" _hover={{ bg: "white", color: "black" }}>Sign in with Facebook</Button></Box>
+          </Flex>
+        </Flex>
+        <Flex justifyContent="center">
+          <Link href="/"><Text textDecoration="underline">Forgot Password?</Text></Link>
+        </Flex>
+        <Flex justifyContent="space-between" px="2rem" py="2rem" fontSize="0.75rem" color="#8d8d8d" position="fixed" bottom="0" left="0" w="100%">
+          <Text>Github</Text>
+          <Text>Copyright&copy;DSA prep 2023</Text>
+        </Flex>
 
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
-          </div>
-        </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
+      </Box>
     </>
   )
 }
