@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { Flex, Box, Text, Input, InputGroup, InputRightElement, Button, rightIcon } from "@chakra-ui/react";
+import { ViewIcon, ViewOffIcon, ArrowForwardIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
 import Link from 'next/link';
 
@@ -28,20 +29,20 @@ export default function Home() {
         <Flex justifyContent="center" mt="5rem" mb="2rem">
           <Flex flexDirection="column" w="25rem">
             <Input placeholder='Email ID' variant='unstyled' py="1rem" px="1.5rem" bg="#222222" type="email" my="0.5rem" />
-            <InputGroup py="1rem" px="1.5rem" bg="#222222" my="0.5rem" borderRadius="5px">
+            <InputGroup py="1rem" px="1.5rem" bg="#222222" my="0.5rem" borderRadius="5px" display="flex" alignItems="center"> 
               <Input
                 pr='4.5rem'
                 type={show ? 'text' : 'password'}
                 placeholder='Password'
                 variant='unstyled'
               />
-              <InputRightElement width='4.5rem'>
-                <Button h='1.75rem' size='sm' onClick={handleClick}>
-                  {show ? 'Hide' : 'Show'}
+              <InputRightElement width='4.5rem' h="100%">
+                <Button onClick={handleClick} _hover={{bg: "none"}} p="0" h="0" minW="0" bg="none">
+                  {show ? <ViewOffIcon/> : <ViewIcon/>}
                 </Button>
               </InputRightElement>
             </InputGroup>
-            <Button rightIcon="->" bg="linear-gradient(90deg, #715AE3 0%, #AC82C8 100%)" _hover={{ bg: "linear-gradient(90deg, #AC82C8 0%, #715AE3 100%)" }} transition="all 0.5s ease-in-out" py="1rem" px="1.5rem" fontSize="1rem" justifyContent="space-between" h="55px" my="0.5rem">Login to Your Account</Button>
+            <Button rightIcon={<ArrowForwardIcon/>} bg="linear-gradient(90deg, #715AE3 0%, #AC82C8 100%)" _hover={{ bg: "linear-gradient(90deg, #AC82C8 0%, #715AE3 100%)" }} transition="all 0.5s ease-in-out" py="1rem" px="1.5rem" fontSize="1rem" justifyContent="space-between" h="55px" my="0.5rem">Login to Your Account</Button>
           </Flex>
           <Flex justifyContent="center" alignItems="center" px="8rem">
             <Text fontWeight="800">/</Text>

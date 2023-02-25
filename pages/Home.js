@@ -1,7 +1,9 @@
 import React from 'react';
-import { Card, Title, LineChart } from "@tremor/react";
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Card, Title, LineChart, DonutChart } from "@tremor/react";
+import { Box, Flex, Text, Avatar } from '@chakra-ui/react';
+import { CheckIcon } from '@chakra-ui/icons'
 import Link from 'next/link';
+import Navbar from '../Components/Navbar';
 
 const Home = () => {
     const chartdata = [
@@ -54,46 +56,92 @@ const Home = () => {
             "Monthly Problems Solved": 45,
         },
     ];
-    return (
-        <Box bg="brand.900" color="white" fontFamily="body.1" h="100vh">
-            <Flex justifyContent="space-between" px="4rem" py="2rem" position="relative">
-                <Text fontSize="1.5rem" fontWeight="700">&#9001;/&#9002;DSA Prep</Text>
-                <Flex justifyContent="space-between" w="35rem" position="absolute" left="33%">
-                    <Link href="/"><Text transition="all 0.5s ease-in-out" _hover={{fontWeight: "800", textDecoration: "underline"}}>Love Babbar</Text></Link>
-                    <Link href="/"><Text transition="all 0.5s ease-in-out" _hover={{fontWeight: "800", textDecoration: "underline"}}>Apna College</Text></Link>
-                    <Link href="/"><Text transition="all 0.5s ease-in-out" _hover={{fontWeight: "800", textDecoration: "underline"}}>Strivers</Text></Link>
-                    <Link href="/"><Text transition="all 0.5s ease-in-out" _hover={{fontWeight: "800", textDecoration: "underline"}}>Lorem ipsum</Text></Link>
-                </Flex>
-                <h1>User</h1>
-            </Flex>
+    const cities = [
+        {
+            name: 'New York',
+            sales: 9800,
+        },
+        {
+            name: 'London',
+            sales: 4567,
+        },
+        {
+            name: 'Hong Kong',
+            sales: 3908,
+        },
+        {
+            name: 'San Francisco',
+            sales: 2400,
+        },
+        {
+            name: 'Singapore',
+            sales: 1908,
+        },
+        {
+            name: 'Zurich',
+            sales: 1398,
+        },
+    ];
 
-            <Flex borderRadius="5px" bg="#222222" mx="8rem" px="2.5rem" py="1.5rem">
-                <Box>User</Box>
+    return (
+        <Box bg="brand.900" color="white" fontFamily="body.1">
+            <Navbar slug={false}/>
+            <Flex borderRadius="5px" bg="#222222" mx="8rem" px="2.5rem" py="1.5rem" alignItems="center">
+                <Box mr="2rem"><Avatar size="xl" bg='purple.500' /></Box>
                 <Flex flexDirection="column" borderLeft="1px solid #8d8d8d">
-                    <Box borderBottom="1px solid #8d8d8d" >
-                        <Text>Welcome Back!</Text>
-                        <Text>User</Text>
+                    <Box borderBottom="1px solid #8d8d8d" p="1rem" mx="0.25rem">
+                        <Text color="#8d8d8d" fontSize="0.75rem">Welcome Back!</Text>
+                        <Text fontWeight="600" fontSize="1.75rem">Abhilash Jena</Text>
                     </Box>
-                    <Flex>
-                        <Box>
-                            <Text>Total Problems Solved</Text>
-                            <Text>47</Text>
+                    <Flex alignItems="center" mx="1rem" mt="1rem" px="1rem" py="0.5rem" bg="#383838" w="13rem" justifyContent="space-between">
+                        <Box w="6rem">
+                            <Text fontSize="0.75rem" color="#b9b9b9">Total Problems Solved</Text>
+                            <Text fontSize="1.5rem" fontWeight="700">47</Text>
                         </Box>
-                        <Box></Box>
+                        <Box fontSize="2rem"><CheckIcon /></Box>
                     </Flex>
                 </Flex>
             </Flex>
-            <Card maxWidth="max-w-xs">
-                <Title>Population growth rate (1951 to 2021)</Title>
-                <LineChart
-                    data={chartdata}
-                    dataKey="month"
-                    categories={["Monthly Problems Solved"]}
-                    colors={["violet"]}
-                    marginTop="mt-6"
-                    yAxisWidth="w-10"
-                />
-            </Card>
+            <Flex mx="8rem" py="2rem">
+                <Card maxWidth="max-w-5xl">
+                    <Title>Population growth rate (1951 to 2021)</Title>
+                    <LineChart
+                        data={chartdata}
+                        dataKey="month"
+                        categories={["Monthly Problems Solved"]}
+                        colors={["violet"]}
+                        marginTop="mt-6"
+                        yAxisWidth="w-10"
+                        height="h-96"
+                    />
+                </Card>
+                <Flex ml="1rem" flexDirection="column">
+                    <Card maxWidth="max-w-xl">
+                        <Title>Sales by City</Title>
+                        <DonutChart
+                            data={cities}
+                            category="sales"
+                            dataKey="name"
+                            marginTop="mt-6"
+                            colors={["slate", "violet", "indigo", "rose", "cyan", "amber"]}
+                        />
+                    </Card>
+                    <Card maxWidth="max-w-xl">
+                        <Title>Sales by City</Title>
+                        <DonutChart
+                            data={cities}
+                            category="sales"
+                            dataKey="name"
+                            marginTop="mt-6"
+                            colors={["slate", "violet", "indigo", "rose", "cyan", "amber"]}
+                            variant="pie"
+                        />
+                    </Card>
+                </Flex>
+                <Box>
+
+                </Box>
+            </Flex>
         </Box>
     )
 }
