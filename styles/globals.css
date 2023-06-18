@@ -4,3 +4,12 @@
   margin-right: 0 !important;
   margin-bottom: 1rem !important;
 }
+.tr-max-w-xl {
+  max-width: 16rem !important;
+}
+.tr-w-full {
+  width: 101% !important;
+}
+#signInDiv{
+  background: black !important;
+}

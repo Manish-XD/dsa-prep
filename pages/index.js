@@ -1,13 +1,52 @@
 import Head from 'next/head'
 import { Flex, Box, Text, Input, InputGroup, InputRightElement, Button, rightIcon } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon, ArrowForwardIcon } from '@chakra-ui/icons';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export default function Home() {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+  useEffect(() => {
+    try {
+      if(localStorage.getItem("key"))
+      {
+        router.push("/Home");
+      }
+    } catch (error) {
+      
+    }
+  }, [])
+  
+  const handleChange = (e) => {
+    if (e.target.name === "email") {
+      setEmail(e.target.value);
+    } else if (e.target.name === "password") {
+      setPassword(e.target.value);
+    }
+  };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = { email, password };
+    let res = await fetch(`http://localhost:3000/api/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    let response = await res.json();
+    console.log(response.token);
+    localStorage.setItem("key", response.token);
+    setEmail("");
+    setPassword("");
+    router.push(`/Home`);
+  };
 
   return (
     <>
@@ -17,10 +56,10 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box bg="brand.900" h="100vh" color="white" fontFamily="body.1">
+      <Box bg="brand.900" minH="100vh" color="white" fontFamily="body.1">
         <Flex justifyContent="space-between" px="4rem" py="2rem">
           <Text fontSize="1.5rem" fontWeight="700">&#9001;/&#9002;DSA Prep</Text>
-          <h1>Sign in</h1>
+          <Link href="/Signup"><h1>Sign up</h1></Link>
         </Flex>
         <Flex justifyContent="center" alignItems="center" flexDirection="column">
           <Text fontWeight={800} fontSize="2.5rem" my="0.75rem">Login to Your Account</Text>
@@ -28,13 +67,17 @@ export default function Home() {
         </Flex>
         <Flex justifyContent="center" mt="5rem" mb="2rem">
           <Flex flexDirection="column" w="25rem">
-            <Input placeholder='Email ID' variant='unstyled' py="1rem" px="1.5rem" bg="#222222" type="email" my="0.5rem" />
+            <form onSubmit={handleSubmit}>
+            <Input placeholder='Email ID' variant='unstyled' py="1rem" px="1.5rem" bg="#222222" type="email" my="0.5rem" value={email} onChange={handleChange} name="email"/>
             <InputGroup py="1rem" px="1.5rem" bg="#222222" my="0.5rem" borderRadius="5px" display="flex" alignItems="center"> 
               <Input
                 pr='4.5rem'
                 type={show ? 'text' : 'password'}
                 placeholder='Password'
                 variant='unstyled'
+                value={password}
+                onChange={handleChange}
+                name="password"
               />
               <InputRightElement width='4.5rem' h="100%">
                 <Button onClick={handleClick} _hover={{bg: "none"}} p="0" h="0" minW="0" bg="none">
@@ -42,7 +85,8 @@ export default function Home() {
                 </Button>
               </InputRightElement>
             </InputGroup>
-            <Button rightIcon={<ArrowForwardIcon/>} bg="linear-gradient(90deg, #715AE3 0%, #AC82C8 100%)" _hover={{ bg: "linear-gradient(90deg, #AC82C8 0%, #715AE3 100%)" }} transition="all 0.5s ease-in-out" py="1rem" px="1.5rem" fontSize="1rem" justifyContent="space-between" h="55px" my="0.5rem">Login to Your Account</Button>
+            <Button rightIcon={<ArrowForwardIcon/>} bg="linear-gradient(90deg, #715AE3 0%, #AC82C8 100%)" _hover={{ bg: "linear-gradient(90deg, #AC82C8 0%, #715AE3 100%)" }} transition="all 0.5s ease-in-out" py="1rem" px="1.5rem" fontSize="1rem" justifyContent="space-between" h="55px" my="0.5rem" type="submit" w="100%">Login to Your Account</Button>
+            </form>
           </Flex>
           <Flex justifyContent="center" alignItems="center" px="8rem">
             <Text fontWeight="800">/</Text>

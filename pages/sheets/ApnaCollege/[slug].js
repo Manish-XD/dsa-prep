@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Navbar from '../../../Components/Navbar';
-import { Box, Heading, Progress, Flex, Text, Checkbox, Grid, GridItem, Button } from '@chakra-ui/react';
+import AmanDhattarwal from "../../../models/AmanDhattarwal";
+import mongoose, { mongo } from "mongoose";
+import { Box, Heading, Progress, Flex, Text, Checkbox, Grid, GridItem, Button, useToast } from '@chakra-ui/react';
 
-const College = () => {
+const College = ({AmanDhattarwals}) => {
     const router = useRouter();
     const { slug } = router.query;
-
+    console.log(AmanDhattarwals)
     const data = [
         {
             index: 1,
@@ -26,17 +28,18 @@ const College = () => {
         {
             index: 4,
             ques: "Contains Duplicate",
-            level: "Easy"
+            level: "Medium"
         },
         {
             index: 5,
-            ques: "Search an element in sorted and pivoted Array",
-            level: "Easy"
+            ques: "Maximum and minimum element",
+            level: "Hard"
         }
     ];
-    const [todo, setTodo] = useState([...data]);
+    const [todo, setTodo] = useState([...AmanDhattarwals]);
     const [done, setDone] = useState([]);
     const [progress, setProgress] = useState(0);
+    const toast = useToast();
 
     const deleteItem1 = (index) => {
         console.log("pressed1")
@@ -49,6 +52,12 @@ const College = () => {
         setTodo(updateditems);
         setDone([...done, temp[0]]);
         setProgress(parseInt(((done.length + 1)/data.length)*100));
+        toast({
+            title: `${done.length + 1}/${data.length} Done 🎉`,
+            status: 'success',
+            isClosable: true,
+            position: 'top-right',
+          })
     };
 
     const deleteItem2 = (index) => {
@@ -62,6 +71,12 @@ const College = () => {
           setDone(updateditems);
         setTodo([...todo, temp[0]]);
         setProgress(parseInt(((done.length - 1)/data.length)*100));
+        toast({
+            title: `${done.length - 1}/${data.length} Done 🫢`,
+            status: 'warning',
+            isClosable: true,
+            position: 'top-right',
+          })
     }
 
     return (
@@ -99,7 +114,7 @@ const College = () => {
                                 <Text textAlign="center">{item.ques}</Text>
                             </GridItem>
                             <GridItem>
-                            <Text textAlign="center">{item.level}</Text>
+                            <Text textAlign="center" color={item.level == 'Easy'?'green.300':item.level == 'Medium'?'orange.300':'red.400'}>{item.level}</Text>
                             </GridItem>
                         </Grid>
                     )
@@ -117,7 +132,7 @@ const College = () => {
                                 <Text textAlign="center">{item.ques}</Text>
                             </GridItem>
                             <GridItem>
-                            <Text textAlign="center">{item.level}</Text>
+                            <Text textAlign="center" color={item.level == 'Easy'?'green.300':item.level == 'Medium'?'orange.300':'red.400'}>{item.level}</Text>
                             </GridItem>
                         </Grid>
                     )
@@ -127,5 +142,15 @@ const College = () => {
         </Box>
     )
 }
+
+export async function getServerSideProps(context) {
+    if (!mongoose.connections[0].readyState) {
+      await mongoose.connect('mongodb+srv://eren:Eren1234@dsa-prep.jds9cur.mongodb.net/?retryWrites=true&w=majority')
+    }
+    let AmanDhattarwals = await AmanDhattarwal.find()
+    return {
+      props: { AmanDhattarwals: JSON.parse(JSON.stringify(AmanDhattarwals)) }
+    }
+  }
 
 export default College
