@@ -15,13 +15,15 @@
     "@emotion/styled": "^11.10.5",
     "@next/font": "13.1.2",
     "@tremor/react": "^1.6.0",
+    "cookies-next": "^2.1.2",
     "crypto-js": "^4.1.1",
     "eslint": "8.32.0",
     "eslint-config-next": "13.1.2",
     "framer-motion": "^8.5.0",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^7.0.0",
+    "mongoose": "^7.3.0",
     "next": "13.1.2",
+    "passport-google-oauth2": "^0.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   }

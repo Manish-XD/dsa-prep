@@ -100,7 +100,7 @@ const Signup = () => {
               </Flex>
               <Flex flexDirection="column" w="25rem">
                 {/* <button id="signInDiv"></button> */}
-                <Box bg="linear-gradient(90deg, #715AE3 0%, #AC82C8 100%)" p="0.15rem" borderRadius="7px" h="55px" my="0.5rem"><Button h="100%" w="100%" bg="brand.900" _hover={{ bg: "white", color: "black" }} id="signInDiv">Sign in with Google</Button></Box>
+                <Box href="/api/google" bg="linear-gradient(90deg, #715AE3 0%, #AC82C8 100%)" p="0.15rem" borderRadius="7px" h="55px" my="0.5rem"><Button h="100%" w="100%" bg="brand.900" _hover={{ bg: "white", color: "black" }} id="signInDiv">Sign in with Google</Button></Box>
                 <Box bg="linear-gradient(90deg, #715AE3 0%, #AC82C8 100%)" p="0.15rem" borderRadius="7px" h="55px" my="0.5rem"><Button h="100%" w="100%" bg="brand.900" _hover={{ bg: "white", color: "black" }}>Sign in with Github</Button></Box>
                 <Box bg="linear-gradient(90deg, #715AE3 0%, #AC82C8 100%)" p="0.15rem" borderRadius="7px" h="55px" my="0.5rem"><Button h="100%" w="100%" bg="brand.900" _hover={{ bg: "white", color: "black" }}>Sign in with Facebook</Button></Box>
               </Flex>

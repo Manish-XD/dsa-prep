@@ -1,10 +1,11 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = mongoose.Schema({
     email: {type: String, required: true, unique: true},
     //password: {type: String, required: true},
     totalProbSolved: {type: Number},
     accessToken:String,
+    tokens:[String],
     monthProg: [{
         month: String,
         probSolved: Number
@@ -26,5 +27,12 @@ const UserSchema = new mongoose.Schema({
         }]
 }, {timestamps: true});
 
-mongoose.models = {}
-export default mongoose.model("User", UserSchema);
+let User;
+
+try {
+  User = mongoose.model("users");
+} catch (err) {
+  User = mongoose.model("users", UserSchema);
+}
+
+export default User;

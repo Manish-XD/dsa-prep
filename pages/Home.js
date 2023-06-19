@@ -6,7 +6,11 @@ import Link from 'next/link';
 import { useToast } from '@chakra-ui/react'
 import Navbar from '../Components/Navbar';
 import { useRouter } from 'next/router';
-
+import connectDb from "../middleware/mongoose";
+import { JsonWebTokenError } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken'
+import Users from '../models/Users';
+import {getCookie,deleteCookies} from 'cookies-next'
 const Home = () => {
 
     const [data, setData] = useState([]);
@@ -163,4 +167,59 @@ const Home = () => {
     )
 }
 
+export async function getServerSideProps({ req, res }) {
+    try {
+      await connectDb();
+      const token = getCookie("token", { req, res });
+      if (!token)
+        return {
+          redirect: {
+            destination: "/",
+          },
+        };
+  
+      const verified = await jwt.verify(token, process.env.JWT_SECRET);
+      const obj = await User.findOne({ _id: verified.id });
+      if (!obj)
+        return {
+          redirect: {
+            destination: "/",
+          },
+        };
+      return {
+        props: {
+          email: obj.email,
+          name: obj.name,
+          totalProbSolved:obj.totalProbSolved,
+          monthProg: [{
+              month: obj.month,
+              probSolved: obj.probSolved
+          }],
+          sheetsSolved: [
+              {
+                  name: obj.sheetsSolved.name,
+                  progress: obj.sheetsSolved.progress,
+              }],
+          quesLevel: [
+              {
+                  difficulty: obj.quesLevel.difficulty,
+                  solved: obj.quesLevel.solved,
+              }],
+          amanDhattarwal: [
+              {
+                  index: obj.amanDhattarwal.index,
+                  status: obj.amanDhattarwal.status,
+              }]
+        },
+    };
+ } catch (err) {
+      removeCookies("token", { req, res });
+     } return {
+        redirect: {
+          destination: "/",
+        },
+      };
+    }
+  
+  
 export default Home

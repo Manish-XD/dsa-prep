@@ -4,6 +4,7 @@ import { ViewIcon, ViewOffIcon, ArrowForwardIcon } from '@chakra-ui/icons';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import connectDb from '../middleware/mongoose'
 
 export default function Home() {
   const [show, setShow] = useState(false);
@@ -30,23 +31,23 @@ export default function Home() {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const data = { email, password };
-    let res = await fetch(`http://localhost:3000/api/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    let response = await res.json();
-    console.log(response.token);
-    localStorage.setItem("key", response.token);
-    setEmail("");
-    setPassword("");
-    router.push(`/Home`);
-  };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const data = { email, password };
+  //   let res = await fetch(`http://localhost:3000/api/login`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(data),
+  //   });
+  //   let response = await res.json();
+  //   console.log(response.token);
+  //   localStorage.setItem("key", response.token);
+  //   setEmail("");
+  //   setPassword("");
+  //   router.push(`/Home`);
+  // };
 
   return (
     <>
@@ -67,7 +68,7 @@ export default function Home() {
         </Flex>
         <Flex justifyContent="center" mt="5rem" mb="2rem">
           <Flex flexDirection="column" w="25rem">
-            <form onSubmit={handleSubmit}>
+            <form >
             <Input placeholder='Email ID' variant='unstyled' py="1rem" px="1.5rem" bg="#222222" type="email" my="0.5rem" value={email} onChange={handleChange} name="email"/>
             <InputGroup py="1rem" px="1.5rem" bg="#222222" my="0.5rem" borderRadius="5px" display="flex" alignItems="center"> 
               <Input
@@ -92,7 +93,7 @@ export default function Home() {
             <Text fontWeight="800">/</Text>
           </Flex>
           <Flex flexDirection="column" w="25rem">
-            <Box bg="linear-gradient(90deg, #715AE3 0%, #AC82C8 100%)" p="0.15rem" borderRadius="7px" h="55px" my="0.5rem"><Button h="100%" w="100%" bg="brand.900" _hover={{ bg: "white", color: "black" }}>Sign in with Google</Button></Box>
+            <Box bg="linear-gradient(90deg, #715AE3 0%, #AC82C8 100%)" p="0.15rem" borderRadius="7px" h="55px" my="0.5rem"><Button href="/api/google" h="100%" w="100%" bg="brand.900" _hover={{ bg: "white", color: "black" }}>Sign in with Google</Button></Box>
             <Box bg="linear-gradient(90deg, #715AE3 0%, #AC82C8 100%)" p="0.15rem" borderRadius="7px" h="55px" my="0.5rem"><Button h="100%" w="100%" bg="brand.900" _hover={{ bg: "white", color: "black" }}>Sign in with Github</Button></Box>
             <Box bg="linear-gradient(90deg, #715AE3 0%, #AC82C8 100%)" p="0.15rem" borderRadius="7px" h="55px" my="0.5rem"><Button h="100%" w="100%" bg="brand.900" _hover={{ bg: "white", color: "black" }}>Sign in with Facebook</Button></Box>
           </Flex>
@@ -108,4 +109,15 @@ export default function Home() {
       </Box>
     </>
   )
+}
+
+export async function getServerSideProps({req,res}){
+  try{
+    const cookieExists=getCookie("token",{req,res});
+    if(cookieExists) return { redirect:{destination: "/Home"}};
+    return {props:{}};
+  }
+  catch(err){
+    return {props: {}};
+  }
 }
