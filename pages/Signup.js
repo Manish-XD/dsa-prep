@@ -4,6 +4,7 @@ import { Flex, Box, Text, Input, InputGroup, InputRightElement, Button, rightIco
 import { ViewIcon, ViewOffIcon, ArrowForwardIcon } from '@chakra-ui/icons';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useFormik } from 'formik';
 
 const Signup = () => {
     const [show, setShow] = useState(false);
@@ -11,31 +12,42 @@ const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
-    const handleChange = (e) => {
-        if (e.target.name === "email") {
-          setEmail(e.target.value);
-        } else if (e.target.name === "password") {
-          setPassword(e.target.value);
-        } else if(e.target.name == "name") {
-          setName(e.target.value);
-        }
-      };
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-        const data = { email, password, name };
-        let res = await fetch(`http://localhost:3000/api/signup`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
-        let response = await res.json();
-        console.log(response);
-        setEmail('')
-        setPassword('')
-        setName('')
-      };
+    const formik=useFormik({
+      initialValues:{
+        name:"",
+        email:"",
+        password:"",
+      }.onSubmit
+    });
+
+    async function onSubmit(values){
+      console.log(values)
+    }
+    // const handleChange = (e) => {
+    //     if (e.target.name === "email") {
+    //       setEmail(e.target.value);
+    //     } else if (e.target.name === "password") {
+    //       setPassword(e.target.value);
+    //     } else if(e.target.name == "name") {
+    //       setName(e.target.value);
+    //     }
+    //   };
+      // const handleSubmit = async (e) => {
+      //   e.preventDefault();
+      //   const data = { email, password, name };
+      //   let res = await fetch(`http://localhost:3000/api/signup`, {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify(data),
+      //   });
+      //   let response = await res.json();
+      //   console.log(response);
+      //   setEmail('')
+      //   setPassword('')
+      //   setName('')
+      // };
       // async function handleCallBackResponse(response) {
       //   console.log(response.credential);
       // }
@@ -72,9 +84,9 @@ const Signup = () => {
             </Flex>
             <Flex justifyContent="center" mt="5rem" mb="2rem">
               <Flex flexDirection="column" w="25rem">
-                <form onSubmit={handleSubmit} method="POST">
-                <Input placeholder='Name' variant='unstyled' py="1rem" px="1.5rem" bg="#222222" type="text" my="0.5rem" name='name' value={name} onChange={handleChange} required/>
-                <Input placeholder='Email ID' variant='unstyled' py="1rem" px="1.5rem" bg="#222222" type="email" my="0.5rem" name='email' value={email} onChange={handleChange} required/>
+                <form onSubmit={formik.handleSubmit} method="POST">
+                <Input placeholder='Name' variant='unstyled' py="1rem" px="1.5rem" bg="#222222" type="text" my="0.5rem" name='name' value={name} {...formik.getFieldProps('name')} required/>
+                <Input placeholder='Email ID' variant='unstyled' py="1rem" px="1.5rem" bg="#222222" type="email" my="0.5rem" name='email' value={email} {...formik.getFieldProps('email')} required/>
                 <InputGroup py="1rem" px="1.5rem" bg="#222222" my="0.5rem" borderRadius="5px" display="flex" alignItems="center"> 
                   <Input
                     pr='4.5rem'
@@ -82,12 +94,12 @@ const Signup = () => {
                     placeholder='Password'
                     variant='unstyled'
                     value={password}
-                    onChange={handleChange}
+                    {...formik.getFieldProps('password')}
                     name="password"
                     required
                   />
                   <InputRightElement width='4.5rem' h="100%">
-                    <Button onClick={handleClick} _hover={{bg: "none"}} p="0" h="0" minW="0" bg="none">
+                    <Button onClick={formik.handleSubmit} _hover={{bg: "none"}} p="0" h="0" minW="0" bg="none">
                       {show ? <ViewOffIcon/> : <ViewIcon/>}
                     </Button>
                   </InputRightElement>

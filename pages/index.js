@@ -4,32 +4,51 @@ import { ViewIcon, ViewOffIcon, ArrowForwardIcon } from '@chakra-ui/icons';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import connectDb from '../middleware/mongoose'
-
+import {signIn,signOut} from "next-auth/react"
+import {useFormik} from 'formik'
 export default function Home() {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  useEffect(() => {
-    try {
-      if(localStorage.getItem("key"))
-      {
-        router.push("/Home");
-      }
-    } catch (error) {
-      
+  const formik=useFormik({
+    initialValues:{
+      email:'',
+      password:''
+    }.
+    onSubmit
+  });
+  async function onSubmit(values){
+    const status=await signIn('credentials',{
+      redirect:false,
+      email:values.email,
+      password:values.password,
+      callbackUrl:"/home"
+    })
+    if(status.ok)
+    {
+      router.push(status.url)
     }
-  }, [])
+  }
+  async function handleGoogleAuth(){
+    signIn("google",{callbackUrl:"https://localhost:3000/home"})
+  }
   
-  const handleChange = (e) => {
-    if (e.target.name === "email") {
-      setEmail(e.target.value);
-    } else if (e.target.name === "password") {
-      setPassword(e.target.value);
-    }
-  };
+  async function handleGithubAuth(){
+    signIn("github",{callbackUrl:"https://localhost:3000/home"})
+  }
+  async function handleFacebookAuth(){
+    signIn("facebook",{callbackUrl:"https://localhost:3000/home"})
+  }
+  
+  // const handleChange = (e) => {
+  //   if (e.target.name === "email") {
+  //     setEmail(e.target.value);
+  //   } else if (e.target.name === "password") {
+  //     setPassword(e.target.value);
+  //   }
+  // };
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
@@ -49,6 +68,7 @@ export default function Home() {
   //   router.push(`/Home`);
   // };
 
+  
   return (
     <>
       <Head>
@@ -69,7 +89,7 @@ export default function Home() {
         <Flex justifyContent="center" mt="5rem" mb="2rem">
           <Flex flexDirection="column" w="25rem">
             <form >
-            <Input placeholder='Email ID' variant='unstyled' py="1rem" px="1.5rem" bg="#222222" type="email" my="0.5rem" value={email} onChange={handleChange} name="email"/>
+            <Input placeholder='Email ID' variant='unstyled' py="1rem" px="1.5rem" bg="#222222" type="email" my="0.5rem"  {...formik.getFieldProps("email")} name="email"/>
             <InputGroup py="1rem" px="1.5rem" bg="#222222" my="0.5rem" borderRadius="5px" display="flex" alignItems="center"> 
               <Input
                 pr='4.5rem'
@@ -77,11 +97,11 @@ export default function Home() {
                 placeholder='Password'
                 variant='unstyled'
                 value={password}
-                onChange={handleChange}
+                {...formik.getFieldProps('password')}
                 name="password"
               />
               <InputRightElement width='4.5rem' h="100%">
-                <Button onClick={handleClick} _hover={{bg: "none"}} p="0" h="0" minW="0" bg="none">
+                <Button onClick={formik.handleSubmit} _hover={{bg: "none"}} p="0" h="0" minW="0" bg="none">
                   {show ? <ViewOffIcon/> : <ViewIcon/>}
                 </Button>
               </InputRightElement>
@@ -93,9 +113,9 @@ export default function Home() {
             <Text fontWeight="800">/</Text>
           </Flex>
           <Flex flexDirection="column" w="25rem">
-            <Box bg="linear-gradient(90deg, #715AE3 0%, #AC82C8 100%)" p="0.15rem" borderRadius="7px" h="55px" my="0.5rem"><Button href="/api/google" h="100%" w="100%" bg="brand.900" _hover={{ bg: "white", color: "black" }}>Sign in with Google</Button></Box>
-            <Box bg="linear-gradient(90deg, #715AE3 0%, #AC82C8 100%)" p="0.15rem" borderRadius="7px" h="55px" my="0.5rem"><Button h="100%" w="100%" bg="brand.900" _hover={{ bg: "white", color: "black" }}>Sign in with Github</Button></Box>
-            <Box bg="linear-gradient(90deg, #715AE3 0%, #AC82C8 100%)" p="0.15rem" borderRadius="7px" h="55px" my="0.5rem"><Button h="100%" w="100%" bg="brand.900" _hover={{ bg: "white", color: "black" }}>Sign in with Facebook</Button></Box>
+            <Box bg="linear-gradient(90deg, #715AE3 0%, #AC82C8 100%)" p="0.15rem" borderRadius="7px" h="55px" my="0.5rem"><Button onClick={handleGoogleAuth} h="100%" w="100%" bg="brand.900" _hover={{ bg: "white", color: "black" }}>Sign in with Google</Button></Box>
+            <Box bg="linear-gradient(90deg, #715AE3 0%, #AC82C8 100%)" p="0.15rem" borderRadius="7px" h="55px" my="0.5rem"><Button onClick={handleGithubAuth}h="100%" w="100%" bg="brand.900" _hover={{ bg: "white", color: "black" }}>Sign in with Github</Button></Box>
+            <Box bg="linear-gradient(90deg, #715AE3 0%, #AC82C8 100%)" p="0.15rem" borderRadius="7px" h="55px" my="0.5rem"><Button onClick={handleFacebookAuth}h="100%" w="100%" bg="brand.900" _hover={{ bg: "white", color: "black" }}>Sign in with Facebook</Button></Box>
           </Flex>
         </Flex>
         <Flex justifyContent="center">
@@ -111,13 +131,3 @@ export default function Home() {
   )
 }
 
-export async function getServerSideProps({req,res}){
-  try{
-    const cookieExists=getCookie("token",{req,res});
-    if(cookieExists) return { redirect:{destination: "/Home"}};
-    return {props:{}};
-  }
-  catch(err){
-    return {props: {}};
-  }
-}
