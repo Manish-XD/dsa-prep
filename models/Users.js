@@ -2,28 +2,8 @@ const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
     email: {type: String, required: true, unique: true},
-    //password: {type: String, required: true},
-    totalProbSolved: {type: Number},
-    accessToken:String,
-    monthProg: [{
-        month: String,
-        probSolved: Number
-    }],
-    sheetsSolved: [
-        {
-            name: String,
-            progress: Number
-        }],
-    quesLevel: [
-        {
-            difficulty: String,
-            solved: Number
-        }],
-    amanDhattarwal: [
-        {
-            index: Number,
-            status: Number
-        }]
+    password: {type: String, required: true},
+    name: {type: String}
 }, {timestamps: true});
 
 mongoose.models = {}

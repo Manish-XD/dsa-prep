@@ -5,21 +5,44 @@ import { CheckIcon } from '@chakra-ui/icons'
 import Link from 'next/link';
 import { useToast } from '@chakra-ui/react'
 import Navbar from '../Components/Navbar';
-import { useRouter } from 'next/router';
+import {signIn, signOut} from "next-auth/react";
 import connectDb from "../middleware/mongoose";
 import { JsonWebTokenError } from 'jsonwebtoken';
-import jwt from 'jsonwebtoken'
-import {useSession, usesSession} from "next-auth/react"
-import {getCookie,deleteCookies} from 'cookies-next'
-//import Home from '.';
-import AboutPage from '.';
+import jwt from 'jsonwebtoken';
+import { useRouter } from 'next/router';
+import {getCookie,deleteCookies} from 'cookies-next';
+import {getSession, useSession, usesSession} from "next-auth/react"
+import Users from '../models/Users';
 
 
 
 
 const Home = () => {
-
+    const router = useRouter();
     const [data, setData] = useState([]);
+    const {data: session, status}=useSession();
+    const handleSubmit = async (token) => {
+        let res = await fetch(`http://localhost:3000/api/auth`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Bearer": token
+          },
+        });
+        let response = await res.json();
+        console.log(response.data);
+        setData(response.data);
+      };
+    useEffect(() => {
+        if(status!=='authenticated')
+        {
+          router.push('/');
+        }
+        if(localStorage.getItem('token'))
+        {
+            handleSubmit(localStorage.getItem('token'));
+        }
+      }, [status]);
     const chartdata = [
         {
             month: "jan",
@@ -88,39 +111,25 @@ const Home = () => {
             sales: 0,
         },
     ];
-    useEffect(() => {
-        const getuserdata = async () => {
-            let res = await fetch(`http://localhost:3000/api/auth`, {
-                method: "POST",
-                headers: {
-                    "Bearer": `${localStorage.getItem('key')}`
-                }
-            });
-            let response = await res.json();
-            setData(response.data);
-        }
-        getuserdata();
-    }, [])
     console.log(data);
-
-
     return (
         <Box bg="brand.900" color="white" fontFamily="body.1" minHeight="100vh">
             <Navbar slug={false} />
-            {data.map((user) => {
+            <button onClick={signOut}>sign out</button>
+            {data && data.map((user) => {
                 return (
-                    <>
+                    <Box key="69">
                     <Flex borderRadius="5px" bg="#222222" mx="8rem" px="2.5rem" py="1.5rem" alignItems="center">
                         <Box mr="2rem"><Avatar size="xl" bg='purple.500' /></Box>
                         <Flex flexDirection="column" borderLeft="1px solid #8d8d8d">
                             <Box borderBottom="1px solid #8d8d8d" p="1rem" mx="0.25rem">
                                 <Text color="#8d8d8d" fontSize="0.75rem">Welcome Back!</Text>
-                                <Text fontWeight="600" fontSize="1.75rem">{user.email}</Text>
+                                <Text fontWeight="600" fontSize="1.75rem">{user.name}</Text>
                             </Box>
                             <Flex alignItems="center" mx="1rem" mt="1rem" px="1rem" py="0.5rem" bg="#383838" w="13rem" justifyContent="space-between">
                                 <Box w="6rem">
                                     <Text fontSize="0.75rem" color="#b9b9b9">Total Problems Solved</Text>
-                                    <Text fontSize="1.5rem" fontWeight="700">{user.totalProbSolved}</Text>
+                                    <Text fontSize="1.5rem" fontWeight="700">6</Text>
                                 </Box>
                                 <Box fontSize="2rem"><CheckIcon /></Box>
                             </Flex>
@@ -166,7 +175,7 @@ const Home = () => {
             
                     </Box>
                 </Flex>
-                </>
+                </Box>
                 )
             })}
         </Box>

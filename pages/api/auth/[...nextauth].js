@@ -1,10 +1,11 @@
-import NextAuth from "next-auth"
-import GoogleProvider from "next-auth/providers/google"
-import GithubProvider from "next-auth/providers/github"
-import FacebookProvider from "next-auth/providers/facebook"
-import CredentialsProvider from "next-auth/providers/credentials"
-import Users from "../../../models/Users"
-import {compare} from 'bcrypt'
+import NextAuth from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
+import GithubProvider from "next-auth/providers/github";
+import FacebookProvider from "next-auth/providers/facebook";
+import CredentialsProvider from "next-auth/providers/credentials";
+import Users from "../../../models/Users";
+import {compare} from 'bcrypt';
+
 export const authOptions = {
   // Configure one or more authentication providers
   providers: [
@@ -17,26 +18,25 @@ export const authOptions = {
       clientSecret: process.env.GITHUB_SECRET,
     }),
     FacebookProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
+      clientId: process.env.FACEBOOK_ID,
+      clientSecret: process.env.FACEBOOK_SECRET,
     }),
     CredentialsProvider({
       name:"Credentials",
-      async authorize(credentials,req){
-        connectMongo.catch(error=>{error:"Connection Failed...."})
-        const result=await Users.findOne({email:credentials.email})
-        if(!result)
-        {
-          throw new Error("No user found")
+      credentials: {
+        username: { label: 'Username', type: 'text' },
+        password: { label: 'Password', type: 'password' },
+      },
+      authorize: async (credentials) => {
+        // You can implement your custom logic here to validate the credentials
+        if (credentials.username === 'admin' && credentials.password === 'password') {
+          // Return object with the user information
+          return Promise.resolve({ id: 1, name: 'Admin' })
+        } else {
+          // If credentials are invalid, reject with an error message
+          return Promise.reject('/login?error=InvalidCredentials')
         }
-        const checkPassword= await compare(credentials.password,result.password);
-        if(!checkPassword|| result.email!==credentials.email)
-        {
-          throw new Error("Username or Password doesn't match")
-        }
-        return result
-      }
-
+      },
     }),
     // ...add more providers here
   ],

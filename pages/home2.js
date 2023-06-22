@@ -1,7 +1,7 @@
 import {getSession, useSession, usesSession} from "next-auth/react"
 
 const home2=()=>{
-    const {data:session,status}=useSession()
+    const {data: session,status}=useSession()
     if(status==='authenticated')
     {
         return(<div><h1>{session.user.name}</h1></div>)
