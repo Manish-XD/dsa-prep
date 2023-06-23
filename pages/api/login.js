@@ -12,7 +12,7 @@ const handler = async (req,res) => {
         console.log("password:" + decryptedPassword);
         if(user){
             if(req.body.email === user.email && req.body.password === decryptedPassword){
-                var token = jwt.sign({email:user.email, name: user.name}, 'jwtsecret');
+                var token = jwt.sign({email:user.email, name: user.name, monthProg: user.monthProg, sheetsSolved: user.sheetsSolved, quesLevel: user.quesLevel, amanDhattarwal: user.amanDhattarwal}, 'jwtsecret');
                 res.status(200).json({success: true, token});
             }
             res.status(400).json({error: "Invalid Email or Password"});

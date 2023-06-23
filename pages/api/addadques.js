@@ -3,8 +3,8 @@ import connectDb from "../../middleware/mongoose";
 
 const handler = async (req,res) => {
     if(req.method == 'POST'){
-        const {Array, String, D2Array, SearchAndSort, Backtracking, LinkedList, StackAndQueue, Greedy, BinaryTree, BinarySearchTree, HeapAndHashing, Graph, Tries, Dp, Bit, SegmentTree} = req.body;
-            let p = new AmanDhattarwal({Array, String, D2Array, SearchAndSort, Backtracking, LinkedList, StackAndQueue, Greedy, BinaryTree, BinarySearchTree, HeapAndHashing, Graph, Tries, Dp, Bit, SegmentTree}) 
+        const {title, Questions} = req.body;
+            let p = new AmanDhattarwal({title, Questions}) 
             await p.save()
         res.status(200).json({success: "success"})
     }else{

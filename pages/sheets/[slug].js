@@ -25,7 +25,7 @@ const Sheet = ({sheet}) => {
             progress: 0,
         }
     ];
-    console.log(sheet.AmanDhattarwals[0]);
+    console.log(sheet.AmanDhattarwals);
     return (
         <Box bg="brand.900" color="white" fontFamily="body.1" minHeight="100vh">
             <Navbar slug={slug} />
@@ -35,13 +35,12 @@ const Sheet = ({sheet}) => {
                 <Progress hasStripe value={64} colorScheme='purple' width="80vw" />
                 <Text color="purple.300" mx="0.5rem">64%</Text>
             </Flex>
-                {sheet.AmanDhattarwals[0].Array}
             <Grid templateColumns='repeat(4, 1fr)' gap={6} mx="6rem" my="4rem">
-                {sheetData.map((item, index)=>{
+                {sheet.AmanDhattarwals.map((item, index)=>{
                     return(
                 <GridItem bg="#222222" p="1.5rem 2rem" borderRadius="0.5rem" key={index}>
                     <Heading size="lg">{item.title}</Heading>
-                    <Text>Progress {item.progress}%</Text>
+                    {/* <Text>Progress {item.progress}%</Text> */}
                     <Link href={`/sheets/${slug}/${item.title}`}>
                         <Button mt="1.5rem" bg="#222222" color="#ffffff" border="1px solid #715AE3" _hover={{color: "#715AE3", backgroundColor: "#ffffff"}}>Start Solving...</Button>
                     </Link>

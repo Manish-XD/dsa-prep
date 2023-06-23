@@ -36,7 +36,7 @@ const Home = () => {
     useEffect(() => {
         if(status!=='authenticated')
         {
-          router.push('/');
+        //   router.push('/');
         }
         if(localStorage.getItem('token'))
         {
@@ -96,20 +96,34 @@ const Home = () => {
     const sheets = [
         {
             name: '450 DSA',
-            sales: 0,
+            sales: 5,
         },
         {
             name: '375 DSA',
-            sales: 0,
+            sales: 4,
         },
         {
             name: 'Striverz AtoZ',
-            sales: 0,
+            sales: 6,
         },
         {
             name: 'Lorem Ipsum',
-            sales: 0,
+            sales: 5,
         },
+    ];
+    const difficulty = [
+        {
+            name: 'Easy',
+            sales: 3,
+        },
+        {
+            name: 'Medium',
+            sales: 90,
+        },
+        {
+            name: 'Hard',
+            sales: 20,
+        }
     ];
     console.log(data);
     return (
@@ -162,7 +176,7 @@ const Home = () => {
                         <Card maxWidth="max-w-xl">
                             <Title>Difficulty</Title>
                             <DonutChart
-                                data={sheets}
+                                data={difficulty}
                                 category="sales"
                                 dataKey="name"
                                 marginTop="mt-6"
