@@ -6,13 +6,11 @@ var jwt = require('jsonwebtoken');
 const handler = async (req,res) => {
     if(req.method == 'POST'){
         let user = await User.findOne({"email": req.body.email});
-        console.log("user:" + user);
         const bytes = CryptoJS.AES.decrypt(user.password, "secret123");
         let decryptedPassword = bytes.toString(CryptoJS.enc.Utf8);
-        console.log("password:" + decryptedPassword);
         if(user){
             if(req.body.email === user.email && req.body.password === decryptedPassword){
-                var token = jwt.sign({email:user.email, name: user.name, monthProg: user.monthProg, sheetsSolved: user.sheetsSolved, quesLevel: user.quesLevel, amanDhattarwal: user.amanDhattarwal}, 'jwtsecret');
+                var token = jwt.sign({email:user.email}, 'jwtsecret');
                 res.status(200).json({success: true, token});
             }
             res.status(400).json({error: "Invalid Email or Password"});

@@ -15,9 +15,89 @@ export default function Home() {
         const [password, setPassword] = useState("");
         const router = useRouter();
         const { data: session, status } = useSession();
-        const handleSubmit = async () => 
-        {
-                let data = { email: session.user.email, password: session.user.email, name: session.user.name };
+        const handleSubmit = async () => {
+                let data = {
+                        email: session.user.email, password: session.user.email, name: session.user.name, monthProg: [
+                                {
+                                        month: "jan",
+                                        probSolved: 0,
+                                },
+                                {
+                                        month: "feb",
+                                        probSolved: 0,
+                                },
+                                {
+                                        month: "mar",
+                                        probSolved: 0,
+                                },
+                                {
+                                        month: "apr",
+                                        probSolved: 0,
+                                },
+                                {
+                                        month: "may",
+                                        probSolved: 0,
+                                },
+                                {
+                                        month: "jun",
+                                        probSolved: 0,
+                                },
+                                {
+                                        month: "jul",
+                                        probSolved: 0,
+                                },
+                                {
+                                        month: "aug",
+                                        probSolved: 0,
+                                },
+                                {
+                                        month: "sep",
+                                        probSolved: 0,
+                                },
+                                {
+                                        month: "oct",
+                                        probSolved: 0,
+                                },
+                                {
+                                        month: "nov",
+                                        probSolved: 0,
+                                },
+                                {
+                                        month: "dec",
+                                        probSolved: 0,
+                                },
+                        ], sheetsSolved: [
+                                {
+                                        name: '450 DSA',
+                                        progress: 5,
+                                },
+                                {
+                                        name: '375 DSA',
+                                        progress: 4,
+                                },
+                                {
+                                        name: 'Striverz AtoZ',
+                                        progress: 6,
+                                },
+                                {
+                                        name: 'Lorem Ipsum',
+                                        progress: 5,
+                                },
+                        ], quesLevel: [
+                                {
+                                        difficulty: 'Easy',
+                                        solved: 3,
+                                },
+                                {
+                                        difficulty: 'Medium',
+                                        solved: 90,
+                                },
+                                {
+                                        difficulty: 'Hard',
+                                        solved: 20,
+                                }
+                        ], amanDhattarwal: { Arrays: [0,1,0,0,0] }
+                };
                 let res = await fetch(`http://localhost:3000/api/signup`, {
                         method: "POST",
                         headers: {
@@ -67,7 +147,7 @@ export default function Home() {
                 }
         };
         useEffect(() => {
-                console.log("status: "+status);
+                console.log("status: " + status);
                 if (status === 'authenticated') {
                         handleSubmit();
                 }

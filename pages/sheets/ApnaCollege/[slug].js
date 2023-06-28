@@ -5,104 +5,157 @@ import AmanDhattarwal from "../../../models/AmanDhattarwal";
 import mongoose, { mongo } from "mongoose";
 import { Box, Heading, Progress, Flex, Text, Checkbox, Grid, GridItem, Button, useToast } from '@chakra-ui/react';
 
-const College = ({sheet}) => {
+const College = ({ sheet }) => {
     const router = useRouter();
     const { slug } = router.query;
     const [userSolved, setUserSolved] = useState([]);
-    const [userUnsolved, setUserUnsolved] = useState([]);
+    const [finalSolved, setFinalSolved] = useState([]);
+    const [finalUnsolved, setFinalUnsolved] = useState([]);
+
     console.log(sheet.AmanDhattarwals)
-    console.log(sheet.AmanDhattarwals.title)
+    // console.log(sheet.AmanDhattarwals.title)
     const handleSubmit = async (token) => {
         let res = await fetch(`http://localhost:3000/api/auth`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Bearer": token
-          },
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Bearer": token
+            },
         });
         let response = await res.json();
-        console.log(response.data);
-      };
+        let res2 = await fetch('http://localhost:3000/api/getuserdata', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: response.data[0].email })
+        });
+        let response2 = await res2.json();
+        console.log(response2)
+        setUserSolved(response2.amanDhattarwal.Arrays);
+        // setUserSolved(response.data[0].amanDhattarwal.Arrays);
+        // console.log(response.data[0]);
+    };
     useEffect(() => {
-        if(localStorage.getItem("token"))
-        {
-                handleSubmit(localStorage.getItem('token'));
+        if (localStorage.getItem("token")) {
+            handleSubmit(localStorage.getItem('token'));
         }
-        else
-        {
-                router.push('/');
+        else {
+            router.push('/');
         }
+
     }, [])
-    
-//     const data = [
-//         {
-//             index: 1,
-//             ques: "Maximum and minimum element in Array",
-//             level: "Easy"
-//         },
-//         {
-//             index: 2,
-//             ques: "Reverse the Array",
-//             level: "Easy"
-//         },
-//         {
-//             index: 3,
-//             ques: "Maximum Sub-Array",
-//             level: "Easy"
-//         },
-//         {
-//             index: 4,
-//             ques: "Contains Duplicate",
-//             level: "Medium"
-//         },
-//         {
-//             index: 5,
-//             ques: "Maximum and minimum element",
-//             level: "Hard"
-//         }
-//     ];
-//     const [todo, setTodo] = useState([...AmanDhattarwals]);
-//     const [done, setDone] = useState([]);
-//     const [progress, setProgress] = useState(0);
-//     const toast = useToast();
+    console.log(userSolved);
+    let tempSolved = [];
+    for (let index = 0; index < sheet.AmanDhattarwals.Questions.length; index++) {
+        if (userSolved && userSolved[sheet.AmanDhattarwals.Questions[index].id]) {
+            tempSolved.push(sheet.AmanDhattarwals.Questions[index]);
+        }
+    }
+    console.log(finalSolved);
+    let tempUnsolved = [];
+    for (let index = 0; index < sheet.AmanDhattarwals.Questions.length; index++) {
+        if (userSolved && !userSolved[sheet.AmanDhattarwals.Questions[index].id]) {
+            tempUnsolved.push(sheet.AmanDhattarwals.Questions[index])
+        }
+    }
+    console.log(finalUnsolved);
 
-//     const deleteItem1 = (index) => {
-//         console.log("pressed1")
-//         const updateditems = todo.filter((elem) => {
-//           return index !== elem.ques;
-//         });
-//         const temp = todo.filter((elem) => {
-//           return index == elem.ques;
-//         });
-//         setTodo(updateditems);
-//         setDone([...done, temp[0]]);
-//         setProgress(parseInt(((done.length + 1)/data.length)*100));
-//         toast({
-//             title: `${done.length + 1}/${data.length} Done 🎉`,
-//             status: 'success',
-//             isClosable: true,
-//             position: 'top-right',
-//           })
-//     };
+    const markDone = async (id, quesId) => {
+        let temp = userSolved;
+        temp[quesId] = 1;
+        setUserSolved(temp);
+        userSolved[quesId] = 1;
+        let data = {
+            id: id, amanDhattarwal: {
+                Arrays: userSolved
+            }
+        }
+        let res = await fetch(`http://localhost:3000/api/updateuser`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+        let resp = await res.json();
+        handleSubmit(localStorage.getItem('token'));
+    }
 
-//     const deleteItem2 = (index) => {
-//         console.log("pressed2");
-//         const updateditems = done.filter((elem) => {
-//             return index !== elem.ques;
-//           });
-//           const temp = done.filter((elem) => {
-//             return index == elem.ques;
-//           });
-//           setDone(updateditems);
-//         setTodo([...todo, temp[0]]);
-//         setProgress(parseInt(((done.length - 1)/data.length)*100));
-//         toast({
-//             title: `${done.length - 1}/${data.length} Done 🫢`,
-//             status: 'warning',
-//             isClosable: true,
-//             position: 'top-right',
-//           })
-//     }
+    // markDone('649c50d0186e588fec1c637b', 0)
+    // if(userSolved)
+    // {
+    //     console.log(sheet.AmanDhattarwals.Questions.filter((ele, idx) => ele.id === userSolved.id))
+    // }
+    //     const data = [
+    //         {
+    //             index: 1,
+    //             ques: "Maximum and minimum element in Array",
+    //             level: "Easy"
+    //         },
+    //         {
+    //             index: 2,
+    //             ques: "Reverse the Array",
+    //             level: "Easy"
+    //         },
+    //         {
+    //             index: 3,
+    //             ques: "Maximum Sub-Array",
+    //             level: "Easy"
+    //         },
+    //         {
+    //             index: 4,
+    //             ques: "Contains Duplicate",
+    //             level: "Medium"
+    //         },
+    //         {
+    //             index: 5,
+    //             ques: "Maximum and minimum element",
+    //             level: "Hard"
+    //         }
+    //     ];
+    //     const [todo, setTodo] = useState([...AmanDhattarwals]);
+    //     const [done, setDone] = useState([]);
+    //     const [progress, setProgress] = useState(0);
+    //     const toast = useToast();
+
+    //     const deleteItem1 = (index) => {
+    //         console.log("pressed1")
+    //         const updateditems = todo.filter((elem) => {
+    //           return index !== elem.ques;
+    //         });
+    //         const temp = todo.filter((elem) => {
+    //           return index == elem.ques;
+    //         });
+    //         setTodo(updateditems);
+    //         setDone([...done, temp[0]]);
+    //         setProgress(parseInt(((done.length + 1)/data.length)*100));
+    //         toast({
+    //             title: `${done.length + 1}/${data.length} Done 🎉`,
+    //             status: 'success',
+    //             isClosable: true,
+    //             position: 'top-right',
+    //           })
+    //     };
+
+    //     const deleteItem2 = (index) => {
+    //         console.log("pressed2");
+    //         const updateditems = done.filter((elem) => {
+    //             return index !== elem.ques;
+    //           });
+    //           const temp = done.filter((elem) => {
+    //             return index == elem.ques;
+    //           });
+    //           setDone(updateditems);
+    //         setTodo([...todo, temp[0]]);
+    //         setProgress(parseInt(((done.length - 1)/data.length)*100));
+    //         toast({
+    //             title: `${done.length - 1}/${data.length} Done 🫢`,
+    //             status: 'warning',
+    //             isClosable: true,
+    //             position: 'top-right',
+    //           })
+    //     }
 
     return (
         // <Box bg="brand.900" color="white" fontFamily="body.1">
@@ -166,18 +219,18 @@ const College = ({sheet}) => {
         //     </Box>
         // </Box>
         <Box>
-
+            <Button onClick={()=>{markDone('649c50d0186e588fec1c637b', 4)}}>hi</Button>
         </Box>
     )
 }
 
 export async function getServerSideProps(context) {
-        let url = "http://localhost:3000/api/"+context.resolvedUrl.slice(7);
-        let data = await fetch(url);
-        let parsedData = await data.json();
-        return {
-            props: { sheet: parsedData }, // will be passed to the page component as props
-        };
-  }
+    let url = "http://localhost:3000/api/" + context.resolvedUrl.slice(7);
+    let data = await fetch(url);
+    let parsedData = await data.json();
+    return {
+        props: { sheet: parsedData }, // will be passed to the page component as props
+    };
+}
 
 export default College
