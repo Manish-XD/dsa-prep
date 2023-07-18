@@ -4,22 +4,7 @@ const UserSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     name: { type: String, required: true },
-    monthProg: [{
-        month: String,
-        probSolved: Number
-    }],
-    sheetsSolved: [{
-        name: String,
-        progress: Number
-    }],
-    quesLevel: [{
-        difficulty: String,
-        solved: Number
-    }],
-    amanDhattarwal: {
-        Arrays: [Number]
-    }
-}, { timestamps: true });
+});
 
 mongoose.models = {}
 export default mongoose.model("User", UserSchema);
