@@ -7,7 +7,7 @@ const handler = async (req,res) => {
         const { email, name } = req.body;
         let u = new User({email, password: CryptoJS.AES.encrypt(req.body.password, "secret123").toString(), name});
         await u.save();
-        res.status(200).json({success: "success"});
+        res.status(200).json({success: true});
     }
     else{
         res.status(400).json({error: "This method is not allowed"});

@@ -7,7 +7,7 @@ const handler = async (req,res) => {
         const { user, array } = req.body;
         let ad = new AmanDhattarwal({user, array});
         await ad.save();
-        res.status(200).json({success: "success"});
+        res.status(200).json({success: true});
     }
     else{
         res.status(400).json({error: "This method is not allowed"});
