@@ -1,5 +1,5 @@
 ## 375-DSA Tracker 👨‍💻
-Me and my friend [Abhilash Jena](https://github.com/abhi-1407) made a 375 DSA Tracker website based on 375 DSA Sheet by Aman Dhattarwal & Shradha Didi which helps you to build your confidence in solving any coding related question and helps you prepare for your placements.
+Me and my friend [Abhilash Jena](https://github.com/abhi-1407) made a 375 DSA Tracker website based on 375 DSA Sheet by Aman Dhattarwal & Shradha Didi which helps you to build your confidence in solving any coding related question and helps you prepare for your placement.
 
 <p align="center">
 <img src = "https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white"  alt="monogDB" style="vertical-align:top; margin:4px" >
