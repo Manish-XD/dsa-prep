@@ -2,10 +2,19 @@ const mongoose = require('mongoose');
 
 const AmanDhattarwalSchema = new mongoose.Schema({
     user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-    array: [{
+    arrays: [{
         id: {type: Number},
         title: {type: String},
-        status: {type: Number}
+        link: {type: String},
+        status: {type: Number},
+        level: {type: String}
+    }],
+    strings: [{
+        id: {type: Number},
+        title: {type: String},
+        link: {type: String},
+        status: {type: Number},
+        level: {type: String}
     }]
 });
 

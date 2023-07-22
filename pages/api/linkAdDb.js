@@ -4,8 +4,8 @@ import connectDb from "../../middleware/mongoose";
 const handler = async (req,res) => {
     if(req.method == 'POST')
     {
-        const { user, array } = req.body;
-        let ad = new AmanDhattarwal({user, array});
+        const { user, arrays, strings } = req.body;
+        let ad = new AmanDhattarwal({user, arrays, strings});
         await ad.save();
         res.status(200).json({success: true});
     }
