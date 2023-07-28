@@ -25,6 +25,7 @@ export default function Home() {
             setScreenWidth(window.innerWidth);
         }
         if (session) {
+            console.log(session);
             handleSubmit(session.user.email, session.user.email);
         }
         // Initial values on component mount
