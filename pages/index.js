@@ -39,7 +39,7 @@ export default function Home() {
         }
         // Clean up the event listener on component unmount
         return () => window.removeEventListener('resize', handleResize);
-    }, [session, status]);
+    }, [session, status, handleSubmit, screenWidth]);
     async function handleGoogleAuth() {
         console.log("clicked");
         signIn("google", { callbackUrl: "http://localhost:3000/" });
@@ -81,7 +81,7 @@ export default function Home() {
                 mobile && <Flex bg="brand.900" minH="100vh" color="white" fontFamily="body.1" flexDirection="column" justifyContent="center" alignItems="center" px="3rem">
                     <Image src={noPhone} alt="no phone image" style={{ height: '6rem', width: '6rem' }} />
                     <Text marginTop="1.5rem" marginBottom="0.5rem" textAlign="center">Currently DSA Prep is not available on mobile devices, switch to a device with bigger screen. </Text>
-                    <Text fontSize="0.8rem" color="#6A6A6A" textAlign="center">Incase of any complaint drop a message <a href="https://www.google.com" target="_blank" style={{ textDecoration: 'underline', cursor: 'pointer' }}>Here</a>.</Text>
+                    <Text fontSize="0.8rem" color="#6A6A6A" textAlign="center">Incase of any complaint drop a message <a href="https://www.google.com" target="_blank" rel="noreferrer" style={{ textDecoration: 'underline', cursor: 'pointer' }}>Here</a>.</Text>
                 </Flex>
             }
             {!mobile && <Box bg="brand.900" minH="100vh" color="white" fontFamily="body.1">
@@ -101,7 +101,7 @@ export default function Home() {
                     </Flex>
                 </Flex>
                 <Flex justifyContent="space-between" px="2rem" py="2rem" fontSize="0.75rem" color="#8d8d8d" position="fixed" bottom="0" left="0" w="100%">
-                    <a href='https://github.com/Manish-XD/dsa-prep' target='_blank'>Github</a>
+                    <a href='https://github.com/Manish-XD/dsa-prep' target='_blank' rel="noreferrer">Github</a>
                     <Text>Copyright&copy;DSA prep 2023</Text>
                 </Flex>
             </Box>}

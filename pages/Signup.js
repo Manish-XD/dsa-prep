@@ -39,7 +39,7 @@ const Signup = () => {
             console.log(session.user.name);
             handleSubmit(session.user.name, session.user.email, session.user.email);
         }
-    }, [session, status]);
+    }, [session, status, handleSubmit]);
 
     async function handleGoogleAuth() {
         console.log("clicked");

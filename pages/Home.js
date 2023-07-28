@@ -18,7 +18,7 @@ const Home = () => {
         else {
             router.push('/');
         }
-    }, [])
+    })
     function handleSignOut() {
         signOut();
         localStorage.removeItem('key');
@@ -135,7 +135,7 @@ const Home = () => {
                     </GridItem>
                 </Grid>
                 <Flex justifyContent="space-between" px="4rem" py="2rem" fontSize="0.75rem" color="#8d8d8d" w="100%">
-                    <a href='https://github.com/Manish-XD/dsa-prep' target='_blank'>Github</a>
+                    <a href='https://github.com/Manish-XD/dsa-prep' target='_blank' rel="noreferrer">Github</a>
                     <Text>Copyright&copy;DSA prep 2023</Text>
                 </Flex>
             </Box>
