@@ -42,12 +42,12 @@ export default function Home() {
     }, [session, status, handleSubmit, screenWidth]);
     async function handleGoogleAuth() {
         console.log("clicked");
-        signIn("google", { callbackUrl: "http://localhost:3000/" });
+        signIn("google", { callbackUrl: "https://dsa-prep.vercel.app/" });
     }
     async function handleSubmit(email, password) {
         const data = { email: email, password: password };
         if (email.length && password.length) {
-            let res = await fetch(`http://localhost:3000/api/login`, {
+            let res = await fetch(`https://dsa-prep.vercel.app/api/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -57,7 +57,7 @@ export default function Home() {
             if (res.ok) {
                 let response = await res.json();
                 console.log(response.token);
-                let auth = await fetch(`http://localhost:3000/api/auth`, {
+                let auth = await fetch(`https://dsa-prep.vercel.app/api/auth`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

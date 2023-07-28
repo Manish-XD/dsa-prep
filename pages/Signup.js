@@ -43,7 +43,7 @@ const Signup = () => {
 
     async function handleGoogleAuth() {
         console.log("clicked");
-        signIn("google", { callbackUrl: "http://localhost:3000/Signup" });
+        signIn("google", { callbackUrl: "https://dsa-prep.vercel.app/Signup" });
     }
 
     async function handleSubmit(name, email, password) {
@@ -51,7 +51,7 @@ const Signup = () => {
             
             const data = { name: name, email: email, password: password };
             console.log(data);
-            let res = await fetch(`http://localhost:3000/api/signup`, {
+            let res = await fetch(`https://dsa-prep.vercel.app/api/signup`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -71,7 +71,7 @@ const Signup = () => {
 
     async function handleLogin({ email, password }) {
         const data = { email: email, password: password };
-        let res = await fetch(`http://localhost:3000/api/login`, {
+        let res = await fetch(`https://dsa-prep.vercel.app/api/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -85,7 +85,7 @@ const Signup = () => {
     }
 
     async function handleAuth(response) {
-        let auth = await fetch(`http://localhost:3000/api/auth`, {
+        let auth = await fetch(`https://dsa-prep.vercel.app/api/auth`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -103,7 +103,7 @@ const Signup = () => {
 
     async function handleLinkAd(key) {
         const data = { user: key, arrays: array, strings: string, twodarrays: twodarray, searchandsorts: searchandsort, backtrackings: backtracking, linkedlists: linkedlist, stackandqueues: stackandqueue, greedys: greedy, binarytrees: binarytree, binarysearchtrees: binarysearchtree, heapandhashings: heapandhashing, graphs: graph, tries: tries, dps: dp, bitmanipulations: bitmanipulation, segmenttrees: segmenttree };
-        let res = await fetch(`http://localhost:3000/api/linkAdDb`, {
+        let res = await fetch(`https://dsa-prep.vercel.app/api/linkAdDb`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

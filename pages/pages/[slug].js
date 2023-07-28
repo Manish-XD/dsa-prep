@@ -29,7 +29,7 @@ const Sheet = () => {
     }, [data, router, getUserQuestions])
     async function getUserQuestions(token) {
         try {
-            let res = await fetch('http://localhost:3000/api/getAdQues', {
+            let res = await fetch('https://dsa-prep.vercel.app/api/getAdQues', {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
@@ -52,7 +52,7 @@ const Sheet = () => {
     async function handleStatus(id) {
         console.log(id, abc);
         try {
-            let res = await fetch('http://localhost:3000/api/update' + slug, {
+            let res = await fetch('https://dsa-prep.vercel.app/api/update' + slug, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
