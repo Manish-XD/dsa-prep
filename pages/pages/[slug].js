@@ -106,7 +106,7 @@ const Sheet = () => {
                                     <Text ml="10rem">{ques.id}</Text>
                                 </GridItem>
                                 <GridItem>
-                                    <a target='_blank' href={ques.link}><Text textAlign="center" rel="noreferrer">{ques.title}</Text></a>
+                                    <a target='_blank' href={ques.link} rel="noreferrer"><Text textAlign="center">{ques.title}</Text></a>
                                 </GridItem>
                                 <GridItem>
                                     <Text textAlign="center" color={ques.level == 'Easy' ? 'green.300' : ques.level == 'Medium' ? 'orange.300' : 'red.400'}>{ques.level}</Text>
