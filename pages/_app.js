@@ -2,7 +2,8 @@ import "../styles/globals.css";
 import { ChakraProvider } from '@chakra-ui/react';
 import { extendTheme } from "@chakra-ui/react";
 import '@tremor/react/dist/esm/tremor.css';
-import {SessionProvider} from "next-auth/react"
+import {SessionProvider} from "next-auth/react";
+import Head from "next/head";
 
 
 function MyApp({ Component, pageProps,session }) {

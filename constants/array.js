@@ -182,3 +182,13 @@ export const array = [
         level: 'Hard'
     },
 ];
+
+/*
+ id: Iv1.3276104e3384df1d
+ secret: 648d839421d0ab45e061e3a6b3fcfe2fe87db827
+ */
+
+/*
+id: 265363981714-uj6fsoo6v5laj6tvbhf3018grkon5d3g.apps.googleusercontent.com
+secret: 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
+*/

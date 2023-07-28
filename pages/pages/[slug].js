@@ -2,12 +2,17 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Box, Heading, Progress, Flex, Text, Checkbox, Grid, GridItem, Button, useToast } from '@chakra-ui/react';
+import logo from '../../assets/logo.png';
+import back from '../../assets/back.png';
+import Image from "next/image";
+import Link from "next/link";
 
 const Sheet = () => {
     const router = useRouter();
     const { slug } = router.query;
     const [data, setData] = useState();
     const [abc, setAbc] = useState(null);
+    const [progress, setProgress] = useState(0);
     useEffect(() => {
         const key = localStorage.getItem('key');
         setAbc(key);
@@ -17,7 +22,11 @@ const Sheet = () => {
         else {
             router.push('/');
         }
-    }, [])
+        if (data) {
+            const temp = data.filter((ele) => ele.status === 1);
+            setProgress(temp.length);
+        }
+    }, [data])
     async function getUserQuestions(token) {
         try {
             let res = await fetch('http://localhost:3000/api/getAdQues', {
@@ -64,12 +73,17 @@ const Sheet = () => {
             <Head>
                 <title>{slug}</title>
             </Head>
-            <Box bg="brand.900" color="white" fontFamily="body.1" px="8rem" pt="4rem">
-                <Heading>{slug}</Heading>
-                <Flex alignItems="center" justifyContent="center">
-                    <Progress hasStripe value={64} colorScheme='purple' width="80vw" />
-                    <Text color="purple.300" mx="0.5rem">64%</Text>
+            <Box bg="brand.900" color="white" fontFamily="body.1" px="8rem" pt="2rem" minH="100vh">
+            <Flex justifyContent="space-between" py="2rem" marginBottom="3rem">
+                <Link href="/Home">
+            <Flex alignItems="center"><Image src={back} style={{ filter: 'invert(1)', height: '2rem', width: '2rem', marginRight: '0.5rem' }} alt="back button"/><Text fontSize="1.5rem" fontWeight="700">Back</Text></Flex></Link>
+                    <Flex alignItems="center"><Image src={logo} style={{ filter: 'invert(1)', height: '2rem', width: '3rem', marginRight: '2rem' }} alt="logo"/><Text fontSize="1.5rem" fontWeight="700">DSA Prep</Text></Flex>
                 </Flex>
+                <Heading>{slug}</Heading>
+                {data && <Flex alignItems="center" justifyContent="center">
+                    <Progress hasStripe value={parseInt((progress/data.length)*100)} colorScheme='purple' width="80vw" />
+                    <Text color="purple.300" mx="0.5rem">{parseInt((progress/data.length)*100)}%</Text>
+                </Flex>}
                 <Flex justifyContent="space-evenly" my="3rem" fontWeight="600" fontSize="1.25rem">
                     <Box width="5%">
                         <Text>S No.</Text>
@@ -87,7 +101,8 @@ const Sheet = () => {
                         return (
                             <Grid templateColumns='repeat(3, 1fr)' gap={6} key={ques.id} my="1.5rem">
                                 <GridItem display="flex" >
-                                    <Checkbox colorScheme='green' onChange={handleStatus.bind(this, ques.id)} />
+                                    {ques.status === 1 && <Checkbox colorScheme='green' onChange={handleStatus.bind(this, ques.id)} defaultChecked />}
+                                    {!ques.status && <Checkbox colorScheme='green' onChange={handleStatus.bind(this, ques.id)} />}
                                     <Text ml="10rem">{ques.id}</Text>
                                 </GridItem>
                                 <GridItem>
